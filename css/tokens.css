@@ -1,0 +1,175 @@
+/* ==========================================================================
+   BVT Academy — design tokens (BUILD_PLAN §4)
+   The ONLY file where raw colour, spacing, radius, shadow and font values live.
+   Everything else uses var(--…).
+   Contrast results: see #/styleguide/contrast.
+   ========================================================================== */
+
+:root {
+  /* ---- §4.1 Navy — chrome, dark sections ---- */
+  --navy-950: #0b0e16;
+  --navy-900: #0f131d;   /* sidebar, header */
+  --navy-800: #1b202b;   /* dark cards, hover in sidebar */
+  --navy-700: #242a3b;   /* CTA bands, active nav item bg */
+  --navy-600: #3d4456;   /* secondary text on light (9.0:1 on --surface-1) */
+
+  /* ---- §4.1 Brand highlight ---- */
+  --pink-500:    #ea466c;  /* brand pink — decorative/large only on light */
+  --orange-400:  #f39759;  /* brand orange — decorative, or text on navy (7.3:1) */
+  --magenta-500: #da3475;  /* glows and large eyebrows on dark (4.2:1 on navy-900) */
+  --grad-brand:  linear-gradient(90deg, #ea466c 0%, #f39759 100%);  /* decorative: rules, glows, active indicators, rings */
+  --grad-action: linear-gradient(90deg, #c8264f 0%, #c9502b 100%);  /* buttons with white text — passes AA (5.5 → 4.5:1) */
+
+  /* Gradient stops, for SVG <stop> elements and contrast checks */
+  --brand-start: #ea466c;
+  --brand-end:   #f39759;
+  --act-start:   #c8264f;
+  --act-end:     #c9502b;
+  --on-action:   #ffffff;  /* text on --grad-action */
+
+  /* Small eyebrow text on dark. --magenta-500 is 4.2:1 on navy-900, short of
+     4.5:1 for small text; this lighter magenta is 6.2:1 on navy-900 and 5.4:1 on navy-800. */
+  --magenta-text-on-dark: #e46d9c;
+
+  /* ---- §4.1 Text-safe accents on light ---- */
+  --accent-text: #b81f55;  /* links/eyebrows on light (5.8:1 on --surface-1) */
+
+  /* ---- §4.1 Light work surface ---- */
+  --surface-0: #ffffff;    /* cards, panels */
+  --surface-1: #f6f6f8;    /* app canvas */
+  --surface-2: #ececf1;    /* subtle fills, table stripes */
+  --border:    #dfe0e7;    /* dividers and card edges — decorative only */
+  --border-input: #858c9e; /* form control edges: 3.4:1 on surface-0, 3.1:1 on surface-1 (WCAG 1.4.11) */
+  --text-1:    #1b202b;    /* 15.1:1 */
+  --text-2:    #3d4456;    /* 9.0:1 */
+  /* §4.1 had #6b7280, which is 4.48:1 on --surface-1 and 4.11:1 on --surface-2 (both short of 4.5:1).
+     Darkened slightly: 5.4:1 on surface-0, 4.95:1 on surface-1, 4.54:1 on surface-2. */
+  --text-3:    #656b78;    /* meta only */
+
+  /* ---- §4.1 On-dark text ---- */
+  --on-dark-1: #f0f0f2;
+  --on-dark-2: #aab0c0;    /* 7.5:1 on navy-800 */
+  --on-dark-3: #8b92a5;    /* 5.2:1 on navy-800 */
+  --border-on-dark: rgb(255 255 255 / 0.06);  /* §4.3: hairline instead of shadow on dark */
+  --border-on-dark-strong: rgb(255 255 255 / 0.14);
+
+  /* ---- §4.1 Status — always icon + label, never colour alone ---- */
+  --st-not-started:  #6b7280;
+  --st-learning:     #2f6fd6;   /* Learning & implementing */
+  --st-evidence:     #9a5b00;   /* Evidence needed */
+  --st-review:       #5b4bd6;   /* In review */
+  --st-changes:      #c8264f;   /* Changes requested */
+  --st-verified:     #17784e;   /* Verified / closed */
+  --st-locked:       #6b7280;   /* + lock icon */
+
+  /* Status tints: same hue at 10% on white */
+  --st-not-started-bg: #f0f1f2;
+  --st-learning-bg:    #eaf1fb;
+  --st-evidence-bg:    #f5efe6;
+  --st-review-bg:      #efedfb;
+  --st-changes-bg:     #fae9ed;
+  --st-verified-bg:    #e8f2ed;
+  --st-locked-bg:      #f0f1f2;
+
+  /* Status ink: chip label text on its tint (all ≥ 4.5:1).
+     Not started, Locked and Learning are darkened because the base hue is 4.2–4.3:1 on the tint. */
+  --st-not-started-ink: #565b66;
+  --st-learning-ink:    #2c68c9;
+  --st-evidence-ink:    var(--st-evidence);
+  --st-review-ink:      var(--st-review);
+  --st-changes-ink:     var(--st-changes);
+  --st-verified-ink:    var(--st-verified);
+  --st-locked-ink:      #565b66;
+
+  /* ---- §4.1 Tier ladder ---- */
+  --tier-foundation: #8b92a5;
+  --tier-core:       #2f6fd6;
+  --tier-advanced:   #5b4bd6;
+  --tier-ready:      #17784e;
+  --tier-accredited: var(--grad-brand);
+  --tier-foundation-bg: #f3f4f6;
+  --tier-core-bg:       var(--st-learning-bg);
+  --tier-advanced-bg:   var(--st-review-bg);
+  --tier-ready-bg:      var(--st-verified-bg);
+
+  /* Overlays */
+  --scrim: rgb(11 14 22 / 0.55);
+  --glow-magenta: radial-gradient(60% 60% at 70% 30%, rgb(218 52 117 / 0.35) 0%, rgb(218 52 117 / 0) 70%);
+
+  /* Select control chevron (stroke = --text-2) */
+  --icon-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233d4456' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+  /* ---- §4.2 Typography ---- */
+  /* ⚠ TODO(client): swap Jost for the staging site's display font if it differs (BUILD_PLAN §14 Q2). */
+  --font-display: "Jost", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+
+  --fs-12: 0.75rem;
+  --fs-14: 0.875rem;
+  --fs-16: 1rem;       /* body */
+  --fs-17: 1.0625rem;  /* learning content */
+  --fs-18: 1.125rem;
+  --fs-20: 1.25rem;
+  --fs-24: 1.5rem;
+  --fs-32: 2rem;
+  --fs-40: 2.5rem;
+  --fs-56: 3.5rem;
+
+  --fw-light: 300;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+
+  --lh-tight: 1.15;
+  --lh-snug: 1.3;
+  --lh-body: 1.5;
+  --lh-learn: 1.6;
+  --measure: 72ch;
+
+  /* ---- Spacing (4px base, plus three fine steps for chips and controls) ---- */
+  --sp-half: 2px;
+  --sp-1-5: 6px;
+  --sp-2-5: 10px;
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+  --sp-12: 48px;
+  --sp-16: 64px;
+  --sp-20: 80px;
+
+  /* ---- §4.3 Shape ---- */
+  --r-sm: 10px;    /* inputs, chips */
+  --r-md: 16px;    /* cards */
+  --r-lg: 24px;    /* hero panels */
+  --r-pill: 999px; /* pills, buttons */
+
+  /* ---- §4.3 Depth ---- */
+  --shadow-1: 0 1px 2px rgb(15 19 29 / 0.06), 0 8px 24px rgb(15 19 29 / 0.06);
+  --shadow-2: 0 4px 12px rgb(15 19 29 / 0.10), 0 24px 48px rgb(15 19 29 / 0.18);
+
+  /* ---- §4.3 Motion: hover, focus and panel slides only ---- */
+  --dur-fast: 150ms;
+  --dur-base: 200ms;
+  --ease-out: cubic-bezier(0.2, 0.7, 0.3, 1);
+
+  /* ---- §11 Focus ring ---- */
+  --focus-light: var(--accent-text);
+  --focus-dark: var(--orange-400);
+  --focus-width: 2px;
+  --focus-offset: 2px;
+
+  /* ---- Layout ---- */
+  --target-min: 44px;
+  --header-h: 56px;
+  --sidebar-w: 264px;
+  --rail-w: 72px;
+  --slideover-w: 420px;
+  --gutter: 16px;          /* mobile side gutter */
+  --gutter-wide: 32px;
+  --content-max: 1200px;
+}

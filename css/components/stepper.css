@@ -1,0 +1,107 @@
+/* Requirement stepper (§8.7, §11): <ol> of buttons, aria-current="step".
+   Full = 7 steps; compact = Upload → Verify → Closed.
+   Below 768px the full stepper becomes "Step 4 of 7 · Do it" with prev/next. */
+
+.stepper__list {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  counter-reset: none;
+}
+.stepper--compact .stepper__list { max-width: 420px; }
+
+.stepper__item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+/* Connector from the previous marker to this one */
+.stepper__item + .stepper__item::before {
+  content: "";
+  position: absolute;
+  top: 21px;
+  left: -50%;
+  right: 50%;
+  height: 2px;
+  background: var(--border);
+}
+.stepper__item.is-done + .stepper__item::before { background: var(--st-verified); }
+
+.stepper__btn {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-1-5);
+  min-width: var(--target-min);
+  min-height: var(--target-min);
+  padding: var(--sp-1-5) var(--sp-1);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--text-2);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+  text-align: center;
+}
+.stepper__btn:hover:not(:disabled) .stepper__marker { border-color: var(--text-1); }
+
+.stepper__marker {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 2px solid var(--border-input);
+  border-radius: 50%;
+  background: var(--surface-0);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-semibold);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.stepper__marker svg { width: 16px; height: 16px; }
+.stepper__opt { font-size: var(--fs-12); font-weight: var(--fw-regular); color: var(--text-3); }
+
+/* Done: tick on verified tint */
+.stepper__item.is-done .stepper__marker {
+  border-color: var(--st-verified);
+  background: var(--st-verified-bg);
+  color: var(--st-verified-ink);
+}
+/* Current: action gradient, white numeral, bold label */
+.stepper__btn[aria-current="step"] { color: var(--text-1); font-weight: var(--fw-semibold); }
+.stepper__btn[aria-current="step"] .stepper__marker {
+  border-color: transparent;
+  background: var(--grad-action);
+  color: var(--on-action);
+}
+/* Locked / disabled */
+.stepper__btn:disabled { cursor: not-allowed; color: var(--text-3); }
+.stepper__btn:disabled .stepper__marker { background: var(--surface-2); border-color: var(--border); }
+
+/* ---- Small-screen summary ---- */
+.stepper__mobile { display: none; }
+
+@media (max-width: 767px) {
+  .stepper:not(.stepper--compact) .stepper__list { display: none; }
+  .stepper:not(.stepper--compact) .stepper__mobile {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-2);
+    padding: var(--sp-1);
+    border: 1px solid var(--border);
+    border-radius: var(--r-pill);
+    background: var(--surface-0);
+  }
+  .stepper--compact .stepper__btn { font-size: var(--fs-12); }
+}
+.stepper__mobile-label {
+  flex: 1;
+  text-align: center;
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+}
+.stepper__mobile-label span { font-weight: var(--fw-regular); color: var(--text-3); }
+.stepper__mobile-label svg { width: 16px; height: 16px; vertical-align: -3px; }

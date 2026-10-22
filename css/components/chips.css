@@ -1,0 +1,142 @@
+/* Chips: status, requirement type, reason tags, pace, tier, header credit chips.
+   Status is always icon + label (§4.1) — never colour alone. */
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1-5);
+  min-height: 28px;
+  padding: var(--sp-half) var(--sp-3) var(--sp-half) var(--sp-2-5);
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.chip svg { width: 16px; height: 16px; }
+
+/* ---- Status chips ---- */
+.chip--st-not-started { background: var(--st-not-started-bg); color: var(--st-not-started-ink); }
+.chip--st-learning    { background: var(--st-learning-bg);    color: var(--st-learning-ink); }
+.chip--st-evidence    { background: var(--st-evidence-bg);    color: var(--st-evidence-ink); }
+.chip--st-review      { background: var(--st-review-bg);      color: var(--st-review-ink); }
+.chip--st-changes     { background: var(--st-changes-bg);     color: var(--st-changes-ink); }
+.chip--st-verified    { background: var(--st-verified-bg);    color: var(--st-verified-ink); }
+.chip--st-locked      { background: var(--st-locked-bg);      color: var(--st-locked-ink); }
+
+/* ---- Requirement type: neutral outline ---- */
+.chip--type {
+  background: var(--surface-0);
+  border-color: var(--border-input);
+  color: var(--text-2);
+}
+
+/* ---- Reason tags (Recommended next) ---- */
+.chip--reason {
+  min-height: 24px;
+  padding: var(--sp-half) var(--sp-2);
+  border-radius: var(--r-sm);
+  background: var(--surface-2);
+  color: var(--text-1);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+}
+.chip--reason svg { width: 14px; height: 14px; color: var(--accent-text); }
+
+/* ---- Pace pill: Ahead / On pace / Needs a catch-up (never red) ---- */
+.chip--pace {
+  background: var(--surface-0);
+  border-color: var(--border);
+  color: var(--text-1);
+}
+.chip--pace[data-pace="ahead"] svg    { color: var(--st-verified); }
+.chip--pace[data-pace="on-pace"] svg  { color: var(--st-learning); }
+.chip--pace[data-pace="catch-up"] svg { color: var(--st-evidence); }
+.on-dark .chip--pace {
+  background: var(--navy-800);
+  border-color: var(--border-on-dark-strong);
+  color: var(--on-dark-1);
+}
+.on-dark .chip--pace svg { color: var(--orange-400); }
+
+/* ---- Tier badge ---- */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: 32px;
+  padding: var(--sp-half) var(--sp-3) var(--sp-half) var(--sp-2);
+  border: 1px solid transparent;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-semibold);
+  color: var(--text-1);
+  white-space: nowrap;
+}
+.tier-badge__dot {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  color: var(--on-action);
+}
+.tier-badge__dot svg { width: 14px; height: 14px; }
+.tier-badge__meta { font-weight: var(--fw-regular); color: var(--text-2); }
+
+.tier-badge[data-tier="foundation"] { background: var(--tier-foundation-bg); border-color: var(--tier-foundation); }
+.tier-badge[data-tier="foundation"] .tier-badge__dot { background: var(--tier-foundation); color: var(--navy-900); }
+.tier-badge[data-tier="core"]       { background: var(--tier-core-bg); border-color: var(--tier-core); }
+.tier-badge[data-tier="core"] .tier-badge__dot { background: var(--tier-core); }
+.tier-badge[data-tier="advanced"]   { background: var(--tier-advanced-bg); border-color: var(--tier-advanced); }
+.tier-badge[data-tier="advanced"] .tier-badge__dot { background: var(--tier-advanced); }
+.tier-badge[data-tier="ready"]      { background: var(--tier-ready-bg); border-color: var(--tier-ready); }
+.tier-badge[data-tier="ready"] .tier-badge__dot { background: var(--tier-ready); }
+.tier-badge[data-tier="accredited"] {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--surface-0), var(--surface-0)) padding-box,
+              var(--tier-accredited) border-box;
+}
+.tier-badge[data-tier="accredited"] .tier-badge__dot { background: var(--navy-900); color: var(--orange-400); }
+
+/* ---- Header chips on the dark frame (Ali credits, mentor credits) ---- */
+.header-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--target-min);
+  padding: 0 var(--sp-4);
+  border: 1px solid var(--border-on-dark-strong);
+  border-radius: var(--r-pill);
+  background: var(--navy-800);
+  color: var(--on-dark-1);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.header-chip:hover { background: var(--navy-700); }
+.header-chip svg { width: 16px; height: 16px; color: var(--orange-400); }
+.header-chip__value { font-variant-numeric: tabular-nums; }
+
+/* ---- Filter chip (toggle button) ---- */
+.chip--filter {
+  min-height: var(--target-min);
+  padding: 0 var(--sp-4);
+  border-color: var(--border-input);
+  background: var(--surface-0);
+  color: var(--text-2);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) var(--ease-out);
+}
+.chip--filter:hover { background: var(--surface-2); }
+.chip--filter[aria-pressed="true"] {
+  border-color: var(--text-1);
+  background: var(--text-1);
+  color: var(--surface-0);
+}
+/* Selected state also shows a tick, so it doesn't rely on colour */
+.chip--filter .chip__tick { display: none; }
+.chip--filter[aria-pressed="true"] .chip__tick { display: inline-block; }

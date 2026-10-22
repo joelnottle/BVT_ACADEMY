@@ -1,0 +1,88 @@
+/* Segmented control and tabs */
+
+/* ---- Segmented control (e.g. [By area] [By next action] [By topic]) ---- */
+.segmented {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--sp-half);
+  padding: var(--sp-1);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  max-width: 100%;
+}
+.segmented__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-1-5);
+  min-height: var(--target-min);
+  padding: 0 var(--sp-4);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--text-2);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+}
+.segmented__item svg { width: 16px; height: 16px; }
+.segmented__item:hover { color: var(--text-1); background: var(--surface-1); }
+.segmented__item[aria-pressed="true"],
+.segmented__item[aria-current="page"] {
+  background: var(--surface-0);
+  color: var(--text-1);
+  font-weight: var(--fw-semibold);
+  box-shadow: var(--shadow-1);
+}
+
+@media (max-width: 479px) {
+  .segmented { display: flex; border-radius: var(--r-md); }
+  .segmented__item { flex: 1 1 auto; border-radius: var(--r-sm); }
+}
+
+/* ---- Tabs (ARIA tablist) ---- */
+.tabs__list {
+  display: flex;
+  gap: var(--sp-1);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+.tabs__tab {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1-5);
+  min-height: var(--target-min);
+  padding: 0 var(--sp-4);
+  border: 0;
+  background: none;
+  color: var(--text-2);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+}
+.tabs__tab:hover { color: var(--text-1); }
+.tabs__tab[aria-selected="true"] { color: var(--text-1); font-weight: var(--fw-semibold); }
+.tabs__tab[aria-selected="true"]::after {
+  content: "";
+  position: absolute;
+  left: var(--sp-2);
+  right: var(--sp-2);
+  bottom: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--grad-brand);
+}
+.tabs__tab:focus-visible { outline-offset: -2px; }
+.tabs__count {
+  min-width: 22px;
+  padding: 0 var(--sp-1-5);
+  border-radius: var(--r-pill);
+  background: var(--surface-2);
+  font-size: var(--fs-12);
+  font-variant-numeric: tabular-nums;
+}
+.tabs__panel { padding-top: var(--sp-5); }
