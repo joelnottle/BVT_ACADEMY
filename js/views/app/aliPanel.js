@@ -11,7 +11,8 @@ import { openSlideOver } from '../../components/slideOver.js';
 import { openModal } from '../../components/modal.js';
 import { showToast, announce } from '../../components/toast.js';
 import { currentOrg, currentPersona } from '../../store.js';
-import { askAli, pinAnswer, topUpAli, aliBalance } from '../../supportStore.js';
+import { askAli, pinAnswer, topUpAli, aliBalance, matchScript } from '../../supportStore.js';
+import { ALI_FALLBACK } from '../../../data/ali.js';
 
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -47,7 +48,9 @@ const bubble = (role, html, extra = '') => `
 /** Open the panel. `reqId` / `moduleId` set the context; `prompt` asks it straight away. */
 export function openAliPanel({ reqId = null, moduleId = null, prompt = null } = {}) {
   const org = currentOrg();
-  if (!org) return;
+  // Mentors get "Ask Ali (mentor)" (§8.17): same guidance, no credits, nothing stored.
+  const mentorMode = !org && currentPersona().role === 'mentor';
+  if (!org && !mentorMode) return;
   let ctx = reqId && REQ_BY_ID[reqId] ? { reqId } : moduleId && MODULE_BY_ID[moduleId] ? { moduleId } : null;
   const first = currentPersona().name.split(' ')[0];
   const overlay = openSlideOver({
@@ -65,9 +68,9 @@ export function openAliPanel({ reqId = null, moduleId = null, prompt = null } = 
           <textarea class="textarea" id="ali-q" rows="2" placeholder="${esc(U.placeholder)}"></textarea>
           <button type="submit" class="btn btn--action">${icon('send')}${esc(U.send)}</button>
         </form>
-        <div data-ali-meter>${meter()}</div>
+        <div data-ali-meter>${mentorMode ? `<p class="ali__meter">${icon('users')}<span>Mentor access · no credits used</span></p>` : meter()}</div>
       </div>`,
-    footer: `<p>${icon('shield-check')}${esc(ALI.footer)} ${esc(ALI.privacy)}</p><p><a href="#${currentPersona().role === 'member' ? '/app/learn/ali' : '/app/ali'}">${esc(U.history)}</a></p>`,
+    footer: `<p>${icon('shield-check')}${esc(ALI.footer)} ${esc(ALI.privacy)}</p>${mentorMode ? '' : `<p><a href="#${currentPersona().role === 'member' ? '/app/learn/ali' : '/app/ali'}">${esc(U.history)}</a></p>`}`,
   });
   const root = overlay.dialog;
   renderIcons(root);
@@ -77,6 +80,7 @@ export function openAliPanel({ reqId = null, moduleId = null, prompt = null } = 
   let busy = false;
 
   const refreshMeter = () => {
+    if (mentorMode) return;
     const m = root.querySelector('[data-ali-meter]');
     m.innerHTML = meter();
     renderIcons(m);
@@ -87,14 +91,14 @@ export function openAliPanel({ reqId = null, moduleId = null, prompt = null } = 
 
   function ask(q) {
     if (busy || !q.trim()) return;
-    if (aliBalance() < ALI_CREDIT_PER_ANSWER) { refreshMeter(); return; }
+    if (!mentorMode && aliBalance() < ALI_CREDIT_PER_ANSWER) { refreshMeter(); return; }
     busy = true;
     log.insertAdjacentHTML('beforeend', bubble('user', `<p>${esc(q)}</p>`));
     log.insertAdjacentHTML('beforeend', `<p class="ali-typing" data-typing>${esc(U.typing)}<span class="ali-typing__dots" aria-hidden="true"><span></span><span></span><span></span></span></p>`);
     log.scrollTop = log.scrollHeight;
     setTimeout(() => {
       log.querySelector('[data-typing]')?.remove();
-      const entry = askAli(q, ctx?.reqId ?? null);
+      const entry = mentorMode ? { answer: matchScript(q, ctx?.reqId ?? null)?.answer ?? ALI_FALLBACK, reqId: null } : askAli(q, ctx?.reqId ?? null);
       const pin = entry?.reqId ? `<button type="button" class="link-btn ali-msg__pin" data-ali-pin="${esc(entry.id)}">${icon('pin')}${esc(U.pin(entry.reqId))}</button>` : '';
       log.insertAdjacentHTML('beforeend', bubble('ali', entry ? `<p>${esc(entry.answer)}</p>` : `<p>${esc(U.out)}</p>`, pin));
       renderIcons(log);

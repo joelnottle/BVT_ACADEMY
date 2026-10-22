@@ -140,24 +140,38 @@ function progressLine(s, org, req) {
  * @returns {{ reqId, orgId, title, text } | null}
  */
 export function decideNext(kind, { reqId, verifierId = 'E', comment } = {}) {
-  const s0 = getState();
   const orgId = currentOrg()?.id ?? KESTREL;
-  const review = pickReview(s0, orgId, reqId);
-  if (!review) return null;
+  const review = pickReview(getState(), orgId, reqId);
+  return review ? decideReview(review.id, kind, { verifierId, comment }) : null;
+}
+
+/**
+ * The verifier's decision on one review (§8.16). For a persona organisation it also updates the requirement,
+ * the evidence, notifications and milestones, so the decision shows up in that organisation's portal.
+ * @returns {{ reqId, orgId, title, text } | null}
+ */
+export function decideReview(reviewId, kind, { verifierId = 'E', comment } = {}) {
+  const review = getState().reviews.find((x) => x.id === reviewId);
+  if (!review || review.status !== 'in-review') return null;
+  const orgId = review.orgId;
   let out = null;
   commit((s) => {
     const on = today(s);
     const org = s.orgs[orgId];
-    const r = s.reviews.find((x) => x.id === review.id);
+    const r = s.reviews.find((x) => x.id === reviewId);
     const req = REQ_BY_ID[r.reqId];
-    const p = prog(s, orgId, r.reqId);
     r.status = kind; r.verifierId = verifierId; r.decidedOn = on;
+    r.comment = comment || (kind === 'verified' ? COMMENT_TEMPLATES.verified[0] : COMMENT_TEMPLATES.changes[2]);
+    r.history.push({ on, by: 'verifier', text: kind === 'verified' ? 'Verified' : `Changes requested: "${r.comment}"` });
     r.evidenceIds.forEach((id) => { const e = s.evidence.find((x) => x.id === id); if (e) e.status = kind === 'verified' ? 'verified' : 'changes'; });
+    if (!org) { // a non-persona organisation: the decision is recorded, there's no portal to update
+      out = { reqId: req.id, orgId, title: kind === 'verified' ? `${req.id} verified` : FEEDBACK.changesNotice(req.id), text: r.comment };
+      return;
+    }
+    const p = prog(s, orgId, r.reqId);
     if (kind === 'verified') {
       const before = verifiedReadiness(s, org).pct;
       p.status = 'verified';
-      r.comment = comment ?? COMMENT_TEMPLATES.verified[0];
-      r.history.push({ on, by: 'verifier', text: 'Verified' });
       touch(p, on, 'Verified');
       const after = verifiedReadiness(s, org).pct;
       const ms = ['first-verified'];
@@ -175,8 +189,6 @@ export function decideNext(kind, { reqId, verifierId = 'E', comment } = {}) {
       out = { reqId: req.id, orgId, title: line, text: unlocked ? PATHWAY_PAGE.done : p.milestones.length ? `Milestone: ${p.milestones.map((id) => BADGE_BY_ID[id].name).join(', ')}` : 'See what to do next on the Closed step.' };
     } else {
       p.status = 'changes';
-      r.comment = comment ?? COMMENT_TEMPLATES.changes[2];
-      r.history.push({ on, by: 'verifier', text: `Changes requested: "${r.comment}"` });
       touch(p, on, 'Changes requested by the verifier');
       const title = FEEDBACK.changesNotice(req.id);
       s.notifications.unshift({ id: newId('n'), orgId, type: 'outcome', on, title, text: r.comment, href: `/app/req/${req.id}/verify`, read: false });
@@ -184,6 +196,11 @@ export function decideNext(kind, { reqId, verifierId = 'E', comment } = {}) {
     }
   });
   return out;
+}
+
+/** The verifier takes (or releases) an item in the queue. */
+export function assignReview(reviewId, verifierId) {
+  commit((s) => { const r = s.reviews.find((x) => x.id === reviewId); if (r) r.assignee = r.assignee === verifierId ? null : verifierId; });
 }
 
 const unlockNotice = (s, org, on) => ({

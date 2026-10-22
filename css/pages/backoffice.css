@@ -1,0 +1,36 @@
+/* Back-office (§8.16–8.17): verifier queue and split review, decision history, mentor views. */
+
+/* Header badge: "BVT Team · Verifier / Mentor". On navy the accent is the on-dark magenta (plum is too dim there). */
+.team-badge--bvt { border-color: var(--magenta-text-on-dark); color: var(--magenta-text-on-dark); }
+
+.data-table td a { display: inline-flex; align-items: center; gap: var(--sp-1); min-height: var(--target-min); color: var(--text-1); }
+.queue-flags { display: flex; flex-wrap: wrap; gap: var(--sp-1); margin-top: var(--sp-1-5); }
+.queue-table td .btn { white-space: nowrap; }
+.q-mine { align-self: flex-end; min-height: var(--target-min); align-items: center; }
+
+/* Split review: checklist and context on the left, evidence and decision on the right */
+.review-split { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-items: start; }
+@media (min-width: 1100px) { .review-split { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+
+.precheck { border: 2px dashed var(--border-input); box-shadow: none; }
+.precheck h2 { display: flex; align-items: center; gap: var(--sp-2); }
+.precheck h2 svg { width: 20px; height: 20px; color: var(--plum-600); }
+.precheck__list { display: flex; flex-direction: column; gap: var(--sp-2); padding: 0; margin: 0; list-style: none; }
+.precheck__list li { display: flex; gap: var(--sp-2); align-items: flex-start; }
+.precheck__list svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: var(--sp-half); }
+.precheck__list .is-pass svg { color: var(--st-verified-ink); }
+.precheck__list .is-miss svg { color: var(--st-changes-ink); }
+.precheck__state { color: var(--text-2); font-size: var(--fs-14); }
+.rv-history { padding: 0; }
+
+.doc-mock { display: flex; flex-direction: column; gap: var(--sp-2); margin: 0; }
+.doc-mock__page {
+  display: flex; flex-direction: column; gap: var(--sp-2-5); aspect-ratio: 1 / 1.2; max-height: 460px; padding: var(--sp-8) var(--sp-6);
+  border: 1px solid var(--border); border-radius: var(--r-sm); background: var(--surface-0); box-shadow: var(--shadow-1);
+}
+.doc-mock__title { width: 55%; height: 14px; margin-bottom: var(--sp-3); border-radius: var(--r-xs); background: var(--text-3); opacity: 0.6; }
+.doc-mock__line { height: 8px; border-radius: var(--r-xs); background: var(--surface-2); }
+.doc-mock__sign { width: 30%; height: 24px; margin-top: auto; border-bottom: 2px solid var(--text-3); }
+.doc-mock figcaption { display: flex; align-items: center; gap: var(--sp-1-5); font-size: var(--fs-14); color: var(--text-2); }
+.doc-mock figcaption svg { width: 16px; height: 16px; }
+.decision-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: var(--sp-3); }

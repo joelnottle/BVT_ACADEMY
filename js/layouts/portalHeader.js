@@ -126,7 +126,7 @@ export function renderHeader(ctx, variant, toggle) {
   const role = ctx.persona.role;
   let middle = '<div class="portal-header__spacer"></div>';
   if (role === 'lead' && ctx.org) middle = searchForm('header');
-  else if (variant === 'backoffice') middle = '<span class="team-badge">BVT Team</span><div class="portal-header__spacer"></div>';
+  else if (variant === 'backoffice') middle = `<span class="team-badge team-badge--bvt">BVT Team · ${role === 'verifier' ? 'Verifier' : 'Mentor'}</span><div class="portal-header__spacer"></div>`;
   else if (role === 'partner') middle = '<span class="team-badge">Partner portal</span><div class="portal-header__spacer"></div>';
 
   return `

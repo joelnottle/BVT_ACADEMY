@@ -5,6 +5,9 @@
 
 const P = (label, pass) => ({ label, pass });
 
+// Items Priya has taken from the queue ("Assigned to me")
+const ASSIGNED_TO_PRIYA = ['rev-k-fm06', 'rev-g-rc01', 'rev-r-rp08'];
+
 const QUEUE = [
   {
     id: 'rev-k-fm06', orgId: 'org-kestrel', reqId: 'FM-06', submittedOn: '2027-04-30', type: 'in-place', fastTracked: false,
@@ -52,7 +55,8 @@ const QUEUE = [
     evidenceIds: [], aiPrecheck: [P('Latest BAS lodged', true), P('No overdue lodgements shown', true)],
     orgNote: '',
   },
-].map((r) => ({ ...r, status: 'in-review', verifierId: null, decidedOn: null, comment: '', history: [{ on: r.submittedOn, by: 'org', text: 'Submitted for verification' }] }));
+].map((r) => ({ ...r, status: 'in-review', verifierId: null, decidedOn: null, comment: '', history: [{ on: r.submittedOn, by: 'org', text: 'Submitted for verification' }],
+  assignee: ASSIGNED_TO_PRIYA.includes(r.id) ? 'E' : null }));
 
 // Kestrel's changes-requested item (persona A's "Almost there").
 const GC02 = {

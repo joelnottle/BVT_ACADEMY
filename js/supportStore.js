@@ -97,3 +97,22 @@ export function savePrepNotes(sessionId, notes) {
 }
 
 export const reqTitle = (reqId) => (reqId ? REQ_BY_ID[reqId]?.title ?? '' : '');
+
+// ---- Mentor side (§8.17). Mentors write notes and complete sessions; they never verify. ----
+export function saveMentorNotes(sessionId, notes) {
+  commit((s) => { const x = s.sessions.find((y) => y.id === sessionId); if (x) x.mentorNotes = notes; });
+}
+
+export function completeSession(sessionId, notes) {
+  const session = getState().sessions.find((y) => y.id === sessionId);
+  if (!session) return null;
+  commit((s) => {
+    const x = s.sessions.find((y) => y.id === sessionId);
+    x.status = 'completed';
+    if (notes != null) x.mentorNotes = notes;
+    if (s.orgs[x.orgId]) {
+      s.notifications.unshift({ id: newId('n'), orgId: x.orgId, type: 'mentor', on: today(s), title: `Mentor session complete · ${x.topic}`, text: 'Your mentor’s notes are on the Mentoring page.', href: '/app/mentoring', read: false });
+    }
+  });
+  return session;
+}

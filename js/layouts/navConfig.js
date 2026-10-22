@@ -65,13 +65,16 @@ const PARTNER_NAV = [{
   ],
 }];
 
-const VERIFIER_NAV = [{
-  label: 'Verification',
-  items: [
-    { href: '/team/queue', label: 'Review queue', icon: 'inbox' },
-    { href: '/team/history', label: 'Decision history', icon: 'clock' },
-  ],
-}];
+const verifierNav = ({ state }) => {
+  const n = state.reviews.filter((r) => r.status === 'in-review').length;
+  return [{
+    label: 'Verification',
+    items: [
+      { href: '/team/queue', label: 'Review queue', icon: 'inbox', meta: String(n), metaLabel: `${n} waiting` },
+      { href: '/team/history', label: 'Decision history', icon: 'clock' },
+    ],
+  }];
+};
 
 // Mentor views never include verify controls or verifier routes.
 const MENTOR_NAV = [{
@@ -96,7 +99,7 @@ export function navFor(ctx) {
     case 'lead': return ctx.org ? leadNav(ctx) : [];
     case 'member': return MEMBER_NAV;
     case 'partner': return PARTNER_NAV;
-    case 'verifier': return VERIFIER_NAV;
+    case 'verifier': return verifierNav(ctx);
     case 'mentor': return MENTOR_NAV;
     default: return [];
   }

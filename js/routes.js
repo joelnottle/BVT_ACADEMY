@@ -73,12 +73,12 @@ export const ROUTES = [
   { path: '/partner/connect', layout: 'portal', roles: PARTNER, title: 'Connect search', phase: 13, summary: 'The BVT Connect directory.', load: () => import('./views/public/connect.js') },
 
   // ---- Back-office (§7.5) ----
-  { path: '/team/queue', layout: 'backoffice', roles: VERIFIER, title: 'Review queue', phase: 14, summary: 'Evidence waiting for verification.' },
-  { path: '/team/review/:reviewId', layout: 'backoffice', roles: VERIFIER, title: 'Review', phase: 14, summary: 'Split view: criteria and evidence, with an assistive AI pre-check.', nav: '/team/queue' },
-  { path: '/team/history', layout: 'backoffice', roles: VERIFIER, title: 'Decision history', phase: 14, summary: 'Every verify and request-changes decision.' },
-  { path: '/team/mentor', layout: 'backoffice', roles: MENTOR, title: 'This week', phase: 14, summary: "This week's mentoring sessions." },
-  { path: '/team/mentor/mentees', layout: 'backoffice', roles: MENTOR, title: 'Mentees', phase: 14, summary: 'Organisations you mentor. Mentors never verify.' },
-  { path: '/team/mentor/sessions/:id', layout: 'backoffice', roles: MENTOR, title: 'Session', phase: 14, summary: 'Client prep notes, requirement context, and your notes.', nav: '/team/mentor' },
+  { path: '/team/queue', layout: 'backoffice', roles: VERIFIER, title: 'Review queue', phase: 14, summary: 'Evidence waiting for verification.', load: () => import('./views/team/queue.js') },
+  { path: '/team/review/:reviewId', layout: 'backoffice', roles: VERIFIER, title: 'Review', phase: 14, summary: 'Split view: criteria and evidence, with an assistive AI pre-check.', nav: '/team/queue', load: () => import('./views/team/review.js') },
+  { path: '/team/history', layout: 'backoffice', roles: VERIFIER, title: 'Decision history', phase: 14, summary: 'Every verify and request-changes decision.', load: () => import('./views/team/history.js') },
+  { path: '/team/mentor', layout: 'backoffice', roles: MENTOR, title: 'This week', phase: 14, summary: "This week's mentoring sessions.", load: () => import('./views/team/mentor.js') },
+  { path: '/team/mentor/mentees', layout: 'backoffice', roles: MENTOR, title: 'Mentees', phase: 14, summary: 'Organisations you mentor. Mentors never verify.', load: () => import('./views/team/mentor.js') },
+  { path: '/team/mentor/sessions/:id', layout: 'backoffice', roles: MENTOR, title: 'Session', phase: 14, summary: 'Client prep notes, requirement context, and your notes.', nav: '/team/mentor', load: () => import('./views/team/mentor.js') },
 
   // ---- Developer ----
   { path: '/styleguide', layout: 'bare', title: 'Styleguide', load: () => import('./views/styleguide/view.js') },

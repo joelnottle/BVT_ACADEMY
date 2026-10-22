@@ -16,7 +16,7 @@ import { coreReqs, pathwayReqs } from './selectors.js';
 import { checkQuestions, enrolmentOffer } from './checkSelectors.js';
 
 const KEY = 'bvt-demo-v1';
-const VERSION = 5; // bump whenever the seed shape changes; older saved state is replaced
+const VERSION = 6; // bump whenever the seed shape changes; older saved state is replaced
 
 function seed() {
   return {
