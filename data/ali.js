@@ -46,3 +46,50 @@ export const ALI_FALLBACK = "I don't have a scripted answer for that in this pro
 export const ALI_DEFAULT_PROMPTS = ['What does good evidence look like for this?', 'Where do we start?', 'Explain this to my board in plain English'];
 
 export const ALI_CREDIT_PER_ANSWER = 0.25;
+
+// ---- Seeded history (persona A) and UI copy (§8.10) ----
+// Each entry is one question and Ali's answer. reqId null = a general question.
+export const ALI_HISTORY_SEED = {
+  'org-kestrel': [
+    { id: 'ali-k1', reqId: 'FM-03', on: '2027-04-14', q: 'How should we present a deficit budget to the board?', scriptId: 'budget-actual', pinned: false },
+    { id: 'ali-k2', reqId: 'FM-04', on: '2027-04-28', q: 'How far ahead should our forecast go?', scriptId: 'forecast-horizon', pinned: true },
+    { id: 'ali-k3', reqId: 'GC-02', on: '2027-04-29', q: 'What should a declaration of interests include?', scriptId: 'declarations', pinned: false },
+    { id: 'ali-k4', reqId: null, on: '2027-04-30', q: 'How long does verification take?', scriptId: 'verification', pinned: false },
+  ],
+};
+
+/* PLACEHOLDER — top-up bundles; prices come from Doc 3 (BUILD_PLAN §14 Q6) */
+export const ALI_TOPUPS = [5, 10, 20];
+
+export const ALI_UI = {
+  title: 'Ask Ali',
+  context: (code, title) => `About ${code} · ${title}`,
+  moduleContext: (title) => `About ${title}`,
+  removeContext: 'Remove context',
+  suggested: 'Try asking',
+  placeholder: 'Ask about a requirement, evidence or your board',
+  send: 'Ask',
+  typing: 'Ali is typing',
+  you: 'You',
+  ali: 'Ali',
+  pin: (code) => `Pin to ${code} notes`,
+  pinned: 'Pinned to notes',
+  pinnedToast: (code) => `Saved to ${code} notes`,
+  low: (c) => `Running low: ${c} credits left. Top up any time.`,
+  out: 'You’ve used your Ask Ali credits. Top up to keep asking.',
+  topUp: 'Top up',
+  topUpTitle: 'Top up Ask Ali credits',
+  topUpPrice: 'Price to be confirmed (Doc 3)',
+  topUpNote: 'Prototype — no payment is taken.',
+  topUpToast: (n) => `Added ${n} Ask Ali credits`,
+  history: 'See all conversations',
+  page: {
+    lead: 'Your questions and Ali’s answers, grouped by requirement. Pin the useful ones to that requirement’s notes.',
+    ask: 'Ask a question',
+    saved: 'Saved answers',
+    savedNone: 'Pin an answer and it shows here, and in that requirement’s notes.',
+    general: 'General questions',
+    none: 'No conversations yet. Ask Ali anything about a requirement or your evidence.',
+    credits: 'Your credits',
+  },
+};

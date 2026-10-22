@@ -1,6 +1,6 @@
 // Slim 56px navy header (§7.3). Below 1280px the mentor chip and help fold into "More"; below 768px the header
 // keeps the menu button, logo, Ali chip and avatar, and the rest moves into the avatar menu (§11).
-import { PACE } from '../../data/copy.js';
+import { PACE, fmtCredits } from '../../data/copy.js';
 import { PARTNERS } from '../../data/partners.js';
 import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
@@ -19,7 +19,7 @@ export const toggleState = (mode, isDesktop) => (mode === 'rail' && !isDesktop
   ? { ...TOGGLE.rail, label: 'Open navigation' }
   : TOGGLE[mode] ?? TOGGLE.hidden);
 
-const credits = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+const credits = (n) => fmtCredits(n);
 const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
 const bellLabel = (n) => (n ? `Notifications, ${n} unread` : 'Notifications');
 

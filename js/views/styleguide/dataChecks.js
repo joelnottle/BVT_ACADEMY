@@ -13,6 +13,7 @@ import { enrolmentOffer } from '../../checkSelectors.js';
 import * as DS from '../../dashboardSelectors.js';
 import * as L from '../../lensSelectors.js';
 import { parseLensFilters } from '../../lens.js';
+import { matchScript } from '../../supportStore.js';
 
 const verifiedOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.verified}/${d.total}`).join(' · ');
 const inPlaceOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.inPlace}`).join(' · ');
@@ -69,6 +70,12 @@ export function runDataChecks(state) {
     ['not-started', 'learning', 'evidence-needed', 'in-review', 'changes', 'verified'].map((st) => la.filter((x) => x.status === st).length).join(' · '));
   check('A · Academy', 'Search "cash flow" finds FM-04', true, L.filterItems(la, parseLensFilters({ q: 'cash flow' })).some((x) => x.id === 'FM-04'));
   check('A · Academy', 'Modules in the library', 16, L.moduleCards(state, a).length);
+
+  // Ask Ali (§8.10): keyword-matched scripts, with the requirement in context preferred
+  check('A · Ask Ali', 'Seeded conversations', 4, (state.ali?.[a.id] ?? []).length);
+  check('A · Ask Ali', '"How far ahead…" on FM-04', 'forecast-horizon', matchScript('How far ahead should our forecast go?', 'FM-04')?.id);
+  check('A · Ask Ali', '"What does good evidence look like" → evidence guidance', 'good-evidence', matchScript('What does good evidence look like for this?', 'GC-01')?.id);
+  check('A · Ask Ali', 'No match falls back', null, matchScript('Tell me a joke about kangaroos') ?? null);
 
   // ---- Persona B: Brightfield ----
   const b = state.orgs['org-brightfield'];

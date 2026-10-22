@@ -14,12 +14,13 @@ import { checkFlowSection } from './sgCheckFlow.js';
 import { dashboardSection } from './sgDashboard.js';
 import { academySection } from './sgAcademy.js';
 import { requirementSection } from './sgRequirement.js';
+import { supportSection } from './sgSupport.js';
 
 const TOC = [
   ['colours', 'Colour tokens'], ['type', 'Typography'], ['accents', 'Brand accents'], ['shape', 'Spacing, radius & depth'],
   ['buttons', 'Buttons'], ['forms', 'Form controls'], ['nav', 'Segmented, filters & tabs'],
   ['chips', 'Chips & tier badges'], ['cards', 'Cards & empty states'], ['seals', 'Badge seals'],
-  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'], ['checkflow', 'Check & enrolment'], ['dashboard', 'Dashboard widgets'], ['academy', 'Academy components'], ['requirement', 'Requirement page'],
+  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'], ['checkflow', 'Check & enrolment'], ['dashboard', 'Dashboard widgets'], ['academy', 'Academy components'], ['requirement', 'Requirement page'], ['support', 'Ask Ali & mentoring'],
   ['contrast', 'Contrast results'],
 ];
 
@@ -57,6 +58,7 @@ export function renderStyleguide() {
         ${dashboardSection()}
         ${academySection()}
         ${requirementSection()}
+        ${supportSection()}
         ${contrastSection()}
       </main>
     </div>`;

@@ -1,9 +1,7 @@
 // Portal and back-office shell (§7.3–7.5, §11). Sidebar modes:
 //   ≥1024 'full' or 'rail' (collapse toggle, remembered) · 768–1023 'rail', expands as an 'overlay'
 //   <768 'hidden', opens as an off-canvas 'drawer'. Overlay/drawer: scrim, Esc, focus in and back out.
-import { ALI } from '../../data/copy.js';
-import { icon } from '../components/icon.js';
-import { openSlideOver } from '../components/slideOver.js';
+import { openAliPanel } from '../views/app/aliPanel.js';
 import { showToast } from '../components/toast.js';
 import { getState, setUi, notify } from '../store.js';
 import { signOut } from '../session.js';
@@ -94,21 +92,6 @@ function showTip(linkEl) {
 }
 const hideTip = () => tip?.remove();
 
-function openAli(org) {
-  openSlideOver({
-    title: 'Ask Ali',
-    iconName: 'sparkles',
-    body: `
-      <div class="stack">
-        <p class="lead">${ALI.intro}</p>
-        <p>${icon('sparkles')} ${ALI.creditLine(org.credits.ali)}</p>
-        <p class="placeholder-flag">${icon('construction')}Placeholder — conversations with Ali arrive in Phase 9</p>
-        <p><a class="btn btn--outline" href="#/app/ali">Open Ask Ali</a></p>
-      </div>`,
-    footer: ALI.footer,
-  });
-}
-
 export function bindPortal(root, ctx) {
   const shell = root.querySelector('.portal');
   if (!shell) return;
@@ -124,7 +107,9 @@ export function bindPortal(root, ctx) {
     } else if (t.closest('[data-area-toggle]')) {
       setUi({ areaTreeOpen: !getState().ui.areaTreeOpen });
     } else if (t.closest('[data-open-ali]')) {
-      openAli(ctx.org);
+      const b = t.closest('[data-open-ali]');
+      // Context: the button's own requirement, else the page's requirement or module
+      openAliPanel({ reqId: b.dataset.aliReq ?? ctx.params?.reqId ?? null, moduleId: ctx.params?.moduleId ?? null, prompt: b.dataset.aliPrompt ?? null });
     } else if (t.closest('[data-sign-out]')) {
       signOut();
     }

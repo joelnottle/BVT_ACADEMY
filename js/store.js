@@ -8,13 +8,14 @@ import { EVIDENCE } from '../data/evidence.js';
 import { REVIEWS } from '../data/reviews.js';
 import { SESSIONS } from '../data/sessions.js';
 import { NOTIFICATIONS } from '../data/notifications.js';
+import { ALI_HISTORY_SEED } from '../data/ali.js';
 import { seedProgress, seedAnswers, seedLearning, seedEarned, sampleAnswers, freshProgress } from '../data/progress.js';
 import { addDays, addMonths } from './util.js';
 import { coreReqs, pathwayReqs } from './selectors.js';
 import { checkQuestions, enrolmentOffer } from './checkSelectors.js';
 
 const KEY = 'bvt-demo-v1';
-const VERSION = 2; // bump whenever the seed shape changes; older saved state is replaced
+const VERSION = 3; // bump whenever the seed shape changes; older saved state is replaced
 
 function seed() {
   return {
@@ -30,6 +31,7 @@ function seed() {
     reviews: structuredClone(REVIEWS),
     sessions: structuredClone(SESSIONS),
     notifications: structuredClone(NOTIFICATIONS),
+    ali: structuredClone(ALI_HISTORY_SEED), // orgId → Ask Ali questions and answers
     check: null,                      // free Check draft (§8.2) — see blankCheck()
     ui: { sidebarCollapsed: false, areaTreeOpen: true, lens: 'area', boardView: null },
     activity: [],                     // simulated events, newest first
@@ -243,6 +245,7 @@ export function enrolFromCheck() {
     s.progress[id] = freshProgress(c.checkId, answers, offer.pathway);
     s.answers[id] = answers;
     s.learning[id] = { watched: [], sessions: [], downloads: [] };
+    s.ali[id] = [];
     s.earned[id] = { 'check-complete': c.completedOn, enrolled: on };
     s.personaId = NEW_LEAD.id;
     s.activity.unshift({ kind: 'enrolled', orgId: id, on });

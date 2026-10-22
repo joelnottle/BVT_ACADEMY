@@ -176,7 +176,7 @@ export function aliBar(recs) {
     <section class="dash-ali on-dark" aria-labelledby="dash-ali-h">
       <span class="dash-ali__icon">${icon('sparkles')}</span>
       <div class="dash-ali__text"><h2 class="dash-title" id="dash-ali-h">${esc(D.ali.title)}</h2><p>“${esc(prompt)}”</p></div>
-      <button type="button" class="btn btn--action" data-open-ali>${esc(D.ali.action)}<span class="sr-only"> Ali: ${esc(prompt)}</span></button>
+      <button type="button" class="btn btn--action" data-open-ali data-ali-prompt="${esc(prompt)}"${req ? ` data-ali-req="${esc(req.id)}"` : ''}>${esc(D.ali.action)}<span class="sr-only"> Ali: ${esc(prompt)}</span></button>
     </section>`;
 }
 
