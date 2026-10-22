@@ -7,12 +7,13 @@ import { statusSections } from './sgStatus.js';
 import { progressSections, bindProgress } from './sgProgress.js';
 import { overlaysSections, bindOverlays } from './sgOverlays.js';
 import { contrastSection, bindContrast } from './sgContrast.js';
+import { shellSection } from './sgShell.js';
 
 const TOC = [
   ['colours', 'Colour tokens'], ['type', 'Typography'], ['shape', 'Spacing, radius & depth'],
   ['buttons', 'Buttons'], ['forms', 'Form controls'], ['nav', 'Segmented, filters & tabs'],
   ['chips', 'Chips & tier badges'], ['cards', 'Cards & empty states'], ['seals', 'Badge seals'],
-  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'],
+  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'],
   ['contrast', 'Contrast results'],
 ];
 
@@ -40,6 +41,7 @@ export function renderStyleguide() {
         ${statusSections()}
         ${progressSections()}
         ${overlaysSections()}
+        ${shellSection()}
         ${contrastSection()}
       </main>
     </div>`;

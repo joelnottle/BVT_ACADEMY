@@ -8,6 +8,10 @@ const FOCUSABLE = [
 ].join(',');
 
 const stack = [];
+const closers = new Map();
+
+// Following a link inside an overlay (e.g. "Open Ask Ali page") closes every open overlay.
+window.addEventListener('hashchange', () => [...stack].reverse().forEach((el) => closers.get(el)?.()));
 
 function setBackgroundInert(on) {
   document.getElementById('app')?.toggleAttribute('inert', on);
@@ -43,12 +47,15 @@ export function openOverlay({ variant, content, initialFocus, onClose }) {
     closed = true;
     el.classList.remove('is-open');
     stack.splice(stack.indexOf(el), 1);
+    closers.delete(el);
     if (stack.length) stack.at(-1).removeAttribute('inert');
     else setBackgroundInert(false);
     setTimeout(() => el.remove(), 220);
     if (trigger && document.contains(trigger)) trigger.focus();
     onClose?.(result);
   }
+
+  closers.set(el, close);
 
   el.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') { e.preventDefault(); e.stopPropagation(); close(); return; }

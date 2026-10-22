@@ -1,0 +1,81 @@
+/* Disclosure menus (avatar, More, public mobile menu). Light panel, even inside the dark frame. */
+
+.menu-wrap { position: relative; }
+
+.menu {
+  position: absolute;
+  top: calc(100% + var(--sp-2));
+  right: 0;
+  z-index: 200;
+  min-width: 260px;
+  max-width: calc(100vw - 2 * var(--gutter));
+  padding: var(--sp-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  background: var(--surface-0);
+  color: var(--text-1);
+  box-shadow: var(--shadow-2);
+}
+/* The dark frame's orange focus ring fails on white: use the light ring inside menus */
+.on-dark .menu :focus-visible { outline-color: var(--focus-light); }
+
+.menu__head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-half);
+  padding: var(--sp-2) var(--sp-3) var(--sp-3);
+  margin-bottom: var(--sp-1);
+  border-bottom: 1px solid var(--border);
+  font-size: var(--fs-14);
+}
+.menu__head span { color: var(--text-3); }
+
+.menu__list { display: flex; flex-direction: column; gap: var(--sp-half); padding: 0; margin: 0; list-style: none; }
+.menu__sep { margin-top: var(--sp-1); padding-top: var(--sp-1); border-top: 1px solid var(--border); }
+
+.menu__item {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  width: 100%;
+  min-height: var(--target-min);
+  padding: 0 var(--sp-3);
+  border: 0;
+  border-radius: var(--r-sm);
+  background: none;
+  color: var(--text-1);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  text-align: left;
+  text-decoration: none;
+}
+.menu__item:hover { background: var(--surface-2); }
+.menu__item svg { width: 18px; height: 18px; color: var(--text-2); }
+
+/* Avatar button in the dark header */
+.avatar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  min-height: var(--target-min);
+  padding: 0 var(--sp-1);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: none;
+  color: var(--on-dark-2);
+}
+.avatar-btn:hover { background: var(--navy-800); }
+.avatar-btn svg { width: 16px; height: 16px; }
+.avatar {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border-on-dark-strong);
+  border-radius: 50%;
+  background: var(--navy-700);
+  color: var(--on-dark-1);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.04em;
+}

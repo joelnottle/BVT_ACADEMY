@@ -1,1 +1,111 @@
-/* Public layout: marketing header and footer. Built in Phase 1 (shell) and Phase 3 (pages). */
+/* Public layout: marketing header and footer (§7.1). Focused variant for the Check and enrolment (§7.2). */
+
+.public { display: flex; flex-direction: column; min-height: 100vh; }
+.site-main { flex: 1 0 auto; background: var(--surface-1); }
+.site-main:focus { outline: none; }
+
+/* ---- Header ---- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--navy-950);
+  border-bottom: 1px solid var(--border-on-dark);
+}
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: var(--site-header-h);
+}
+.site-header__inner > .logo { margin-right: auto; }
+
+.site-nav ul { display: flex; gap: var(--sp-1); margin: 0; padding: 0; list-style: none; }
+.site-nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-sm);
+  color: var(--on-dark-2);
+  font-size: var(--fs-14);
+  font-weight: var(--fw-medium);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.site-nav__link:hover { color: var(--on-dark-1); background: var(--navy-800); }
+.site-nav__link[aria-current="page"] { color: var(--on-dark-1); }
+.site-nav__link[aria-current="page"]::after {
+  content: "";
+  position: absolute;
+  left: var(--sp-3);
+  right: var(--sp-3);
+  bottom: var(--sp-1);
+  height: 2px;
+  border-radius: var(--r-xs);
+  background: var(--grad-brand);
+}
+
+.site-header__actions { display: flex; align-items: center; gap: var(--sp-2); }
+.site-header__menu-btn { display: none; }
+
+/* Mobile menu panel */
+.site-menu { border-top: 1px solid var(--border-on-dark); background: var(--navy-950); }
+.site-menu nav { display: flex; flex-direction: column; gap: var(--sp-4); padding-block: var(--sp-4) var(--sp-6); }
+.site-menu__links { display: flex; flex-direction: column; gap: var(--sp-half); margin: 0; padding: 0; list-style: none; }
+.site-menu__links .site-nav__link { display: flex; font-size: var(--fs-16); }
+.site-menu__links .site-nav__link[aria-current="page"]::after { display: none; }
+.site-menu__links .site-nav__link[aria-current="page"] { background: var(--navy-800); }
+.site-menu__actions { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+
+@media (max-width: 1179px) {
+  .site-nav, .site-header__actions { display: none; }
+  .site-header__menu-btn { display: inline-flex; }
+}
+@media (min-width: 1180px) {
+  .site-menu { display: none; }
+}
+
+.site-header__exit span { display: inline; }
+@media (max-width: 479px) { .site-header__exit span { display: none; } .site-header__exit { padding: 0; width: var(--target-min); } }
+
+/* ---- Footer ---- */
+.site-footer { background: var(--navy-950); padding-top: var(--sp-12); }
+.site-footer--slim { padding-top: 0; }
+.site-footer__grid {
+  display: grid;
+  gap: var(--sp-8);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  padding-bottom: var(--sp-10);
+}
+.site-footer__heading {
+  margin-bottom: var(--sp-2);
+  font-family: var(--font-body);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--on-dark-3);
+}
+.site-footer ul { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
+.site-footer.on-dark a:not([class]) {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--target-min);
+  color: var(--on-dark-2);
+  text-decoration: none;
+}
+.site-footer.on-dark a:not([class]):hover { color: var(--on-dark-1); text-decoration: underline; }
+.site-footer__bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: var(--sp-2) var(--sp-6);
+  padding-block: var(--sp-5);
+  border-top: 1px solid var(--border-on-dark);
+  font-size: var(--fs-14);
+  color: var(--on-dark-2);
+}
+/* Room for the floating Demo button */
+.site-footer__bottom { padding-bottom: calc(var(--sp-5) + var(--target-min)); }

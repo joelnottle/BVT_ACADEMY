@@ -1,0 +1,41 @@
+/* Page scaffolding shared by portal and public views: page container, header, placeholder card. */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-6);
+  width: 100%;
+  max-width: var(--content-max);
+  padding: var(--sp-8) var(--gutter-wide) var(--sp-16);
+}
+.site-main .page { margin-inline: auto; }
+@media (max-width: 767px) {
+  .page { padding: var(--sp-6) var(--gutter) var(--sp-12); }
+}
+
+.page-header { display: flex; flex-direction: column; gap: var(--sp-2); }
+.page-header h1 { font-size: var(--fs-32); }
+@media (max-width: 767px) { .page-header h1 { font-size: var(--fs-24); } }
+
+/* Placeholder for routes whose page arrives in a later phase */
+.placeholder-card { border-style: dashed; border-color: var(--border-input); }
+.params { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-6); margin: 0; }
+.params div { display: flex; gap: var(--sp-2); align-items: baseline; }
+.params dt { font-size: var(--fs-14); color: var(--text-3); }
+.params dd { margin: 0; }
+
+/* Small badge in the dark header: "BVT Team", "Partner portal" */
+.team-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--border-on-dark-strong);
+  border-radius: var(--r-pill);
+  color: var(--orange-400);
+  font-size: var(--fs-12);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}

@@ -143,6 +143,7 @@
   --sp-20: 80px;
 
   /* ---- §4.3 Shape ---- */
+  --r-xs: 3px;     /* indicator bars, keycaps */
   --r-sm: 10px;    /* inputs, chips */
   --r-md: 16px;    /* cards */
   --r-lg: 24px;    /* hero panels */
@@ -166,6 +167,7 @@
   /* ---- Layout ---- */
   --target-min: 44px;
   --header-h: 56px;
+  --site-header-h: 72px;   /* public header */
   --sidebar-w: 264px;
   --rail-w: 72px;
   --slideover-w: 420px;

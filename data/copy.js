@@ -74,3 +74,11 @@ export const FEEDBACK = {
 };
 
 export const PLACEHOLDER_LABEL = 'Placeholder content';
+
+// Ask Ali (§4.2, §8.10). 1 credit ≈ 1 hour of typical use.
+// TODO(client): final privacy wording once the AI provider's data location is confirmed (§14 Q9).
+export const ALI = {
+  intro: 'Ali helps you understand requirements and prepare evidence, any time.',
+  creditLine: (c) => `${c} credits · about ${Math.floor(c)} ${Math.floor(c) === 1 ? 'hour' : 'hours'} of typical use`,
+  footer: "Ali offers guidance — it doesn't verify your evidence. Conversations stay private and aren't used to train public models.",
+};

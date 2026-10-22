@@ -167,6 +167,11 @@ a:hover { text-decoration-thickness: 2px; }
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 280px)), 1fr));
 }
 
+/* Breakpoint visibility (§11): sm < 768 · md 768–1023 · lg ≥ 1024 */
+@media (max-width: 767px) { .hide-sm { display: none !important; } }
+@media (min-width: 768px) and (max-width: 1023px) { .hide-md { display: none !important; } }
+@media (min-width: 1024px) { .hide-lg { display: none !important; } }
+
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

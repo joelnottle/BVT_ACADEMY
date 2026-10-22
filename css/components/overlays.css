@@ -14,7 +14,7 @@
   pointer-events: none;
 }
 @media (max-width: 767px) {
-  .toast-region { right: var(--gutter); bottom: var(--gutter); }
+  .toast-region { right: var(--gutter); bottom: calc(var(--gutter) + var(--target-min) + var(--sp-2)); } /* clear of the Demo button */
 }
 
 .toast {
