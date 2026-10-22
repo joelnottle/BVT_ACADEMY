@@ -68,7 +68,7 @@ export const FEEDBACK = {
   changesHeading: 'Almost there — one thing to add',
   submittedTitle: (code) => `${code} submitted for verification`,
   submittedText: "We'll let you know when a verifier has reviewed it.",
-  catchUp: (n) => `${n} quick wins would put you back on pace`,
+  catchUp: (n) => (n === 1 ? 'One quick win would put you back on pace' : `${n} quick wins would put you back on pace`),
   // TODO(client): confirm the verification SLA shown to users (BUILD_PLAN §14 Q5)
   reviewEstimate: 'Usually reviewed within 5 business days',
 };

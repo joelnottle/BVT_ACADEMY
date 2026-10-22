@@ -1,24 +1,36 @@
 // The store owns all state (CLAUDE.md). Views never touch localStorage.
 // State is seeded from /data, persisted under `bvt-demo-v1`, and falls back to memory
 // if storage is unavailable. subscribe() lets the app re-render on change.
+// Derived values live in selectors.js.
 import { PERSONAS } from '../data/users.js';
 import { ORGS } from '../data/orgs.js';
-import { addDays, daysBetween } from './util.js';
+import { EVIDENCE } from '../data/evidence.js';
+import { REVIEWS } from '../data/reviews.js';
+import { SESSIONS } from '../data/sessions.js';
+import { NOTIFICATIONS } from '../data/notifications.js';
+import { seedProgress, seedAnswers, seedLearning, seedEarned } from '../data/progress.js';
+import { addDays } from './util.js';
+import { coreReqs, pathwayReqs } from './selectors.js';
 
 const KEY = 'bvt-demo-v1';
-const VERSION = 1;
-
-/** Enterprise Stage first release (§2 Stages). */
-export const ENTERPRISE_OPENS = '2027-07-01';
+const VERSION = 2; // bump whenever the seed shape changes; older saved state is replaced
 
 function seed() {
   return {
     version: VERSION,
     personaId: 'visitor',
-    dayOffset: 0,                       // time travel: days added to every persona's demo date
+    dayOffset: 0,                     // time travel: days added to every persona's demo date
     orgs: structuredClone(ORGS),
+    progress: seedProgress(),         // orgId → reqId → { type, status, steps, evidenceIds, … }
+    answers: seedAnswers(),           // orgId → reqId → Check answer
+    learning: seedLearning(),         // orgId → { watched, sessions, downloads }
+    earned: seedEarned(),             // orgId → badgeId → date
+    evidence: structuredClone(EVIDENCE),
+    reviews: structuredClone(REVIEWS),
+    sessions: structuredClone(SESSIONS),
+    notifications: structuredClone(NOTIFICATIONS),
     ui: { sidebarCollapsed: false, areaTreeOpen: true },
-    activity: [],                       // simulated events, newest first
+    activity: [],                     // simulated events, newest first
   };
 }
 
@@ -66,24 +78,11 @@ function update(mutate, { silent = false } = {}) {
   if (!silent) notify();
 }
 
-// ---- Selectors ----
+// ---- Session selectors (who and when) ----
 export const currentPersona = (s = state) => PERSONAS[s.personaId] ?? PERSONAS.visitor;
 export const currentOrg = (s = state) => s.orgs[currentPersona(s).orgId] ?? null;
-export const today = (s = state) => addDays(currentPersona(s).demoDate, s.dayOffset);
-
-export const isAccredited = (org) => Boolean(org?.accreditedOn);
-export const daysLeft = (org, on) => (org ? daysBetween(on, org.endsOn) : 0);
-export const enterpriseOpen = (org, on) => isAccredited(org) && on >= ENTERPRISE_OPENS;
-
-// Phase 2 replaces these stubs with selectors derived from requirement progress (§10).
-export const verifiedReadiness = (org) => {
-  const { verified = 0, total = 0, claimed = 0 } = org?._stub ?? {};
-  return { verified, total, claimed, pct: total ? Math.round((verified / total) * 100) : 0 };
-};
-export const paceStatus = (org) => org?._stub?.pace ?? 'on-pace';
-export const domainProgress = (org, domainId) => org?._stub?.domains?.[domainId] ?? [0, 0];
-export const pathwayProgress = (org) => ({ done: org?._stub?.pathwayDone ?? 0, total: org?._stub?.pathwayTotal ?? 0 });
-export const coreLocked = (org) => Boolean(org?.pathway) && pathwayProgress(org).done < pathwayProgress(org).total;
+export const todayFor = (persona, s = state) => addDays(persona.demoDate, s.dayOffset);
+export const today = (s = state) => todayFor(currentPersona(s), s);
 
 // ---- Actions ----
 export function setPersona(id, opts) {
@@ -99,7 +98,7 @@ export function setUi(patch) {
   update((s) => { Object.assign(s.ui, patch); });
 }
 
-/** Demo shortcut: mark the current persona's organisation accredited today. Phase 10 completes the flow. */
+/** Demo shortcut: verify every Core requirement and accredit the current persona's organisation today. */
 export function jumpToAccredited() {
   const org = currentOrg();
   if (!org) return null;
@@ -108,9 +107,12 @@ export function jumpToAccredited() {
     const o = s.orgs[org.id];
     o.accreditedOn = on;
     o.certNo = o.certNo ?? 'BVT-2027-000124';
-    o._stub.verified = o._stub.total;
-    o._stub.claimed = 0;
-    Object.values(o._stub.domains).forEach((d) => { d[0] = d[1]; });
+    [...pathwayReqs(o), ...coreReqs(o)].forEach((r) => {
+      const p = s.progress[o.id][r.id];
+      p.status = 'verified';
+      p.lastActivity = { on, text: 'Verified' };
+    });
+    s.earned[o.id].accredited = on;
     s.activity.unshift({ kind: 'accredited', orgId: o.id, on });
   });
   return org;

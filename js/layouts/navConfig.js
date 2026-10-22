@@ -1,12 +1,12 @@
 // Sidebar navigation per role (§7.3 portal, §7.4 partner, §7.5 back-office).
 // Item: { href, label, icon, meta?, metaLabel?, lock?, children? }
 import { DOMAINS } from '../../data/domains.js';
-import { isAccredited, enterpriseOpen, ENTERPRISE_OPENS, domainProgress, coreLocked } from '../store.js';
+import { isAccredited, enterpriseOpen, ENTERPRISE_OPENS, domainStat, coreLocked } from '../selectors.js';
 
-function leadNav({ org, today }) {
-  const locked = coreLocked(org);
+function leadNav({ state, org, today }) {
+  const locked = coreLocked(state, org);
   const areas = DOMAINS.map((d) => {
-    const [done, total] = domainProgress(org, d.id);
+    const { verified: done, total } = domainStat(state, org, d.id);
     return {
       href: `/app/academy/area/${d.id}`, label: d.name,
       ...(locked

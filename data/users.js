@@ -34,6 +34,12 @@ export const PERSONAS = {
 
 export const PERSONA_ORDER = ['visitor', 'A', 'B', 'C', 'D', 'E', 'F'];
 
+// Other BVT team members who appear in history and mentor lists (not switchable personas).
+export const TEAM = {
+  E: { name: 'Priya Desai', role: 'verifier' },
+  'v-jordan': { name: 'Jordan Pike', role: 'verifier' },
+};
+
 export const ROLE_LABELS = {
   visitor: 'Visitor',
   lead: "an organisation's authorised lead",

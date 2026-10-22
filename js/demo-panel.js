@@ -6,10 +6,11 @@ import { esc, formatDate } from './util.js';
 import { icon, renderIcons } from './components/icon.js';
 import { showToast } from './components/toast.js';
 import {
-  getState, subscribe, currentPersona, currentOrg, today, isAccredited, isPersistent,
+  getState, subscribe, currentPersona, currentOrg, today, isPersistent,
   timeTravel, jumpToAccredited, simulate, resetDemo,
 } from './store.js';
 import { switchPersona } from './session.js';
+import { isAccredited } from './selectors.js';
 
 const SIMULATIONS = {
   'verifier-approves': { label: 'Verifier approves next item', icon: 'circle-check', toast: 'Simulated: the verifier approved the next item' },

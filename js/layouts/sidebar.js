@@ -5,7 +5,7 @@ import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
 import { readinessRing } from '../components/progress.js';
-import { verifiedReadiness, paceStatus, isAccredited, coreLocked, pathwayProgress } from '../store.js';
+import { verifiedReadiness, paceStatus, isAccredited, coreLocked, pathwayProgress } from '../selectors.js';
 import { navFor, currentHref } from './navConfig.js';
 
 export function searchForm(where) {
@@ -19,20 +19,20 @@ export function searchForm(where) {
     </form>`;
 }
 
-function miniStatus(org) {
-  const r = verifiedReadiness(org);
+function miniStatus({ state, org, today }) {
+  const r = verifiedReadiness(state, org);
   const tier = TIERS[org.tier]?.label ?? '';
   let title;
   let detail;
   if (isAccredited(org)) {
     title = 'Accredited';
     detail = `${icon('award')}<span>${esc(org.certNo)}</span>`;
-  } else if (coreLocked(org)) {
-    const p = pathwayProgress(org);
+  } else if (coreLocked(state, org)) {
+    const p = pathwayProgress(state, org);
     title = `${tier} · Pathway first`;
     detail = `${icon('route')}<span>Start-up pathway ${p.done} of ${p.total}</span>`;
   } else {
-    const pace = PACE[paceStatus(org)];
+    const pace = PACE[paceStatus(state, org, today).status];
     title = `${r.pct}% verified · ${tier}`;
     detail = `${icon(pace.icon)}<span>${pace.label}</span>`;
   }
@@ -101,7 +101,7 @@ export function renderSidebar(ctx) {
         ${logo({ href: `#${ctx.persona.landing}` })}
         <button type="button" class="btn btn--on-dark-ghost btn--icon sidebar__close" data-sidebar-close aria-label="Close navigation">${icon('x')}</button>
       </div>
-      ${isLead ? miniStatus(ctx.org) : ''}
+      ${isLead ? miniStatus(ctx) : ''}
       ${isLead ? searchForm('sidebar') : ''}
       <nav class="sidebar__nav" aria-label="Main">
         ${groups.map((g, i) => group(g, i, cur, ctx.state.ui)).join('')}

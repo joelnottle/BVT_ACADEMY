@@ -5,7 +5,7 @@ import { PARTNERS } from '../../data/partners.js';
 import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
-import { isAccredited, daysLeft, paceStatus } from '../store.js';
+import { isAccredited, daysLeft, paceStatus } from '../selectors.js';
 import { searchForm } from './sidebar.js';
 
 const TOGGLE = {
@@ -71,9 +71,9 @@ function moreMenu(org) {
 }
 
 function leadActions(ctx) {
-  const { org, today } = ctx;
+  const { state, org, today } = ctx;
   const ali = credits(org.credits.ali);
-  const pace = PACE[paceStatus(org)];
+  const pace = PACE[paceStatus(state, org, today).status];
   const paceChip = isAccredited(org)
     ? `<a class="header-chip hide-sm" href="#/app/accreditation">${icon('award')}<span>Accredited</span></a>`
     : `<a class="header-chip hide-sm" href="#/app/plan">${icon(pace.icon)}<span>${daysLeft(org, today)} days · ${pace.label}</span></a>`;

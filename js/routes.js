@@ -77,5 +77,6 @@ export const ROUTES = [
 
   // ---- Developer ----
   { path: '/styleguide', layout: 'bare', title: 'Styleguide', load: () => import('./views/styleguide/view.js') },
+  { path: '/styleguide/data', layout: 'bare', title: 'Mock data', load: () => import('./views/styleguide/dataView.js') },
   { path: '/styleguide/:section', layout: 'bare', title: 'Styleguide', load: () => import('./views/styleguide/view.js') },
 ];

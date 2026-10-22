@@ -29,7 +29,10 @@ export function renderStyleguide() {
     </header>
     <div class="sg-body">
       <nav class="sg-toc" aria-label="Styleguide sections">
-        <ul>${TOC.map(([id, label]) => `<li><a href="#/styleguide/${id}" data-sg-toc="${id}">${label}</a></li>`).join('')}</ul>
+        <ul>
+          ${TOC.map(([id, label]) => `<li><a href="#/styleguide/${id}" data-sg-toc="${id}">${label}</a></li>`).join('')}
+          <li><a href="#/styleguide/data">Mock data &amp; selectors →</a></li>
+        </ul>
       </nav>
       <main id="main" class="sg-main" tabindex="-1">
         <div class="sg-intro">
