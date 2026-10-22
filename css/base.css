@@ -187,7 +187,7 @@ a:hover { text-decoration-thickness: 2px; }
 
 .stack { display: flex; flex-direction: column; gap: var(--stack-gap, var(--sp-4)); }
 .stack-sm { --stack-gap: var(--sp-2); }
-.stack-lg { --stack-gap: var(--sp-8); }
+.stack-lg { --stack-gap: var(--sp-12); }
 .cluster { display: flex; flex-wrap: wrap; align-items: center; gap: var(--cluster-gap, var(--sp-3)); }
 .grid-auto {
   display: grid;

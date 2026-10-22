@@ -16,21 +16,21 @@ const listing = (id, today) => {
   return { ...l, status: l.renewsOn < today ? 'expired' : 'accredited' };
 };
 
+// Full-bleed hero (VC homepage pattern): copy on the left, photo through the Vital Consult V mask on the right.
 function hero() {
   const h = HOME.hero;
   return `
     <section class="home-hero on-dark" aria-labelledby="home-hero-h">
       <div class="container home-hero__inner">
         <div class="home-hero__copy">
+          <p class="endorse">${esc(h.endorsement.text)} <img src="${esc(h.endorsement.logo)}" alt="${esc(h.endorsement.alt)}" width="162" height="20"></p>
           <p class="eyebrow">${esc(h.eyebrow)}</p>
           <h1 class="display rule" id="home-hero-h">${accentText(h.title)}</h1>
           <p class="lead">${esc(h.lead)}</p>
           <div class="home-hero__actions">${h.actions.map(actionLink).join('')}</div>
         </div>
-        <div class="home-hero__media" role="img" aria-label="${esc(h.imageNote)}">
-          <span class="home-hero__media-note">${icon('image')}${esc(h.imageNote)}</span>
-        </div>
       </div>
+      <div class="home-hero__media" role="img" aria-label="${esc(h.image.alt)}"></div>
     </section>`;
 }
 

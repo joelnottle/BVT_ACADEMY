@@ -17,7 +17,7 @@
 1. **Bring in more of Vital Consult's plum, crimson and cream.** The current set uses one pink and grey. It needs the warm VC accents as highlights. This is not a re-skin: the navy frame stays.
 2. **Remove the "generic AI" feel.** At the moment every section is the same white card grid with a centred eyebrow and heading. Give each screen rhythm and one clear focal point (section 3).
 
-BVT Academy stands alone. Borrow the palette and motifs only: no Vital Consult logo, and no Vital Consult or Vital Money services.
+BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Consult only as an endorsement: "A product of Vital Consult" with the logo, in the hero and footer. No Vital Consult or Vital Money services.
 
 ---
 
@@ -56,7 +56,7 @@ BVT Academy stands alone. Borrow the palette and motifs only: no Vital Consult l
 3. **Crimson feature strip:** the 4-step Check → Academy → Accreditation → Connect strip becomes a **solid crimson (`#D22D63`) rounded panel** overlapping the bottom of the hero, with white line icons and white text, as on the VC homepage.
 4. **Gradient line icons** (plum → crimson stroke) on **cream rounded tiles**, in place of the empty grey squares.
 5. **Cream bands:** alternate some public-site sections onto cream (`#FFF6E9`/`#FFECB9`) instead of white-on-grey every time.
-6. **V-cut photo** in the hero: the photo masked with a diagonal V edge.
+6. **V-masked photo** in the hero: the photo shown through the Vital Consult V mask (`assets/img/vital-v-mask.svg`), as on the VC homepage.
 7. **Plum-tinted soft shadows** on light cards, not grey shadows.
 
 **One warm focal point per screen.** Cream and crimson are highlights. If everything is cream, nothing is.
@@ -90,7 +90,9 @@ BVT Academy stands alone. Borrow the palette and motifs only: no Vital Consult l
 ### Home (pages 1–2)
 - **Focal point:** the hero.
 - Hero stays navy with a soft magenta/plum radial glow. H1: "Have you **pre-qualified** your business?", with "pre-qualified" in crimson. Eyebrow "PREQUALIFIED. ACCREDITED. CONNECTED." in a lighter pink.
-- Replace the dashed image box with a **V-cut photo** on the right.
+- **Full-width hero, a little shorter** (about 600px): copy on the left; on the right, the supplied photo (`assets/img/hero-bvt.jpg`) through the **Vital Consult V mask**, running to the right edge of the screen.
+- Above the eyebrow: **"A product of" + the Vital Consult logo** (reversed, white text). Repeat it in the footer.
+- **More breathing room everywhere**: about 96px between sections, 32px inside cards, 32px between cards.
 - The 4-step strip becomes the **solid crimson strip** (section 3, item 3), with white line icons.
 - "Start with a free check" goes on a **cream band**. Heading left-aligned with the crimson rule. Each Check card gets a gradient line icon and a time ("45 questions · ~25 min").
 - **Learning loop:** draw it as a **connected flow** (numbered nodes on a line), not 7 separate boxes. Show a branch arc from the start labelled "Already in place? Skip straight to evidence →" landing on step 05 Upload.

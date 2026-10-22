@@ -34,7 +34,7 @@
 
 | Decision | Choice |
 |---|---|
-| Branding | **BVT Academy** as its own identity, borrowing the new Vital Consult palette (navy + pink→orange gradient). No Vital Consult logo in the product. |
+| Branding | **BVT Academy** as its own identity, borrowing the Vital Consult palette (navy frame with plum, crimson and cream accents, §4.1a). Vital Consult appears only as an endorsement: "A product of Vital Consult" with the logo, in the public hero and footer. No bundled ecosystem marketing. |
 | Look | Public site follows the VC homepage flow. Signed-in = **portal**: dark navy L-frame (left sidebar + slim header), **light work surface** for all reading and doing. |
 | Discovery | **Three lenses on the same requirements**: *By area* (domain → module → requirement), *By next action* (status board), *By topic* (learning library). One requirement record, three ways in. |
 | Scope | Public site + free Check · enrolment & onboarding · full Academy portal · Ask Ali · mentoring · evidence & verification · accreditation · Connect · Enterprise hub (Jul 2027) · institutions/agents · verifier & mentor back-office. |

@@ -95,6 +95,7 @@
   text-transform: uppercase;
   color: var(--on-dark-3);
 }
+.site-footer .endorse { margin-top: var(--sp-2); }
 .site-footer ul { display: flex; flex-direction: column; margin: 0; padding: 0; list-style: none; }
 .site-footer.on-dark a:not([class]) {
   display: inline-flex;

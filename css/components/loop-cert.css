@@ -11,7 +11,7 @@
 .loop__skip svg { width: 18px; height: 18px; color: var(--crimson-600); }
 .loop__optional { font-size: var(--fs-14); color: var(--text-3); }
 
-.loop__steps { position: relative; display: flex; flex-direction: column; gap: var(--sp-5); padding: 0; margin: 0; list-style: none; }
+.loop__steps { position: relative; display: flex; flex-direction: column; gap: var(--sp-6); padding: 0; margin: 0; list-style: none; }
 .loop__steps::before {
   content: ""; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px;
   background: var(--border);
@@ -41,7 +41,7 @@
     text-align: center; border: 1px dashed var(--plum-600); border-bottom: 0; border-radius: var(--r-sm) var(--r-sm) 0 0;
     padding-top: var(--sp-1);
   }
-  .loop__steps { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--sp-3); }
+  .loop__steps { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--sp-4); }
   .loop__steps::before {
     left: calc(100% / 14); right: calc(100% * 2.5 / 7); top: 27px; bottom: auto; width: auto; height: 0;
     border-top: 2px dashed var(--plum-600); background: none;
@@ -62,7 +62,7 @@
 /* ---- Certificate ---- */
 .cert {
   position: relative; display: flex; flex-direction: column; gap: var(--sp-2);
-  padding: var(--sp-6); overflow: hidden;
+  padding: var(--sp-8); overflow: hidden;
   border: 1px solid var(--cream-200); border-radius: var(--r-md);
   background: var(--cream-100); box-shadow: inset 0 0 0 6px var(--cream-50), inset 0 0 0 7px var(--cream-200);
 }
@@ -83,7 +83,7 @@
 .cert__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-4); margin-top: var(--sp-3); }
 .cert__meta { display: grid; grid-template-columns: repeat(3, auto); gap: var(--sp-1) var(--sp-5); margin: 0; }
 .cert__meta dt { font-size: var(--fs-12); color: var(--text-3); }
-.cert__meta dd { margin: 0; font-size: var(--fs-14); font-weight: var(--fw-semibold); }
+.cert__meta dd { margin: 0; font-size: var(--fs-14); font-weight: var(--fw-semibold); white-space: nowrap; }
 .cert__qr { flex-shrink: 0; width: 80px; height: 80px; padding: var(--sp-1); border-radius: var(--r-xs); background: var(--surface-0); }
 .cert__qr rect { fill: var(--navy-900); }
 .cert__verify { font-size: var(--fs-12); color: var(--text-3); }

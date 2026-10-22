@@ -1,5 +1,6 @@
 // Public layout (§7.1): marketing header and footer. `focused` routes (Check, enrolment) get a minimal header.
 import { PROTOTYPE_NOTE } from '../../data/copy.js';
+import { HOME } from '../../data/site.js';
 import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
@@ -55,6 +56,11 @@ function header(ctx) {
     </header>`;
 }
 
+const endorse = () => {
+  const e = HOME.hero.endorsement;
+  return `<p class="endorse">${esc(e.text)} <img src="${esc(e.logo)}" alt="${esc(e.alt)}" width="162" height="20"></p>`;
+};
+
 function footer(ctx) {
   const year = ctx.today.slice(0, 4);
   if (ctx.route.focused) {
@@ -62,6 +68,7 @@ function footer(ctx) {
       <footer class="site-footer site-footer--slim on-dark">
         <div class="container site-footer__bottom">
           <p>© ${year} Business Vitality Tracker</p>
+          ${endorse()}
           <p class="text-3">${PROTOTYPE_NOTE}</p>
         </div>
       </footer>`;
@@ -72,6 +79,7 @@ function footer(ctx) {
         <div class="stack stack-sm">
           ${logo()}
           <p class="text-2">Pre-qualified. Accredited. Connected.</p>
+          ${endorse()}
         </div>
         <nav aria-label="Footer: organisations">
           <h2 class="site-footer__heading">For organisations</h2>

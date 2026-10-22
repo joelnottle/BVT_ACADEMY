@@ -11,8 +11,8 @@ export const HOME = {
       { label: 'Send my clients through BVT', href: '/institutions', variant: 'on-dark' },
       { label: 'Find pre-qualified businesses', href: '/connect', variant: 'on-dark' },
     ],
-    // TODO(client): supply the hero photograph (V-masked on the right)
-    imageNote: 'Photo to come: your team at work',
+    image: { src: 'assets/img/hero-bvt.jpg', alt: 'Two colleagues reviewing a Business Vitality Tracker score on a laptop' },
+    endorsement: { text: 'A product of', logo: 'assets/img/vital-consult-logo-reversed.png', alt: 'Vital Consult' },
   },
   strip: {
     heading: 'Four steps to pre-qualified',
