@@ -7,6 +7,9 @@ import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
 import { isAccredited, daysLeft, paceStatus } from '../selectors.js';
 import { unreadCount } from '../dashboardSelectors.js';
+import { derivedReminders } from '../accountSelectors.js';
+import { noteRow } from '../components/noteRow.js';
+import { NOTIFICATIONS_PAGE } from '../../data/account.js';
 import { searchForm } from './sidebar.js';
 
 const TOGGLE = {
@@ -74,6 +77,23 @@ function moreMenu(org, unread) {
     </div>`;
 }
 
+/** Bell dropdown (§8.18): the latest five, plus links to everything. */
+function bellMenu(ctx, unread) {
+  const { state, org, today } = ctx;
+  const latest = [...derivedReminders(state, org, today).map((r) => ({ ...r, derived: true })),
+    ...state.notifications.filter((n) => n.orgId === org.id).sort((a, b) => b.on.localeCompare(a.on))].slice(0, 5);
+  return `
+    <div class="menu-wrap hide-sm hide-md">
+      <button type="button" class="btn btn--on-dark-ghost btn--icon bell" data-disclosure aria-expanded="false" aria-controls="bell-menu"
+        aria-label="${bellLabel(unread)}">${icon('bell')}${unread ? `<span class="bell__count" aria-hidden="true">${unread}</span>` : ''}</button>
+      <div class="menu bell-menu" id="bell-menu" hidden>
+        <p class="bell-menu__title">${NOTIFICATIONS_PAGE.bellTitle}</p>
+        <ul class="note-list">${latest.map((n) => noteRow(n, { compact: true })).join('')}</ul>
+        <a class="menu__item" href="#/app/notifications">${icon('bell')}${NOTIFICATIONS_PAGE.bellAll}</a>
+      </div>
+    </div>`;
+}
+
 function leadActions(ctx) {
   const { state, org, today } = ctx;
   const ali = credits(org.credits.ali);
@@ -88,7 +108,7 @@ function leadActions(ctx) {
     </button>
     <a class="header-chip hide-below-xl" href="#/app/mentoring">${icon('users')}<span>${plural(org.credits.mentor, 'mentor session', 'mentor sessions')}</span></a>
     ${paceChip}
-    <a class="btn btn--on-dark-ghost btn--icon bell hide-sm hide-md" href="#/app/notifications" aria-label="${bellLabel(unread)}">${icon('bell')}${unread ? `<span class="bell__count" aria-hidden="true">${unread}</span>` : ''}</a>
+    ${bellMenu(ctx, unread)}
     <a class="btn btn--on-dark-ghost btn--icon hide-below-xl" href="#/app/help" aria-label="Help & resources">${icon('circle-question-mark')}</a>
     ${moreMenu(org, unread)}`;
 }

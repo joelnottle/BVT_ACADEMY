@@ -14,6 +14,7 @@ import * as DS from '../../dashboardSelectors.js';
 import * as L from '../../lensSelectors.js';
 import { parseLensFilters } from '../../lens.js';
 import { matchScript } from '../../supportStore.js';
+import * as AS from '../../accountSelectors.js';
 
 const verifiedOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.verified}/${d.total}`).join(' · ');
 const inPlaceOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.inPlace}`).join(' · ');
@@ -76,6 +77,16 @@ export function runDataChecks(state) {
   check('A · Ask Ali', '"How far ahead…" on FM-04', 'forecast-horizon', matchScript('How far ahead should our forecast go?', 'FM-04')?.id);
   check('A · Ask Ali', '"What does good evidence look like" → evidence guidance', 'good-evidence', matchScript('What does good evidence look like for this?', 'GC-01')?.id);
   check('A · Ask Ali', 'No match falls back', null, matchScript('Tell me a joke about kangaroos') ?? null);
+
+  // Plan, reminders, accreditation (§8.12, §8.18, §8.19)
+  if (state.dayOffset === 0) {
+    const wp = AS.weeklyPlan(state, a, ta);
+    check('A · Plan', 'Open requirements · weeks · per week', '34 · 32 · 2', `${wp.open} · ${wp.weeks} · ${wp.perWeek}`);
+    check('A · Plan', 'First week: Almost there, then a quick win', ['GC-02', 'GC-01'], wp.plan[0].items.map((r) => r.id));
+    check('A · Plan', 'No reminders at 219 days and 7.5 credits', 0, AS.derivedReminders(state, a, ta).length);
+  }
+  check('A · Plan', '14-day reminder near the end', '14 days to go', AS.derivedReminders(state, a, '2027-11-24')[0]?.title);
+  check('A · Accreditation', 'Verified of total', '10 of 45', (() => { const x = AS.accreditationState(state, a); return `${x.verified} of ${x.total}`; })());
 
   // ---- Persona B: Brightfield ----
   const b = state.orgs['org-brightfield'];

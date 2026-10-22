@@ -5,6 +5,7 @@ import { openAliPanel } from '../views/app/aliPanel.js';
 import { showToast } from '../components/toast.js';
 import { getState, setUi, notify } from '../store.js';
 import { signOut } from '../session.js';
+import { markRead } from '../accountStore.js';
 import { navigate } from '../router.js';
 import { lensPath, LENSES } from '../lens.js';
 import { renderSidebar } from './sidebar.js';
@@ -110,6 +111,8 @@ export function bindPortal(root, ctx) {
       const b = t.closest('[data-open-ali]');
       // Context: the button's own requirement, else the page's requirement or module
       openAliPanel({ reqId: b.dataset.aliReq ?? ctx.params?.reqId ?? null, moduleId: ctx.params?.moduleId ?? null, prompt: b.dataset.aliPrompt ?? null });
+    } else if (t.closest('[data-note-id]')) {
+      markRead(t.closest('[data-note-id]').dataset.noteId);
     } else if (t.closest('[data-sign-out]')) {
       signOut();
     }

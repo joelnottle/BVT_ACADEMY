@@ -106,8 +106,8 @@
 }
 
 /* Choice cards (radio as card) */
-.choice-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-3); }
-@media (min-width: 768px) { .choice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+/* Cards size to the space they're in (a full-width wizard or a half-width panel) */
+.choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr)); gap: var(--sp-3); }
 .choice-card { padding: var(--sp-5); }
 .choice-card__body { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-1-5); }
 .choice-card:has(input:checked) { background: var(--cream-50); }
