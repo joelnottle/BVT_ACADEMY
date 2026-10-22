@@ -20,6 +20,7 @@ export function stepper({ current, done = [], variant = 'full', locked = false, 
           <span class="stepper__marker" aria-hidden="true">${marker}</span>
           <span class="stepper__label"><span class="sr-only">Step ${i + 1}: </span>${esc(s.label)}${isDone ? '<span class="sr-only"> (done)</span>' : ''}</span>
           ${variant === 'full' && s.optional ? '<span class="stepper__opt">Optional</span>' : ''}
+          ${i === idx && !locked ? '<span class="stepper__here" aria-hidden="true">You are here</span>' : ''}
         </button>
       </li>`;
   }).join('');

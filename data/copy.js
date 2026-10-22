@@ -66,7 +66,9 @@ export const FAST_TRACK_LABEL = 'I know this — go to evidence';
 export const FEEDBACK = {
   verified: (code, area, done, total) => `${code} verified — ${area} is now ${done} of ${total}`,
   changesHeading: 'Almost there — one thing to add',
+  changesNotice: (code) => `Almost there — ${code} needs one more thing`,
   submittedTitle: (code) => `${code} submitted for verification`,
+  resubmittedTitle: (code) => `${code} resubmitted for verification`,
   submittedText: "We'll let you know when a verifier has reviewed it.",
   catchUp: (n) => (n === 1 ? 'One quick win would put you back on pace' : `${n} quick wins would put you back on pace`),
   // TODO(client): confirm the verification SLA shown to users (BUILD_PLAN §14 Q5)

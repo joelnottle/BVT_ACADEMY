@@ -80,6 +80,9 @@ function update(mutate, { silent = false } = {}) {
   if (!silent) notify();
 }
 
+/** For companion action modules (reqStore.js): the same mutate → persist → notify path. */
+export const commit = (mutate, opts) => update(mutate, opts);
+
 // ---- Session selectors (who and when) ----
 const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || NEW_LEAD.initials;
 
@@ -152,11 +155,6 @@ export function jumpToAccredited() {
     s.activity.unshift({ kind: 'accredited', orgId: o.id, on });
   });
   return org;
-}
-
-/** Demo panel "Simulate" actions. Phase 8 (requirements) and Phase 14 (back-office) wire real outcomes. */
-export function simulate(kind) {
-  update((s) => { s.activity.unshift({ kind, personaId: s.personaId, on: today(s) }); });
 }
 
 // ---- Free Check draft (§8.2). One draft per browser; answers save as you go. ----

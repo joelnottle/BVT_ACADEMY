@@ -105,3 +105,4 @@
 }
 .stepper__mobile-label span { font-weight: var(--fw-regular); color: var(--text-3); }
 .stepper__mobile-label svg { width: 16px; height: 16px; vertical-align: -3px; }
+.stepper__here { font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--accent-text); }

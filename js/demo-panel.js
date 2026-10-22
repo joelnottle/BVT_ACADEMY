@@ -6,8 +6,10 @@ import { icon, renderIcons } from './components/icon.js';
 import { showToast } from './components/toast.js';
 import {
   getState, subscribe, currentPersona, currentOrg, today, isPersistent, personaFor, personaIds,
-  timeTravel, jumpToAccredited, simulate, resetDemo,
+  timeTravel, jumpToAccredited, resetDemo,
 } from './store.js';
+import { decideNext, completeNextSession } from './reqStore.js';
+import { parseHash, navigate } from './router.js';
 import { switchPersona } from './session.js';
 import { isAccredited } from './selectors.js';
 
@@ -97,6 +99,25 @@ function setOpen(value, { focus = true } = {}) {
   host.querySelector(open ? '[data-demo-persona][aria-pressed="true"]' : '[data-demo-toggle]')?.focus();
 }
 
+/** Simulate a verifier or mentor outcome. On a requirement page, that requirement is decided first. */
+function runSimulation(kind) {
+  const s = SIMULATIONS[kind];
+  if (kind === 'mentor-complete') {
+    const session = completeNextSession();
+    showToast(session ? s.toast : 'No upcoming mentor session to complete', { text: session ? `${session.topic} · notes are on the Mentoring page.` : '', iconName: s.icon });
+    return;
+  }
+  const m = parseHash().path.match(/^\/app\/req\/([^/]+)/);
+  const outcome = decideNext(kind === 'verifier-approves' ? 'verified' : 'changes', { reqId: m?.[1] });
+  if (!outcome) {
+    showToast('Nothing is waiting for verification', { text: 'Submit evidence on a requirement first, then simulate the outcome.', iconName: 'info' });
+    return;
+  }
+  // Follow the outcome on the requirement page it belongs to
+  if (m?.[1] === outcome.reqId) navigate(`/app/req/${outcome.reqId}/${kind === 'verifier-approves' ? 'closed' : 'verify'}`);
+  showToast(outcome.title, { text: outcome.text, iconName: s.icon });
+}
+
 function onClick(e) {
   const t = e.target;
   const persona = t.closest('[data-demo-persona]');
@@ -115,10 +136,7 @@ function onClick(e) {
     const org = jumpToAccredited();
     if (org) showToast(`${org.name} is accredited`, { text: 'Connect profile and Enterprise hub now unlock where the date allows.', iconName: 'award' });
   } else if (sim) {
-    const s = SIMULATIONS[sim.dataset.demoSim];
-    simulate(sim.dataset.demoSim);
-    // TODO: Phase 8 (requirement outcomes) and Phase 14 (back-office) make these change real items.
-    showToast(s.toast, { text: 'Logged now; it updates requirements once Phase 8 is built.', iconName: s.icon });
+    runSimulation(sim.dataset.demoSim);
   } else if (t.closest('[data-demo-reset]')) {
     resetDemo();
     showToast('Demo reset', { text: 'Every persona is back to its starting point.', iconName: 'rotate-ccw' });
