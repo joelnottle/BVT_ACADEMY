@@ -13,6 +13,17 @@
 .portal[data-sidebar="hidden"],
 .portal[data-sidebar="drawer"] { grid-template-columns: minmax(0, 1fr); }
 
+/* Thin Vital Consult gradient line across the top of the frame */
+.portal::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 120;
+  height: 3px;
+  background: var(--grad-vc-bar);
+  pointer-events: none;
+}
+
 /* ---- Header ---- */
 .portal-header {
   grid-column: -2 / -1;

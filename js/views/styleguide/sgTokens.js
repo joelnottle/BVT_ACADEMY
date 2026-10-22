@@ -3,7 +3,9 @@ import { section, panel } from './layout.js';
 
 const COLOUR_GROUPS = [
   ['Navy (chrome)', ['--navy-950', '--navy-900', '--navy-800', '--navy-700', '--navy-600']],
-  ['Brand', ['--pink-500', '--orange-400', '--magenta-500', '--magenta-text-on-dark', '--accent-text', '--grad-brand', '--grad-action']],
+  ['Brand', ['--pink-500', '--orange-400', '--magenta-500', '--magenta-text-on-dark', '--accent-text']],
+  ['Vital Consult accents', ['--plum-600', '--plum-700', '--crimson-500', '--crimson-600', '--peach-300', '--cream-200', '--cream-100', '--cream-50']],
+  ['Gradients', ['--grad-action', '--grad-brand', '--grad-brand-dark', '--grad-warm', '--grad-vc-bar']],
   ['Light work surface', ['--surface-0', '--surface-1', '--surface-2', '--border', '--border-input', '--text-1', '--text-2', '--text-3']],
   ['On dark', ['--on-dark-1', '--on-dark-2', '--on-dark-3']],
   ['Status', ['--st-not-started', '--st-learning', '--st-evidence', '--st-review', '--st-changes', '--st-verified', '--st-locked']],
@@ -39,9 +41,9 @@ const type = `
     ${panel(`
       <div class="stack">
         <p class="eyebrow">Eyebrow · Prequalified. Accredited. Connected.</p>
-        <p class="h1">H1 · Jost 300</p>
-        <p class="h2">H2 · Jost 300</p>
-        <p class="h3">H3 · Jost 400</p>
+        <p class="h1">H1 · Montserrat 300</p>
+        <p class="h2">H2 · Montserrat 300</p>
+        <p class="h3">H3 · Montserrat 400</p>
         <p class="h4">H4 · Inter 600</p>
         <p class="lead">Lead · Inter 400, 18px, text-2.</p>
         <p>Body · Inter 400, 16px. <a href="#/styleguide/type">Inline link uses --accent-text</a>.</p>
@@ -84,7 +86,7 @@ const shape = `
 
 export const tokensSections = () => [
   section('colours', 'Colour tokens', 'All raw colours live in <code>css/tokens.css</code>. Values are read live from the stylesheet.', colours),
-  section('type', 'Typography', 'Jost for display (300/400), Inter for UI and learning text (400/500/600).', type),
+  section('type', 'Typography', 'Montserrat for display (300/400), matching Vital Consult. Inter for UI and learning text (400/500/600).', type),
   section('shape', 'Spacing, radius & depth', 'Soft, low, diffuse shadows on light. A 1px hairline instead of shadows on dark.', shape),
 ].join('');
 

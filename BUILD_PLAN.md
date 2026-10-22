@@ -133,7 +133,7 @@ Research summary (sources in §16):
 
 ## 4. Brand & design tokens
 
-Colours were sampled from the new Vital Consult homepage design and contrast-checked against WCAG 2.2.
+Colours were sampled from the new Vital Consult homepage design and contrast-checked against WCAG 2.2. **Direction:** dark tones (navy frame, dark hero) for orientation, light clear work surfaces for reading, and Vital Consult's **plum, crimson and cream** as highlights (§4.1a). `css/tokens.css` is the source of truth; this section summarises it.
 
 ### 4.1 Palette
 
@@ -150,8 +150,7 @@ Colours were sampled from the new Vital Consult homepage design and contrast-che
   --pink-500:   #ea466c;   /* brand pink — decorative/large only on light */
   --orange-400: #f39759;   /* brand orange — decorative, or text on navy (7.3:1) */
   --magenta-500:#da3475;   /* eyebrows on dark */
-  --grad-brand: linear-gradient(90deg, #ea466c 0%, #f39759 100%);   /* decorative: rules, glows, active indicators, rings */
-  --grad-action: linear-gradient(90deg, #c8264f 0%, #c9502b 100%);  /* buttons with white text — passes AA (5.5 → 4.5:1) */
+  /* Gradients are defined with the VC accents in §4.1a */
 
   /* Text-safe accents on light surfaces */
   --accent-text: #b81f55;  /* links/eyebrows on light (5.8:1 on --surface-1) */
@@ -163,7 +162,7 @@ Colours were sampled from the new Vital Consult homepage design and contrast-che
   --border:    #dfe0e7;
   --text-1:    #1b202b;    /* 15.1:1 */
   --text-2:    #3d4456;    /* 9.0:1 */
-  --text-3:    #6b7280;    /* meta only, 4.5:1 */
+  --text-3:    #656b78;    /* meta only (#6b7280 was 4.48:1 on canvas; darkened to pass) */
 
   /* On-dark text */
   --on-dark-1: #f0f0f2;
@@ -189,28 +188,58 @@ Colours were sampled from the new Vital Consult homepage design and contrast-che
 }
 ```
 
+### 4.1a Vital Consult accents
+
+Taken from the `--vcp-*` variables on staging3.mercyme.com.au. They are highlights, not a re-skin: the dark frame and light work surfaces stay.
+
+```css
+  --plum-600:    #942878;  /* eyebrows, icons, gradient start (7.4:1 on white, 6.3:1 on cream) */
+  --plum-700:    #82277c;
+  --crimson-500: #e62f5c;  /* VC crimson: decorative and large text only (white on it is 4.26:1) */
+  --crimson-600: #d22d63;  /* white text on it 4.9:1; small text on white 4.9:1 */
+  --peach-300:   #f8b29c;
+  --cream-200:   #ffecb9;  /* bands, certificate */
+  --cream-100:   #fff6e9;  /* highlight cards: Resume, milestones, callouts */
+  --cream-50:    #fffbf3;
+
+  --grad-brand:      linear-gradient(90deg, #942878, #e62f5c 55%, #f8b29c);  /* light contexts */
+  --grad-brand-dark: linear-gradient(90deg, #e62f5c, #f8b29c);               /* on navy (plum is 2.5:1 there) */
+  --grad-action:     linear-gradient(90deg, #942878, #d22d63);               /* buttons with white text: 7.4 → 4.9:1 */
+  --grad-warm:       linear-gradient(240deg, #fff, #ffecb9 65%, #f8b29c);    /* cream/peach wash */
+  --grad-vc-bar:     linear-gradient(90deg, #942878, #e62f5c 35%, #f8b29c 70%, #ffecb9); /* thin top bar */
+```
+
+**Where accents go (one warm focal point per screen):**
+- Thin `--grad-vc-bar` across the top of the public header and the portal frame.
+- Two-tone headings: one crimson word (`.accent`) plus a short crimson rule (`.rule`). Eyebrows in plum.
+- Cream for highlight surfaces: "Resume where you left off", milestone cards, callouts, the certificate, the Check results summary, and alternating bands on the public site.
+- A solid crimson-600 feature strip (the 4-step Check → Connect strip), as on the VC homepage.
+- Line icons stroked in the plum → crimson gradient (`.icon-grad`, cream `.icon-tile`).
+- Plum-tinted soft shadows.
+
 **Contrast rules (measured):**
-- White text on `--grad-brand` **fails** (2.2:1 at the orange end). Use `--grad-action` for any button or chip with white text.
+- White text only on `--grad-action` or `--crimson-600`, never on `--grad-brand`, `--crimson-500` or peach.
+- On navy, use `--grad-brand-dark`, not plum.
 - `--pink-500` on white is 3.8:1, so use it for large/decorative elements only. Use `--accent-text` for links and small text on light surfaces.
 - On navy, `--orange-400` (7.3:1) and `--pink-500` (4.3:1, large text only) are fine for highlights.
 
 ### 4.2 Typography
 
-The VC design uses a light geometric sans for display.
-- `--font-display: "Jost", system-ui, sans-serif;` at weights 300/400 for H1–H2 and hero copy (Google Fonts). **⚠ Swap for the staging site's actual font if it differs.**
+The Vital Consult staging site uses Montserrat throughout.
+- `--font-display: "Montserrat", system-ui, sans-serif;` at weights 300/400 for H1–H3 and hero copy (Google Fonts).
 - `--font-body: "Inter", system-ui, sans-serif;` at weights 400/500/600 for UI and long-form learning text. It is more legible at small sizes on dense screens.
 - Scale: 12 / 14 / 16 (body) / 18 / 20 / 24 / 32 / 40 / 56. Learning content body is 17px with 1.6 line-height and a max line length of 72ch.
 
 ### 4.3 Shape, depth, motion
 
 - Radius: 10px (inputs, chips), 16px (cards), 24px (hero panels), 999px (pills/buttons, matching the VC pill buttons).
-- Shadows: soft, low and diffuse on light (`0 1px 2px rgb(15 19 29 / .06), 0 8px 24px rgb(15 19 29 / .06)`). On dark, use a 1px `rgb(255 255 255 / .06)` border instead of shadows.
+- Shadows: soft, low and diffuse on light, plum-tinted like the VC site (`0 1px 2px rgb(15 19 29 / .06), 0 8px 24px rgb(148 40 120 / .07)`). On dark, use a 1px `rgb(255 255 255 / .06)` border instead of shadows.
 - Signature motif: the **V shape**, used sparingly (hero image mask, empty states, accreditation certificate). Plus a soft magenta radial glow behind dark hero sections, as in the VC hero.
 - Motion: 150–200ms ease-out for hover, focus and panel slide only. **No celebratory animation.** Honour `prefers-reduced-motion`.
 
 ### 4.4 Iconography
 
-Lucide icons, thin 1.5px stroke, matching the VC line icons. On the public site, icons sit in a soft tinted rounded square (as in the VC service cards).
+Lucide icons, thin 1.5px stroke, matching the VC line icons. Feature icons are stroked in the plum → crimson gradient and sit in a cream rounded square (as in the VC service cards).
 
 ### 4.5 Logo
 

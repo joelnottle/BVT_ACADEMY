@@ -14,7 +14,7 @@
   background: repeating-linear-gradient(135deg, var(--accent-text) 0 2px, transparent 2px 6px);
 }
 .on-dark .progress, .card--dark .progress { background: var(--navy-700); }
-.on-dark .progress__fill, .card--dark .progress__fill { background: var(--grad-brand); }
+.on-dark .progress__fill, .card--dark .progress__fill { background: var(--grad-brand-dark); }
 
 .progress-row {
   display: grid;
@@ -69,10 +69,10 @@
 /* On dark */
 .on-dark .ring__track, .card--dark .ring__track { stroke: var(--navy-700); }
 .on-dark .ring__hatch-line, .card--dark .ring__hatch-line { stroke: var(--orange-400); }
-.on-dark .ring__stop-a, .card--dark .ring__stop-a { stop-color: var(--brand-start); }
-.on-dark .ring__stop-b, .card--dark .ring__stop-b { stop-color: var(--brand-end); }
+.on-dark .ring__stop-a, .card--dark .ring__stop-a { stop-color: var(--dark-start); }
+.on-dark .ring__stop-b, .card--dark .ring__stop-b { stop-color: var(--dark-end); }
 .on-dark .ring__label, .on-dark .ring__legend { color: var(--on-dark-2); }
-.on-dark .ring__swatch--verified { background: var(--grad-brand); }
+.on-dark .ring__swatch--verified { background: var(--grad-brand-dark); }
 .on-dark .ring__swatch--claimed { background: repeating-linear-gradient(135deg, var(--orange-400) 0 2px, var(--navy-700) 2px 5px); }
 
 /* ---- Tier ladder ---- */

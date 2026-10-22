@@ -17,14 +17,31 @@
   --pink-500:    #ea466c;  /* brand pink — decorative/large only on light */
   --orange-400:  #f39759;  /* brand orange — decorative, or text on navy (7.3:1) */
   --magenta-500: #da3475;  /* glows and large eyebrows on dark (4.2:1 on navy-900) */
-  --grad-brand:  linear-gradient(90deg, #ea466c 0%, #f39759 100%);  /* decorative: rules, glows, active indicators, rings */
-  --grad-action: linear-gradient(90deg, #c8264f 0%, #c9502b 100%);  /* buttons with white text — passes AA (5.5 → 4.5:1) */
+
+  /* ---- Vital Consult accents (staging3.mercyme.com.au --vcp-* vars) ---- */
+  --plum-600:    #942878;  /* VC plum: gradient start, eyebrows, icons (7.4:1 on white, 6.3:1 on cream) */
+  --plum-700:    #82277c;
+  --crimson-500: #e62f5c;  /* VC crimson: decorative and large text only (white on it is 4.26:1) */
+  --crimson-600: #d22d63;  /* crimson safe for white text (4.9:1) and small text on white */
+  --peach-300:   #f8b29c;
+  --cream-200:   #ffecb9;  /* VC cream: bands, certificate, warm wash */
+  --cream-100:   #fff6e9;  /* highlight surfaces: Resume card, milestones, callouts */
+  --cream-50:    #fffbf3;
+
+  /* Gradients. Plum is only 2.5:1 on navy, so anything on the dark frame uses --grad-brand-dark. */
+  --grad-brand:      linear-gradient(90deg, #942878 0%, #e62f5c 55%, #f8b29c 100%);  /* light contexts: rules, top bar, rings */
+  --grad-brand-dark: linear-gradient(90deg, #e62f5c 0%, #f8b29c 100%);               /* on navy: active bars, rings, logo */
+  --grad-action:     linear-gradient(90deg, #942878 0%, #d22d63 100%);               /* buttons with white text: 7.4 → 4.9:1 */
+  --grad-warm:       linear-gradient(240deg, #ffffff 0%, #ffecb9 65%, #f8b29c 100%); /* VC cream/peach wash */
+  --grad-vc-bar:     linear-gradient(90deg, #942878 0%, #e62f5c 35%, #f8b29c 70%, #ffecb9 100%); /* thin top bar */
 
   /* Gradient stops, for SVG <stop> elements and contrast checks */
-  --brand-start: #ea466c;
-  --brand-end:   #f39759;
-  --act-start:   #c8264f;
-  --act-end:     #c9502b;
+  --brand-start: #942878;
+  --brand-end:   #e62f5c;
+  --dark-start:  #e62f5c;
+  --dark-end:    #f8b29c;
+  --act-start:   #942878;
+  --act-end:     #d22d63;
   --on-action:   #ffffff;  /* text on --grad-action */
 
   /* Small eyebrow text on dark. --magenta-500 is 4.2:1 on navy-900, short of
@@ -94,14 +111,14 @@
 
   /* Overlays */
   --scrim: rgb(11 14 22 / 0.55);
-  --glow-magenta: radial-gradient(60% 60% at 70% 30%, rgb(218 52 117 / 0.35) 0%, rgb(218 52 117 / 0) 70%);
+  --glow-magenta: radial-gradient(60% 60% at 70% 30%, rgb(218 52 117 / 0.35) 0%, rgb(148 40 120 / 0.18) 45%, rgb(148 40 120 / 0) 75%);
 
   /* Select control chevron (stroke = --text-2) */
   --icon-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233d4456' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 
   /* ---- §4.2 Typography ---- */
-  /* ⚠ TODO(client): swap Jost for the staging site's display font if it differs (BUILD_PLAN §14 Q2). */
-  --font-display: "Jost", system-ui, sans-serif;
+  /* Montserrat matches the Vital Consult staging site; Inter stays for dense UI and learning text. */
+  --font-display: "Montserrat", system-ui, sans-serif;
   --font-body: "Inter", system-ui, sans-serif;
 
   --fs-12: 0.75rem;
@@ -150,8 +167,9 @@
   --r-pill: 999px; /* pills, buttons */
 
   /* ---- §4.3 Depth ---- */
-  --shadow-1: 0 1px 2px rgb(15 19 29 / 0.06), 0 8px 24px rgb(15 19 29 / 0.06);
-  --shadow-2: 0 4px 12px rgb(15 19 29 / 0.10), 0 24px 48px rgb(15 19 29 / 0.18);
+  /* Plum-tinted, as on the Vital Consult site (--vcp-shadow), kept soft */
+  --shadow-1: 0 1px 2px rgb(15 19 29 / 0.06), 0 8px 24px rgb(148 40 120 / 0.07);
+  --shadow-2: 0 4px 12px rgb(15 19 29 / 0.10), 0 24px 48px rgb(148 40 120 / 0.16);
 
   /* ---- §4.3 Motion: hover, focus and panel slides only ---- */
   --dur-fast: 150ms;

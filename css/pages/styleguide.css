@@ -98,6 +98,13 @@
 .sg-shadow { padding: var(--sp-4); border-radius: var(--r-md); background: var(--surface-0); font-size: var(--fs-14); }
 .sg-shadow--dark { background: var(--navy-800); border: 1px solid var(--border-on-dark); color: var(--on-dark-2); }
 
+/* Brand accent samples */
+.sg-band { padding: var(--sp-6); border-radius: var(--r-md); }
+.sg-strip { display: grid; gap: var(--sp-6); grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr)); }
+.sg-strip__icon svg { width: 28px; height: 28px; }
+.sg-vc-bar { height: 4px; border-radius: var(--r-xs); background: var(--grad-vc-bar); }
+.sg-wash { height: 96px; border-radius: var(--r-md); }
+
 /* Portal shell samples */
 .sg-sidebar { display: flex; flex-direction: column; gap: var(--sp-3); max-width: var(--sidebar-w); }
 .sg-menu-demo { display: flex; }

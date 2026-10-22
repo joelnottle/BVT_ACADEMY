@@ -39,7 +39,7 @@ h1, h2, .h1, .h2, .display {
   font-family: var(--font-display);
   font-weight: var(--fw-light);
   line-height: var(--lh-tight);
-  letter-spacing: -0.01em;
+  letter-spacing: -0.015em;
 }
 h1, .h1 { font-size: var(--fs-40); }
 h2, .h2 { font-size: var(--fs-32); }
@@ -80,8 +80,35 @@ a:hover { text-decoration-thickness: 2px; }
   font-weight: var(--fw-semibold);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent-text);
+  color: var(--plum-600);
 }
+
+/* ---- Vital Consult accents ---- */
+/* Two-tone heading: <h2>Close every <span class="accent">requirement</span></h2> */
+.accent { color: var(--crimson-600); }
+.on-dark .accent { color: var(--crimson-500); } /* large display text only: 4.35:1 on navy-900 */
+
+/* Short crimson rule under a heading */
+.rule::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 2px;
+  margin-top: var(--sp-3);
+  border-radius: var(--r-xs);
+  background: var(--crimson-500);
+}
+.rule--center::after { margin-inline: auto; }
+
+/* Line icons stroked in the plum → crimson gradient (defs in index.html) */
+.icon-grad svg { stroke: url(#bvt-icon-grad); }
+.icon-grad-a { stop-color: var(--plum-600); }
+.icon-grad-b { stop-color: var(--crimson-500); }
+.svg-defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* Warm bands and surfaces */
+.band-cream { background: var(--cream-100); }
+.band-warm { background: var(--grad-warm); }
 
 .lead { font-size: var(--fs-18); color: var(--text-2); }
 .text-2 { color: var(--text-2); }

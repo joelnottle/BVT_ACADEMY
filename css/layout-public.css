@@ -12,6 +12,13 @@
   background: var(--navy-950);
   border-bottom: 1px solid var(--border-on-dark);
 }
+/* Thin Vital Consult gradient bar across the top */
+.site-header::before {
+  content: "";
+  display: block;
+  height: 4px;
+  background: var(--grad-vc-bar);
+}
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -44,7 +51,7 @@
   bottom: var(--sp-1);
   height: 2px;
   border-radius: var(--r-xs);
-  background: var(--grad-brand);
+  background: var(--grad-brand-dark);
 }
 
 .site-header__actions { display: flex; align-items: center; gap: var(--sp-2); }

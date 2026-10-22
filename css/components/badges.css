@@ -47,7 +47,7 @@
   border: 1px solid var(--border);
   border-left: 3px solid var(--st-verified);
   border-radius: var(--r-md);
-  background: var(--surface-0);
+  background: var(--cream-100);
 }
 .milestone .seal { width: auto; }
 .milestone .seal__disc { width: 56px; height: 56px; }
@@ -68,8 +68,9 @@
   white-space: nowrap;
 }
 .logo__mark { width: 26px; height: 26px; }
-.logo__mark-stop-a { stop-color: var(--brand-start); }
-.logo__mark-stop-b { stop-color: var(--brand-end); }
+/* The logo sits on the dark frame */
+.logo__mark-stop-a { stop-color: var(--dark-start); }
+.logo__mark-stop-b { stop-color: var(--dark-end); }
 .logo__bvt { font-weight: var(--fw-semibold); letter-spacing: 0.02em; }
 .logo__academy { font-weight: var(--fw-light); }
 .on-dark .logo { color: var(--on-dark-1); }

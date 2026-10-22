@@ -35,6 +35,22 @@
 }
 .card--interactive .card__link:focus-visible { outline: none; }
 
+/* Highlight card: warm cream surface for the one thing to do next (Resume, callouts) */
+.card--highlight {
+  background: var(--cream-100);
+  border-color: var(--cream-200);
+  box-shadow: none;
+}
+.card--highlight .card__meta { color: var(--text-2); }
+
+/* Crimson feature strip (VC style). Solid crimson-600: white text 4.9:1 (VC's #E62F5C would be 4.26:1) */
+.card--crimson {
+  background: var(--crimson-600);
+  border-color: transparent;
+  color: var(--on-action);
+}
+.card--crimson .card__meta { color: var(--on-action); }
+
 /* Dark card: hairline instead of shadow (§4.3) */
 .card--dark {
   background: var(--navy-800);
@@ -44,17 +60,17 @@
 }
 .card--dark .card__meta { color: var(--on-dark-3); }
 
-/* Tinted icon square, as on the VC service cards (§4.4) */
+/* Cream icon square with a plum → crimson line icon, as on the VC service cards (§4.4) */
 .icon-tile {
   display: inline-grid;
   place-items: center;
   width: 48px;
   height: 48px;
   border-radius: var(--r-sm);
-  background: var(--st-changes-bg);
-  color: var(--accent-text);
+  background: var(--cream-100);
+  color: var(--plum-600);
 }
-.icon-tile svg { width: 24px; height: 24px; }
+.icon-tile svg { width: 26px; height: 26px; stroke: url(#bvt-icon-grad); }
 .on-dark .icon-tile, .card--dark .icon-tile { background: var(--navy-700); color: var(--orange-400); }
 
 /* Placeholder content marker (visible in the prototype) */

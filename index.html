@@ -9,7 +9,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Jost:wght@300;400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Montserrat:wght@300;400;500;600&display=swap">
 
   <link rel="stylesheet" href="css/tokens.css">
   <link rel="stylesheet" href="css/base.css">
@@ -24,6 +24,14 @@
   <script type="module" src="js/app.js"></script>
 </head>
 <body>
+  <!-- Shared gradient for line icons (.icon-grad). userSpaceOnUse so straight strokes still paint. -->
+  <svg class="svg-defs" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="bvt-icon-grad" gradientUnits="userSpaceOnUse" x1="2" y1="2" x2="22" y2="22">
+        <stop offset="0" class="icon-grad-a"></stop><stop offset="1" class="icon-grad-b"></stop>
+      </linearGradient>
+    </defs>
+  </svg>
   <a class="skip-link" href="#main">Skip to main content</a>
   <div id="app"></div>
   <div id="demo-root"></div>

@@ -42,8 +42,8 @@
 .sidebar-status .ring { --ring-size: 44px; }
 .sidebar-status .ring__track { stroke: var(--navy-700); }
 .sidebar-status .ring__hatch-line { stroke: var(--orange-400); }
-.sidebar-status .ring__stop-a { stop-color: var(--brand-start); }
-.sidebar-status .ring__stop-b { stop-color: var(--brand-end); }
+.sidebar-status .ring__stop-a { stop-color: var(--dark-start); }
+.sidebar-status .ring__stop-b { stop-color: var(--dark-end); }
 .sidebar-status .ring__value { font-size: var(--fs-12); }
 .sidebar-status__text { display: flex; flex-direction: column; gap: var(--sp-half); min-width: 0; }
 .sidebar-status__title { font-size: var(--fs-14); font-weight: var(--fw-semibold); }
@@ -93,7 +93,7 @@
   bottom: var(--sp-2);
   width: 3px;
   border-radius: 0 var(--r-xs) var(--r-xs) 0;
-  background: linear-gradient(180deg, var(--brand-start), var(--brand-end));
+  background: linear-gradient(180deg, var(--dark-start), var(--dark-end));
 }
 .nav-link:focus-visible { outline-offset: -2px; }
 .nav-link__text { display: flex; flex-direction: column; min-width: 0; }
