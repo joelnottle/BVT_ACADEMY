@@ -1,0 +1,74 @@
+/* Public home and inner pages (BUILD_PLAN §8.1). VC rhythm: dark hero → crimson strip → cream band. */
+
+/* ---- Home hero ---- */
+.home-hero {
+  background-color: var(--navy-950);
+  background-image: var(--glow-magenta);
+  padding-block: var(--sp-16) var(--sp-12);
+}
+.home-hero__inner { display: grid; gap: var(--sp-10); align-items: center; }
+@media (min-width: 1024px) { .home-hero__inner { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); } }
+.home-hero__copy { display: flex; flex-direction: column; gap: var(--sp-4); }
+.home-hero__copy .display { max-width: 14ch; }
+.home-hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-4); }
+@media (max-width: 479px) { .home-hero__actions .btn { width: 100%; white-space: normal; } }
+
+/* V-masked photo placeholder. TODO(client): replace with the hero photograph. */
+.home-hero__media {
+  position: relative;
+  aspect-ratio: 5 / 4;
+  background-image: var(--glow-magenta), linear-gradient(160deg, var(--plum-700), var(--navy-800) 70%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 16% 50%);
+  border-radius: var(--r-lg);
+}
+.home-hero__media-note {
+  position: absolute; right: var(--sp-5); bottom: var(--sp-5);
+  display: inline-flex; align-items: center; gap: var(--sp-2);
+  font-size: var(--fs-14); color: var(--on-dark-2);
+}
+.home-hero__media-note svg { width: 18px; height: 18px; }
+@media (max-width: 1023px) { .home-hero__media { aspect-ratio: 16 / 9; } }
+
+/* ---- Crimson 4-step strip, overlapping hero and cream band (split background behind it) ---- */
+.home-strip-band { background: linear-gradient(to bottom, var(--navy-950) 0 var(--sp-20), var(--cream-100) var(--sp-20) 100%); }
+.home-strip.card {
+  display: grid; gap: var(--sp-6); grid-template-columns: minmax(0, 1fr);
+  padding: var(--sp-8); margin: 0; list-style: none; box-shadow: var(--shadow-2);
+}
+@media (min-width: 600px) { .home-strip.card { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .home-strip.card { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.home-strip__step { display: flex; flex-direction: column; gap: var(--sp-2); }
+.home-strip__icon svg { width: 30px; height: 30px; }
+
+/* The cream Checks band continues straight on from the strip */
+.home-strip-band + .band-cream { padding-top: var(--sp-12); }
+
+/* ---- Credential + Connect ---- */
+.connect-search { display: flex; flex-direction: column; gap: var(--sp-2); }
+.connect-search__row { display: flex; flex-wrap: wrap; gap: var(--sp-2); }
+.connect-search__row .input { flex: 1 1 220px; }
+
+/* ---- Institutions band ---- */
+.section-band { padding-block: var(--sp-4) var(--sp-12); }
+.inst-band {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-5);
+  padding: var(--sp-8); border-radius: var(--r-lg);
+  background: var(--cream-100); border: 1px solid var(--cream-200);
+}
+.inst-band > div { flex: 1 1 320px; display: flex; flex-direction: column; gap: var(--sp-1); }
+.inst-band .icon-tile { background: var(--surface-0); }
+
+/* ---- How it works: stages ---- */
+.stages { display: flex; flex-direction: column; gap: var(--sp-10); padding: 0; margin: 0; list-style: none; position: relative; }
+.stage { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: var(--sp-5); }
+.stage__marker { position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--sp-2); }
+.stage__num { font-family: var(--font-display); font-size: var(--fs-24); color: var(--plum-600); }
+.stage__body { display: flex; flex-direction: column; gap: var(--sp-3); max-width: 720px; }
+@media (min-width: 1024px) {
+  .stage { grid-template-columns: 96px minmax(0, 1fr); }
+  .stage__marker .icon-tile { width: 64px; height: 64px; }
+}
+
+/* ---- Institutions form ---- */
+.partner-form { gap: var(--sp-4); }
+.partner-form .btn { align-self: flex-start; }

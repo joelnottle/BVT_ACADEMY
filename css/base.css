@@ -87,6 +87,7 @@ a:hover { text-decoration-thickness: 2px; }
 /* Two-tone heading: <h2>Close every <span class="accent">requirement</span></h2> */
 .accent { color: var(--crimson-600); }
 .on-dark .accent { color: var(--crimson-500); } /* large display text only: 4.35:1 on navy-900 */
+.display .accent, .h1 .accent, h1 .accent { white-space: nowrap; } /* never break inside the accent word */
 
 /* Short crimson rule under a heading */
 .rule::after {
@@ -193,6 +194,10 @@ a:hover { text-decoration-thickness: 2px; }
   gap: var(--sp-6);
   grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--grid-min, 280px)), 1fr));
 }
+
+/* Shown only when index.html is opened over file:// */
+.file-notice { display: flex; flex-direction: column; gap: var(--sp-4); padding-block: var(--sp-16); }
+.file-notice ol { display: flex; flex-direction: column; gap: var(--sp-2); padding-left: var(--sp-6); }
 
 /* Breakpoint visibility (§11): sm < 768 · md 768–1023 · lg ≥ 1024 */
 @media (max-width: 767px) { .hide-sm { display: none !important; } }

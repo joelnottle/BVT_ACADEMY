@@ -50,13 +50,13 @@ export const TIER_ORDER = ['foundation', 'core', 'advanced', 'ready', 'accredite
 
 // Learning loop (§2, §8.7). Steps 1–4 are optional.
 export const STEPS = [
-  { id: 'watch',    label: 'Watch',    icon: 'play',         optional: true },
-  { id: 'learn',    label: 'Learn',    icon: 'book-open',    optional: true },
-  { id: 'download', label: 'Download', icon: 'download',     optional: true },
-  { id: 'doIt',     label: 'Do it',    icon: 'list-checks',  optional: true },
-  { id: 'upload',   label: 'Upload',   icon: 'upload',       optional: false },
-  { id: 'verify',   label: 'Verify',   icon: 'shield-check', optional: false },
-  { id: 'closed',   label: 'Closed',   icon: 'badge-check',  optional: false },
+  { id: 'watch',    label: 'Watch',    icon: 'play',         optional: true,  blurb: 'A short video on why it matters' },
+  { id: 'learn',    label: 'Learn',    icon: 'book-open',    optional: true,  blurb: 'Topic sessions, Ask Ali and mentors' },
+  { id: 'download', label: 'Download', icon: 'download',     optional: true,  blurb: 'Templates and resources' },
+  { id: 'doIt',     label: 'Do it',    icon: 'list-checks',  optional: true,  blurb: 'Put it in place in your organisation' },
+  { id: 'upload',   label: 'Upload',   icon: 'upload',       optional: false, blurb: 'Add your evidence' },
+  { id: 'verify',   label: 'Verify',   icon: 'shield-check', optional: false, blurb: 'Independent review by BVT' },
+  { id: 'closed',   label: 'Closed',   icon: 'badge-check',  optional: false, blurb: 'Done — on to the next' },
 ];
 export const COMPACT_STEP_IDS = ['upload', 'verify', 'closed'];
 

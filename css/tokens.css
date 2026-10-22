@@ -131,6 +131,7 @@
   --fs-32: 2rem;
   --fs-40: 2.5rem;
   --fs-56: 3.5rem;
+  --fs-quote: 6rem;   /* decorative quote mark */
 
   --fw-light: 300;
   --fw-regular: 400;

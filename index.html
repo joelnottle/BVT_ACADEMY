@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/layout-public.css">
   <link rel="stylesheet" href="css/layout-portal.css">
   <link rel="stylesheet" href="css/layout-sidebar.css">
+  <link rel="stylesheet" href="css/pages/public.css">
   <link rel="stylesheet" href="css/pages/styleguide.css">
 
   <!-- Lucide icons, pinned. Deferred, so it runs before the module below. -->
@@ -37,5 +38,15 @@
   <div id="demo-root"></div>
   <div id="toast-region" class="toast-region" aria-live="polite" aria-relevant="additions"></div>
   <noscript>This prototype needs JavaScript. Run it with VS Code Live Server.</noscript>
+  <!-- Opened straight from Finder? ES modules don't load over file://, so explain instead of showing a blank page. -->
+  <script>
+    if (location.protocol === 'file:') {
+      document.getElementById('app').innerHTML =
+        '<main class="container file-notice"><h1 class="h2">Open this prototype through a local server</h1>' +
+        '<p class="lead">Browsers block the prototype’s scripts when index.html is opened directly from your computer.</p>' +
+        '<ol><li><strong>VS Code:</strong> right-click <code>index.html</code> → <em>Open with Live Server</em>.</li>' +
+        '<li><strong>Terminal:</strong> <code>cd</code> into this folder, run <code>python3 -m http.server 5500</code>, then open <code>http://localhost:5500</code>.</li></ol></main>';
+    }
+  </script>
 </body>
 </html>

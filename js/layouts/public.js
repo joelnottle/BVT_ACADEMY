@@ -24,7 +24,7 @@ function actions(persona) {
   }
   return `
     <a class="btn btn--on-dark-ghost" href="#/sign-in">Sign in</a>
-    <a class="btn btn--action" href="#/check/start">Start free check</a>`;
+    <a class="btn btn--action" href="#/sign-up">Start free check</a>`;
 }
 
 function header(ctx) {
@@ -76,7 +76,7 @@ function footer(ctx) {
         <nav aria-label="Footer: organisations">
           <h2 class="site-footer__heading">For organisations</h2>
           <ul>
-            <li><a href="#/check/start">Start free check</a></li>
+            <li><a href="#/sign-up">Start free check</a></li>
             <li><a href="#/how-it-works">How it works</a></li>
             <li><a href="#/checks">Free Checks</a></li>
             <li><a href="#/academy">The Academy</a></li>

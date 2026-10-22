@@ -9,12 +9,13 @@ import { overlaysSections, bindOverlays } from './sgOverlays.js';
 import { contrastSection, bindContrast } from './sgContrast.js';
 import { shellSection } from './sgShell.js';
 import { accentsSection } from './sgAccents.js';
+import { marketingSection } from './sgMarketing.js';
 
 const TOC = [
   ['colours', 'Colour tokens'], ['type', 'Typography'], ['accents', 'Brand accents'], ['shape', 'Spacing, radius & depth'],
   ['buttons', 'Buttons'], ['forms', 'Form controls'], ['nav', 'Segmented, filters & tabs'],
   ['chips', 'Chips & tier badges'], ['cards', 'Cards & empty states'], ['seals', 'Badge seals'],
-  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'],
+  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'],
   ['contrast', 'Contrast results'],
 ];
 
@@ -47,6 +48,7 @@ export function renderStyleguide() {
         ${progressSections()}
         ${overlaysSections()}
         ${shellSection()}
+        ${marketingSection()}
         ${contrastSection()}
       </main>
     </div>`;

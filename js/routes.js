@@ -14,11 +14,11 @@ const app = (path, title, phase, summary, extra = {}) => ({ path, layout: 'porta
 
 export const ROUTES = [
   // ---- Public (§7.1) ----
-  pub('/', 'Home', 3, 'Home: hero with three paths, the four free Checks, how the Academy works, tiers, support, the credential, Connect teaser.'),
-  pub('/how-it-works', 'How it works', 3, 'Check → Academy → Accreditation → Connect.'),
-  pub('/checks', 'Free Checks', 3, 'The four free Checks and the Start-up and Recovery pathways.'),
-  pub('/academy', 'Inside the Academy', 3, 'The learning loop, Ask Ali, mentors, tiers and timeframes.'),
-  pub('/institutions', 'Send my clients through BVT', 3, 'For lenders, funders and agents: why pre-qualified clients matter and how referral works.'),
+  pub('/', 'Home', 3, 'Home: hero with three paths, the four free Checks, how the Academy works, tiers, support, the credential, Connect teaser.', { load: () => import('./views/public/home.js') }),
+  pub('/how-it-works', 'How it works', 3, 'Check → Academy → Accreditation → Connect.', { load: () => import('./views/public/howItWorks.js') }),
+  pub('/checks', 'Free Checks', 3, 'The four free Checks and the Start-up and Recovery pathways.', { load: () => import('./views/public/checks.js') }),
+  pub('/academy', 'Inside the Academy', 3, 'The learning loop, Ask Ali, mentors, tiers and timeframes.', { load: () => import('./views/public/academy.js') }),
+  pub('/institutions', 'Send my clients through BVT', 3, 'For lenders, funders and agents: why pre-qualified clients matter and how referral works.', { load: () => import('./views/public/institutions.js') }),
   pub('/connect', 'BVT Connect', 13, 'Search pre-qualified and accredited businesses.'),
   pub('/connect/:orgId', 'Connect profile', 13, 'Public profile with a link to verify the certificate.'),
   pub('/verify', 'Verify a certificate', 13, 'Enter a certificate number to check it is valid.'),

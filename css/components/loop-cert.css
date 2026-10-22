@@ -1,0 +1,108 @@
+/* Learning loop, mini flow, certificate, Connect listing card. */
+
+/* ---- Learning loop: vertical timeline by default, connected row from 1024px ---- */
+.loop { display: flex; flex-direction: column; gap: var(--sp-4); }
+.loop__skip {
+  display: inline-flex; align-items: center; gap: var(--sp-2); align-self: flex-start;
+  padding: var(--sp-2) var(--sp-4); border-radius: var(--r-pill);
+  background: var(--cream-100); color: var(--plum-600);
+  font-size: var(--fs-14); font-weight: var(--fw-semibold);
+}
+.loop__skip svg { width: 18px; height: 18px; color: var(--crimson-600); }
+.loop__optional { font-size: var(--fs-14); color: var(--text-3); }
+
+.loop__steps { position: relative; display: flex; flex-direction: column; gap: var(--sp-5); padding: 0; margin: 0; list-style: none; }
+.loop__steps::before {
+  content: ""; position: absolute; left: 27px; top: 28px; bottom: 28px; width: 2px;
+  background: var(--border);
+}
+.loop__step {
+  position: relative; display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: var(--sp-4);
+  grid-template-areas: "node num" "node label" "node blurb";
+}
+.loop__node {
+  grid-area: node; z-index: 1; display: grid; place-items: center; width: 56px; height: 56px;
+  border-radius: 50%; background: var(--grad-action); color: var(--on-action);
+}
+.loop__node svg { width: 24px; height: 24px; }
+.loop__step.is-optional .loop__node { background: var(--cream-100); border: 2px dashed var(--plum-600); color: var(--plum-600); }
+.loop__step.is-landing .loop__node { box-shadow: 0 0 0 4px var(--surface-1), 0 0 0 6px var(--crimson-500); }
+.loop__num { grid-area: num; font-size: var(--fs-12); font-weight: var(--fw-semibold); color: var(--plum-600); letter-spacing: 0.08em; }
+.loop__label { grid-area: label; font-weight: var(--fw-semibold); font-size: var(--fs-18); }
+.loop__blurb { grid-area: blurb; font-size: var(--fs-14); color: var(--text-2); }
+
+@media (min-width: 1024px) {
+  .loop { gap: var(--sp-3); }
+  /* The skip pill ends above step 5 (Upload) and points down into it */
+  .loop__skip { margin-left: calc(100% * 4.5 / 7); transform: translateX(-100%); white-space: nowrap; }
+  /* Bracket over steps 1–4 */
+  .loop__optional {
+    width: calc(100% * 4 / 7); padding: 0 var(--sp-4) var(--sp-2); margin-bottom: var(--sp-1);
+    text-align: center; border: 1px dashed var(--plum-600); border-bottom: 0; border-radius: var(--r-sm) var(--r-sm) 0 0;
+    padding-top: var(--sp-1);
+  }
+  .loop__steps { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: var(--sp-3); }
+  .loop__steps::before {
+    left: calc(100% / 14); right: calc(100% * 2.5 / 7); top: 27px; bottom: auto; width: auto; height: 0;
+    border-top: 2px dashed var(--plum-600); background: none;
+  }
+  .loop__steps::after {
+    content: ""; position: absolute; left: calc(100% * 4.5 / 7); right: calc(100% / 14); top: 27px; height: 2px;
+    background: var(--grad-action);
+  }
+  .loop__step { display: flex; flex-direction: column; align-items: center; gap: var(--sp-1); text-align: center; }
+  .loop__node { margin-bottom: var(--sp-2); }
+}
+
+/* ---- Mini flow: "Upload → Verify → Closed" ---- */
+.mini-flow { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-1); margin-top: auto; padding-top: var(--sp-2); }
+.mini-flow span { padding: var(--sp-half) var(--sp-2); border-radius: var(--r-sm); background: var(--surface-2); font-size: var(--fs-12); font-weight: var(--fw-semibold); }
+.mini-flow svg { width: 14px; height: 14px; color: var(--text-3); }
+
+/* ---- Certificate ---- */
+.cert {
+  position: relative; display: flex; flex-direction: column; gap: var(--sp-2);
+  padding: var(--sp-6); overflow: hidden;
+  border: 1px solid var(--cream-200); border-radius: var(--r-md);
+  background: var(--cream-100); box-shadow: inset 0 0 0 6px var(--cream-50), inset 0 0 0 7px var(--cream-200);
+}
+.cert__v { position: absolute; right: calc(-1 * var(--sp-8)); bottom: calc(-1 * var(--sp-10)); width: 220px; opacity: 0.12; pointer-events: none; }
+.cert__v-mark { width: 100%; height: auto; }
+.cert__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
+.cert__brand { font-family: var(--font-display); font-size: var(--fs-18); font-weight: var(--fw-light); }
+.cert__brand strong { font-weight: var(--fw-semibold); }
+.cert__badge {
+  display: inline-flex; align-items: center; gap: var(--sp-1); padding: var(--sp-half) var(--sp-3);
+  border-radius: var(--r-pill); background: var(--plum-600); color: var(--on-action);
+  font-size: var(--fs-12); font-weight: var(--fw-semibold);
+}
+.cert__badge svg { width: 14px; height: 14px; }
+.cert__kicker { margin-top: var(--sp-3); font-size: var(--fs-12); font-weight: var(--fw-semibold); letter-spacing: 0.12em; text-transform: uppercase; color: var(--plum-600); }
+.cert__org { font-family: var(--font-display); font-size: var(--fs-24); line-height: var(--lh-snug); }
+.cert__text { color: var(--text-2); font-size: var(--fs-14); }
+.cert__foot { display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-4); margin-top: var(--sp-3); }
+.cert__meta { display: grid; grid-template-columns: repeat(3, auto); gap: var(--sp-1) var(--sp-5); margin: 0; }
+.cert__meta dt { font-size: var(--fs-12); color: var(--text-3); }
+.cert__meta dd { margin: 0; font-size: var(--fs-14); font-weight: var(--fw-semibold); }
+.cert__qr { flex-shrink: 0; width: 80px; height: 80px; padding: var(--sp-1); border-radius: var(--r-xs); background: var(--surface-0); }
+.cert__qr rect { fill: var(--navy-900); }
+.cert__verify { font-size: var(--fs-12); color: var(--text-3); }
+@media (max-width: 479px) {
+  .cert__meta { grid-template-columns: auto; }
+  .cert__qr { width: 64px; height: 64px; }
+}
+
+/* ---- Connect listing card ---- */
+.listing {
+  position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--sp-2) var(--sp-4);
+  padding: var(--sp-3) var(--sp-4); border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-0);
+}
+.listing__name { font-size: var(--fs-16); font-weight: var(--fw-semibold); }
+.listing__meta { font-size: var(--fs-14); color: var(--text-3); }
+.listing__status { display: flex; flex-direction: column; align-items: flex-end; gap: var(--sp-1); }
+.listing__cert { font-size: var(--fs-12); color: var(--text-3); font-variant-numeric: tabular-nums; }
+.listing:has(.card__link:focus-visible) { outline: var(--focus-width) solid var(--focus-light); outline-offset: var(--focus-offset); }
+.listing .card__link { color: inherit; text-decoration: none; }
+.listing .card__link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.listing .card__link:focus-visible { outline: none; }
+.listing:hover { border-color: var(--border-input); }
