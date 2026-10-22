@@ -20,10 +20,10 @@ export const ROUTES = [
   pub('/checks', 'Free Checks', 3, 'The four free Checks and the Start-up and Recovery pathways.', { load: () => import('./views/public/checks.js') }),
   pub('/academy', 'Inside the Academy', 3, 'The learning loop, Ask Ali, mentors, tiers and timeframes.', { load: () => import('./views/public/academy.js') }),
   pub('/institutions', 'Send my clients through BVT', 3, 'For lenders, funders and agents: why pre-qualified clients matter and how referral works.', { load: () => import('./views/public/institutions.js') }),
-  pub('/connect', 'BVT Connect', 13, 'Search pre-qualified and accredited businesses.'),
-  pub('/connect/:orgId', 'Connect profile', 13, 'Public profile with a link to verify the certificate.'),
-  pub('/verify', 'Verify a certificate', 13, 'Enter a certificate number to check it is valid.'),
-  pub('/verify/:certNo', 'Certificate check', 13, 'Valid, expired or not found.'),
+  pub('/connect', 'BVT Connect', 13, 'Search pre-qualified and accredited businesses.', { load: () => import('./views/public/connect.js') }),
+  pub('/connect/:orgId', 'Connect profile', 13, 'Public profile with a link to verify the certificate.', { load: () => import('./views/public/connectListing.js') }),
+  pub('/verify', 'Verify a certificate', 13, 'Enter a certificate number to check it is valid.', { load: () => import('./views/public/verify.js') }),
+  pub('/verify/:certNo', 'Certificate check', 13, 'Valid, expired or not found.', { load: () => import('./views/public/verify.js') }),
   pub('/sign-in', 'Sign in', 4, 'Pretend sign-in.', { load: () => import('./views/public/signIn.js') }),
   pub('/sign-up', 'Create your account', 4, 'Pretend sign-up, leading into the free Check.', { load: () => import('./views/check/signUp.js') }),
 
@@ -66,11 +66,11 @@ export const ROUTES = [
   app('/app/settings/:tab', 'Settings', 10, 'Organisation, or billing and credits.', { nav: '/app/settings', load: () => import('./views/app/settings.js') }),
 
   // ---- Partner portal (§7.4) ----
-  { path: '/partner/dashboard', layout: 'portal', roles: PARTNER, title: 'Partner dashboard', phase: 13, summary: 'Referred clients and where they are up to.' },
-  { path: '/partner/clients', layout: 'portal', roles: PARTNER, title: 'Clients', phase: 13, summary: 'Client progress, shown only where the client has consented.' },
-  { path: '/partner/clients/:orgId', layout: 'portal', roles: PARTNER, title: 'Client', phase: 13, summary: 'One client, consent-aware.', nav: '/partner/clients' },
-  { path: '/partner/refer', layout: 'portal', roles: PARTNER, title: 'Refer a client', phase: 13, summary: 'Create a referral link and preview the email.' },
-  { path: '/partner/connect', layout: 'portal', roles: PARTNER, title: 'Connect search', phase: 13, summary: 'The BVT Connect directory.' },
+  { path: '/partner/dashboard', layout: 'portal', roles: PARTNER, title: 'Partner dashboard', phase: 13, summary: 'Referred clients and where they are up to.', load: () => import('./views/partner/dashboard.js') },
+  { path: '/partner/clients', layout: 'portal', roles: PARTNER, title: 'Clients', phase: 13, summary: 'Client progress, shown only where the client has consented.', load: () => import('./views/partner/clients.js') },
+  { path: '/partner/clients/:orgId', layout: 'portal', roles: PARTNER, title: 'Client', phase: 13, summary: 'One client, consent-aware.', nav: '/partner/clients', load: () => import('./views/partner/clients.js') },
+  { path: '/partner/refer', layout: 'portal', roles: PARTNER, title: 'Refer a client', phase: 13, summary: 'Create a referral link and preview the email.', load: () => import('./views/partner/refer.js') },
+  { path: '/partner/connect', layout: 'portal', roles: PARTNER, title: 'Connect search', phase: 13, summary: 'The BVT Connect directory.', load: () => import('./views/public/connect.js') },
 
   // ---- Back-office (§7.5) ----
   { path: '/team/queue', layout: 'backoffice', roles: VERIFIER, title: 'Review queue', phase: 14, summary: 'Evidence waiting for verification.' },

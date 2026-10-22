@@ -15,6 +15,7 @@ import * as L from '../../lensSelectors.js';
 import { parseLensFilters } from '../../lens.js';
 import { matchScript } from '../../supportStore.js';
 import * as AS from '../../accountSelectors.js';
+import * as CX from '../../connectSelectors.js';
 
 const verifiedOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.verified}/${d.total}`).join(' · ');
 const inPlaceOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.inPlace}`).join(' · ');
@@ -140,6 +141,16 @@ export function runDataChecks(state) {
   const fresh = Object.values(freshProgress('core-ms', draft.answers, 'startup'));
   check('Enrolment', 'New org: evidence needed / not started', '18 / 34', `${fresh.filter((p) => p.status === 'evidence-needed').length} / ${fresh.filter((p) => p.status === 'not-started').length}`);
   check('Enrolment', 'Empty Recovery pathway does not lock Core', false, S.coreLocked(state, { checkId: 'core-ms', pathway: 'recovery' }));
+
+  // ---- BVT Connect & partner portal (§8.13, §8.15) ----
+  const tvx = todayFor(PERSONAS.visitor, state);
+  check('Connect', 'Directory listings (Harbourline live)', 12, CX.directory(state, tvx).length);
+  check('Connect', 'Certificate lookups: valid · expired · not found', ['valid', 'expired', 'not-found'],
+    ['BVT-2027-000123', 'BVT-2026-000041', 'BVT-2027-999999'].map((n) => CX.certificateLookup(state, tvx, n).status));
+  check('Connect', 'Filter: NSW + Medium', ['Harbourline Civil Pty Ltd', 'Wattle Grove Disability Services'], CX.filterDirectory(CX.directory(state, tvx), { state: 'NSW', size: 'Medium' }).map((l) => l.name));
+  const rowsD = CX.partnerRows(state, 'partner-scl', todayFor(PERSONAS.D, state));
+  check('D · Partner', 'Rows without consent hide tier and readiness', true, rowsD.filter((r) => !r.consent).every((r) => r.tier === undefined && r.readiness === undefined));
+  check('D · Partner', 'Stage funnel (referred · checked · enrolled · in progress · accredited)', '1 · 1 · 0 · 3 · 1', CX.stageCounts(rowsD).map((x) => x.n).join(' · '));
 
   // ---- Verify page states ----
   const tv = todayFor(PERSONAS.visitor, state);

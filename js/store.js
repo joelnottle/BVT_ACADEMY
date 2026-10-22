@@ -9,13 +9,14 @@ import { REVIEWS } from '../data/reviews.js';
 import { SESSIONS } from '../data/sessions.js';
 import { NOTIFICATIONS } from '../data/notifications.js';
 import { ALI_HISTORY_SEED } from '../data/ali.js';
+import { REFERRALS } from '../data/partners.js';
 import { seedProgress, seedAnswers, seedLearning, seedEarned, sampleAnswers, freshProgress } from '../data/progress.js';
 import { addDays, addMonths } from './util.js';
 import { coreReqs, pathwayReqs } from './selectors.js';
 import { checkQuestions, enrolmentOffer } from './checkSelectors.js';
 
 const KEY = 'bvt-demo-v1';
-const VERSION = 4; // bump whenever the seed shape changes; older saved state is replaced
+const VERSION = 5; // bump whenever the seed shape changes; older saved state is replaced
 
 function seed() {
   return {
@@ -32,6 +33,7 @@ function seed() {
     sessions: structuredClone(SESSIONS),
     notifications: structuredClone(NOTIFICATIONS),
     ali: structuredClone(ALI_HISTORY_SEED), // orgId → Ask Ali questions and answers
+    referrals: structuredClone(REFERRALS), // partner referrals (§8.15); the partner portal adds to these
     check: null,                      // free Check draft (§8.2) — see blankCheck()
     ui: { sidebarCollapsed: false, areaTreeOpen: true, lens: 'area', boardView: null },
     activity: [],                     // simulated events, newest first

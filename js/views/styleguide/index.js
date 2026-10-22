@@ -17,12 +17,13 @@ import { requirementSection } from './sgRequirement.js';
 import { supportSection } from './sgSupport.js';
 import { accountSection } from './sgAccount.js';
 import { enterpriseSection } from './sgEnterprise.js';
+import { connectSection } from './sgConnect.js';
 
 const TOC = [
   ['colours', 'Colour tokens'], ['type', 'Typography'], ['accents', 'Brand accents'], ['shape', 'Spacing, radius & depth'],
   ['buttons', 'Buttons'], ['forms', 'Form controls'], ['nav', 'Segmented, filters & tabs'],
   ['chips', 'Chips & tier badges'], ['cards', 'Cards & empty states'], ['seals', 'Badge seals'],
-  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'], ['checkflow', 'Check & enrolment'], ['dashboard', 'Dashboard widgets'], ['academy', 'Academy components'], ['requirement', 'Requirement page'], ['support', 'Ask Ali & mentoring'], ['account', 'Locker & notifications'], ['enterprise', 'Enterprise hub'],
+  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'], ['checkflow', 'Check & enrolment'], ['dashboard', 'Dashboard widgets'], ['academy', 'Academy components'], ['requirement', 'Requirement page'], ['support', 'Ask Ali & mentoring'], ['account', 'Locker & notifications'], ['enterprise', 'Enterprise hub'], ['connect', 'Connect & partners'],
   ['contrast', 'Contrast results'],
 ];
 
@@ -63,6 +64,7 @@ export function renderStyleguide() {
         ${supportSection()}
         ${accountSection()}
         ${enterpriseSection()}
+        ${connectSection()}
         ${contrastSection()}
       </main>
     </div>`;
