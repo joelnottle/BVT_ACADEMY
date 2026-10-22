@@ -54,6 +54,10 @@
 .btn--on-dark-ghost { color: var(--on-dark-1); }
 .btn--on-dark-ghost:hover { background: var(--navy-700); }
 
+/* Light button for gradient or crimson bands (plum text on white: 7.4:1) */
+.btn--light { background: var(--surface-0); color: var(--plum-600); }
+.btn--light:hover { background: var(--cream-100); }
+
 /* Modifiers */
 .btn--block { width: 100%; }
 .btn--wrap { white-space: normal; }

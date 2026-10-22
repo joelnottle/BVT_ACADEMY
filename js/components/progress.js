@@ -21,16 +21,17 @@ export function progressBar({ label, value, max, claimed = 0, countText, unit = 
 
 /**
  * Readiness ring.
- * @param {{verified:number, claimed?:number, total:number, size?:'lg'|'sm', legend?:boolean}} o
+ * @param {{verified:number, claimed?:number, total:number, size?:'lg'|'sm', legend?:boolean, label?:string, description?:string}} o
+ * `label`/`description` let the same ring show a Check score ("41% pre-qualification met").
  */
-export function readinessRing({ verified, claimed = 0, total, size = 'lg', legend = true }) {
+export function readinessRing({ verified, claimed = 0, total, size = 'lg', legend = true, label = 'verified', description }) {
   const id = uid('ring');
   const v = pct(verified, total);
   const c = pct(claimed, total);
   const shown = Math.round(v);
   const stroke = size === 'sm' ? 14 : 11;
-  const desc = `${shown}% verified (${verified} of ${total} requirements).` +
-    (claimed ? ` A further ${claimed} are in place and awaiting evidence.` : '');
+  const desc = description ?? (`${shown}% verified (${verified} of ${total} requirements).` +
+    (claimed ? ` A further ${claimed} are in place and awaiting evidence.` : ''));
 
   return `
     <div class="ring${size === 'sm' ? ' ring--sm' : ''}">
@@ -53,7 +54,7 @@ export function readinessRing({ verified, claimed = 0, total, size = 'lg', legen
         </svg>
         <div class="ring__center" aria-hidden="true">
           <span class="ring__value">${shown}%</span>
-          <span class="ring__label">verified</span>
+          <span class="ring__label">${esc(label)}</span>
         </div>
       </div>
       ${legend && size !== 'sm' ? `

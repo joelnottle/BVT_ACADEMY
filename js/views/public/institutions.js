@@ -5,25 +5,18 @@ import { esc } from '../../util.js';
 import { icon, renderIcons } from '../../components/icon.js';
 import { showToast } from '../../components/toast.js';
 import { pageHero, sectionHead, featureCard } from '../../components/marketing.js';
-
-const field = (id, label, input, hint = '') => `
-  <div class="field" data-field="${id}">
-    <label class="field__label" for="ref-${id}">${label}</label>
-    ${input}
-    ${hint ? `<p class="field__hint" id="ref-${id}-hint">${hint}</p>` : ''}
-    <p class="field__error" id="ref-${id}-err" hidden></p>
-  </div>`;
+import { field, validateForm, isEmail } from '../../components/form.js';
 
 function form() {
   return `
     <form class="card stack partner-form" data-partner-form novalidate aria-labelledby="partner-form-h">
       <h2 class="h3" id="partner-form-h">${esc(P.form.title)}</h2>
       <p class="text-2">${esc(P.form.text)}</p>
-      ${field('name', 'Your name', '<input class="input" id="ref-name" name="name" autocomplete="name" required>')}
-      ${field('org', 'Organisation', '<input class="input" id="ref-org" name="org" autocomplete="organization" required>')}
-      ${field('email', 'Work email', '<input class="input" id="ref-email" name="email" type="email" autocomplete="email" required>')}
-      ${field('type', 'Type of organisation', `<select class="select" id="ref-type" name="type" required>
-        <option value="">Choose one</option>${P.form.types.map((t) => `<option>${esc(t)}</option>`).join('')}</select>`)}
+      ${field({ id: 'ref-name', label: 'Your name', control: '<input class="input" id="ref-name" name="name" autocomplete="name" required>' })}
+      ${field({ id: 'ref-org', label: 'Organisation', control: '<input class="input" id="ref-org" name="org" autocomplete="organization" required>' })}
+      ${field({ id: 'ref-email', label: 'Work email', control: '<input class="input" id="ref-email" name="email" type="email" autocomplete="email" required>' })}
+      ${field({ id: 'ref-type', label: 'Type of organisation', control: `<select class="select" id="ref-type" name="type" required>
+        <option value="">Choose one</option>${P.form.types.map((t) => `<option>${esc(t)}</option>`).join('')}</select>` })}
       <button class="btn btn--action" type="submit">Request partner access${icon('arrow-right')}</button>
       <p class="text-3">${icon('shield-check')} ${PROTOTYPE_NOTE}.</p>
     </form>`;
@@ -62,28 +55,12 @@ export function render() {
     </section>`;
 }
 
-function validate(f) {
-  const rules = {
-    name: (v) => (v ? '' : 'Enter your name.'),
-    org: (v) => (v ? '' : 'Enter your organisation.'),
-    email: (v) => (/^\S+@\S+\.\S+$/.test(v) ? '' : 'Enter an email address, like name@organisation.com.au.'),
-    type: (v) => (v ? '' : 'Choose the type of organisation.'),
-  };
-  let first = null;
-  Object.entries(rules).forEach(([key, rule]) => {
-    const input = f.elements[key];
-    const msg = rule(input.value.trim());
-    const err = f.querySelector(`#ref-${key}-err`);
-    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
-    if (msg) input.setAttribute('aria-describedby', err.id);
-    else input.removeAttribute('aria-describedby');
-    err.hidden = !msg;
-    err.innerHTML = msg ? `${icon('circle-alert')}${esc(msg)}` : '';
-    if (msg && !first) first = input;
-  });
-  renderIcons(f);
-  return first;
-}
+const RULES = {
+  name: (v) => (v ? '' : 'Enter your name.'),
+  org: (v) => (v ? '' : 'Enter your organisation.'),
+  email: (v) => (isEmail(v) ? '' : 'Enter an email address, like name@organisation.com.au.'),
+  type: (v) => (v ? '' : 'Choose the type of organisation.'),
+};
 
 export function bind(root) {
   // Hero "Become a referral partner" scrolls to the form instead of re-routing
@@ -95,7 +72,7 @@ export function bind(root) {
   root.querySelector('[data-partner-form]')?.addEventListener('submit', (e) => {
     e.preventDefault();
     const f = e.currentTarget;
-    const invalid = validate(f);
+    const invalid = validateForm(f, RULES, 'ref');
     if (invalid) { invalid.focus(); return; }
     const name = f.elements.name.value.trim().split(' ')[0];
     const slot = root.querySelector('[data-partner-slot]');

@@ -8,9 +8,10 @@ import { EVIDENCE } from '../data/evidence.js';
 import { REVIEWS } from '../data/reviews.js';
 import { SESSIONS } from '../data/sessions.js';
 import { NOTIFICATIONS } from '../data/notifications.js';
-import { seedProgress, seedAnswers, seedLearning, seedEarned } from '../data/progress.js';
+import { seedProgress, seedAnswers, seedLearning, seedEarned, sampleAnswers } from '../data/progress.js';
 import { addDays } from './util.js';
 import { coreReqs, pathwayReqs } from './selectors.js';
+import { checkQuestions } from './checkSelectors.js';
 
 const KEY = 'bvt-demo-v1';
 const VERSION = 2; // bump whenever the seed shape changes; older saved state is replaced
@@ -29,6 +30,7 @@ function seed() {
     reviews: structuredClone(REVIEWS),
     sessions: structuredClone(SESSIONS),
     notifications: structuredClone(NOTIFICATIONS),
+    check: null,                      // free Check draft (§8.2) — see blankCheck()
     ui: { sidebarCollapsed: false, areaTreeOpen: true },
     activity: [],                     // simulated events, newest first
   };
@@ -121,6 +123,60 @@ export function jumpToAccredited() {
 /** Demo panel "Simulate" actions. Phase 8 (requirements) and Phase 14 (back-office) wire real outcomes. */
 export function simulate(kind) {
   update((s) => { s.activity.unshift({ kind, personaId: s.personaId, on: today(s) }); });
+}
+
+// ---- Free Check draft (§8.2). One draft per browser; answers save as you go. ----
+const blankCheck = () => ({
+  leadName: '', email: '', leadRole: '', declared: false,
+  orgName: '', abn: '', staff: '', oric: 'no', debt: 'no',
+  checkId: null, preselect: null, answers: {}, notes: {}, index: 0,
+  startedOn: null, savedAt: null, completedOn: null,
+});
+const draft = (s) => (s.check ??= blankCheck());
+
+export function startSignUp({ leadName, email, preselect }) {
+  update((s) => { Object.assign(draft(s), { leadName, email }, preselect ? { preselect } : {}); });
+}
+
+export function saveCheckDetails(details) {
+  update((s) => { Object.assign(draft(s), details); });
+}
+
+/** Choosing a different check starts its answers afresh. */
+export function chooseCheck(checkId) {
+  update((s) => {
+    const c = draft(s);
+    if (c.checkId !== checkId) Object.assign(c, { checkId, answers: {}, notes: {}, index: 0, completedOn: null });
+    c.startedOn ??= today(s);
+  });
+}
+
+export function answerQuestion(questionId, answer) {
+  update((s) => { const c = draft(s); c.answers[questionId] = answer; c.savedAt = Date.now(); });
+}
+
+/** Notes save silently (no re-render while typing). */
+export function setCheckNote(questionId, note) {
+  update((s) => { const c = draft(s); c.notes[questionId] = note; c.savedAt = Date.now(); }, { silent: true });
+}
+
+export function goToQuestion(index) {
+  update((s) => { const c = draft(s); c.index = Math.max(0, Math.min(index, checkQuestions(c.checkId).length - 1)); });
+}
+
+export function completeCheck() {
+  update((s) => { draft(s).completedOn = today(s); });
+}
+
+/** Demo shortcut: keep the answers given so far, fill the rest with the sample organisation's answers. */
+export function skipCheckToResults() {
+  update((s) => {
+    const c = draft(s);
+    const sample = sampleAnswers(c.checkId);
+    checkQuestions(c.checkId).forEach((q) => { c.answers[q.id] ??= sample[q.id] ?? 'not-yet'; });
+    c.completedOn = today(s);
+    c.savedAt = Date.now();
+  });
 }
 
 export function resetDemo() {

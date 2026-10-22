@@ -120,4 +120,7 @@ const ORG_IDS = Object.keys(SEED);
 export const seedProgress = () => Object.fromEntries(ORG_IDS.map((id) => [id, buildProgress(id)]));
 export const seedAnswers = () => Object.fromEntries(ORG_IDS.map((id) => [id, buildAnswers(id)]));
 export const seedLearning = () => Object.fromEntries(ORG_IDS.map((id) => [id, structuredClone(SEED[id].learning)]));
+/** Sample answers used by "Skip to results (demo)": persona A's for Micro–Small, C's for Medium–Large. */
+export const sampleAnswers = (checkId) => (checkId === 'core-ms' ? buildAnswers('org-kestrel') : checkId === 'core-ml' ? buildAnswers('org-harbourline') : {});
+
 export const seedEarned = () => Object.fromEntries(ORG_IDS.map((id) => [id, { ...SEED[id].earned }]));

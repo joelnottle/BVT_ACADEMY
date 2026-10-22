@@ -23,14 +23,14 @@ export const ROUTES = [
   pub('/connect/:orgId', 'Connect profile', 13, 'Public profile with a link to verify the certificate.'),
   pub('/verify', 'Verify a certificate', 13, 'Enter a certificate number to check it is valid.'),
   pub('/verify/:certNo', 'Certificate check', 13, 'Valid, expired or not found.'),
-  pub('/sign-in', 'Sign in', 4, 'Pretend sign-in. For now, use the Demo panel to choose who you are.'),
-  pub('/sign-up', 'Create your account', 4, 'Pretend sign-up, leading into the free Check.'),
+  pub('/sign-in', 'Sign in', 4, 'Pretend sign-in.', { load: () => import('./views/public/signIn.js') }),
+  pub('/sign-up', 'Create your account', 4, 'Pretend sign-up, leading into the free Check.', { load: () => import('./views/check/signUp.js') }),
 
   // ---- Free Check & enrolment (§7.2) ----
-  check('/check/start', 'Start your free check', 4, 'Authorised-lead declaration and organisation details.'),
-  check('/check/choose', 'Choose your check', 4, 'We recommend a Check from your answers; the others stay selectable.'),
-  check('/check/run/:checkId', 'Your free check', 4, 'One question per card, sections by area, autosave, save & exit.'),
-  check('/check/results', 'Your results', 4, 'Score, tier, area breakdown and your next step.'),
+  { ...check('/check/start', 'Start your free check', 4, 'Authorised-lead declaration and organisation details.'), load: () => import('./views/check/start.js') },
+  { ...check('/check/choose', 'Choose your check', 4, 'We recommend a Check from your answers; the others stay selectable.'), load: () => import('./views/check/choose.js') },
+  { ...check('/check/run/:checkId', 'Your free check', 4, 'One question per card, sections by area, autosave, save & exit.'), load: () => import('./views/check/runner.js') },
+  { ...check('/check/results', 'Your results', 4, 'Score, tier, area breakdown and your next step.'), load: () => import('./views/check/results.js') },
   { ...check('/enrol', 'Enrol in the Academy', 5, 'Package and tier, with a pretend payment (no card fields).'), section: 'Enrolment' },
   { ...check('/onboarding', 'Welcome to the Academy', 5, 'Four short steps: timeline, weekly goal, where to start, your support.'), section: 'Enrolment' },
 
