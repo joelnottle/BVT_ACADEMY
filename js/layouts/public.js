@@ -32,14 +32,14 @@ function actions(persona) {
 /** Slim top bar (VC pattern): email and social links. Placeholders until BVT supplies them. */
 function topbar() {
   return `
-    <div class="topbar">
+    <nav class="topbar" aria-label="Contact and social">
       <div class="container topbar__inner">
         <a class="topbar__link" href="mailto:${esc(CONTACT.email)}" data-pretend="Email address to be confirmed — nothing was sent.">${icon('mail')}<span>${esc(CONTACT.email)}</span></a>
         <ul class="topbar__social">
           ${CONTACT.socials.map((s) => `<li><a class="topbar__icon" href="#/" aria-label="${esc(s.label)}" data-pretend="Social profiles to be supplied.">${socialIcon(s.id)}</a></li>`).join('')}
         </ul>
       </div>
-    </div>`;
+    </nav>`;
 }
 
 function header(ctx) {

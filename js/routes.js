@@ -61,7 +61,7 @@ export const ROUTES = [
   // Enterprise team member (§8.14): My learning, a Micro-Unit page, their own Ask Ali, profile
   { path: '/app/learn', layout: 'portal', roles: MEMBER, title: 'My learning', phase: 12, load: () => import('./views/app/memberLearn.js') },
   { path: '/app/learn/:unitId', layout: 'portal', roles: MEMBER, title: 'My learning', phase: 12, load: () => import('./views/app/memberLearn.js') },
-  app('/app/help', 'Help & resources', 15, 'How the Academy works, and where to get help.'),
+  app('/app/help', 'Help & resources', 15, 'How the Academy works, and where to get help.', { load: () => import('./views/app/help.js') }),
   app('/app/settings', 'Settings', 10, 'Your organisation details.', { load: () => import('./views/app/settings.js') }),
   app('/app/settings/:tab', 'Settings', 10, 'Organisation, or billing and credits.', { nav: '/app/settings', load: () => import('./views/app/settings.js') }),
 

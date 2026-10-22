@@ -96,7 +96,7 @@ export function renderSidebar(ctx) {
   const cur = currentHref(groups, ctx);
   const isLead = ctx.persona.role === 'lead' && ctx.org;
   return `
-    <div class="sidebar on-dark" id="sidebar">
+    <aside class="sidebar on-dark" id="sidebar" aria-label="Sidebar">
       <div class="sidebar__brand">
         ${logo({ href: `#${ctx.persona.landing}`, withMark: true })}
         <button type="button" class="btn btn--on-dark-ghost btn--icon sidebar__close" data-sidebar-close aria-label="Close navigation">${icon('x')}</button>
@@ -106,5 +106,5 @@ export function renderSidebar(ctx) {
       <nav class="sidebar__nav" aria-label="Main">
         ${groups.map((g, i) => group(g, i, cur, ctx.state.ui)).join('')}
       </nav>
-    </div>`;
+    </aside>`;
 }

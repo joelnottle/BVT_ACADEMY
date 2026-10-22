@@ -146,6 +146,11 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .on-dark :focus-visible,
 .on-dark:focus-visible { outline-color: var(--focus-dark); }
+/* A visually hidden input inside a label (e.g. "Replace" file pickers): show the ring on the label */
+label:has(> input.sr-only:focus-visible) {
+  outline: var(--focus-width) solid var(--focus-light);
+  outline-offset: var(--focus-offset);
+}
 
 /* Programmatic focus targets (main, headings) */
 [tabindex="-1"]:focus-visible { outline: none; }

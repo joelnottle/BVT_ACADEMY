@@ -22,9 +22,10 @@ function savedText(savedAt) {
 }
 
 function notStarted(check, c) {
+  // Reached by a direct link before the details step: don't show earlier steps as done
   return `
     <div class="container check-flow">
-      ${flowSteps(2)}
+      ${flowSteps(c?.orgName ? 2 : 0)}
       <section class="card stack" aria-labelledby="runner-start-h">
         <h1 class="h2 rule" id="runner-start-h">Ready to start the <span class="accent">${esc(check.short)}</span> check?</h1>
         <p class="lead">${check.questions} questions · about ${check.mins} minutes. Your answers save as you go.</p>

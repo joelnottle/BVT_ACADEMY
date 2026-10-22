@@ -165,3 +165,18 @@
 .team-table td:nth-child(4) { min-width: 150px; }
 .team-table .ev-actions { flex-wrap: wrap; }
 .team-table .ev-actions .btn { padding-inline: var(--sp-3); font-size: var(--fs-14); white-space: nowrap; }
+
+/* ---- Help & resources ---- */
+.help-ways .card { align-items: flex-start; }
+.help-way__go { margin-top: auto; }
+.help-types { display: flex; flex-direction: column; gap: var(--sp-3); margin: 0; }
+.help-types div { display: flex; flex-direction: column; gap: var(--sp-1-5); }
+.help-types dt { display: flex; }
+.help-types dd { margin: 0; color: var(--text-2); }
+.help-loop { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); gap: var(--sp-3); padding: 0; margin: 0; list-style: none; }
+.help-loop li { display: flex; align-items: flex-start; gap: var(--sp-2); padding: var(--sp-3); border: 1px solid var(--border); border-radius: var(--r-sm); font-size: var(--fs-14); }
+.help-loop svg { flex-shrink: 0; width: 18px; height: 18px; margin-top: var(--sp-half); color: var(--plum-600); }
+.help-loop__n { flex-shrink: 0; font-family: var(--font-display); font-size: var(--fs-18); line-height: 1.2; color: var(--plum-600); font-variant-numeric: tabular-nums; }
+.help-status dt { display: flex; align-items: center; }
+@media (min-width: 600px) { .help-status div { grid-template-columns: 230px minmax(0, 1fr); } }
+.kbd { display: inline-block; padding: var(--sp-half) var(--sp-2); border: 1px solid var(--border-input); border-bottom-width: 2px; border-radius: var(--r-xs); background: var(--surface-1); font-family: var(--font-body); font-size: var(--fs-14); color: var(--text-1); white-space: nowrap; }

@@ -51,11 +51,11 @@ export function render(ctx) {
       <header class="page-header"><h1>Evidence locker</h1><p class="lead">${esc(E.lead)}</p></header>
       ${reused ? `<p class="callout callout--cream">${icon('copy-check')}<span><strong>${esc(E.reuseLead)}:</strong> ${esc(E.reuse(reused.fileName, reused.requirementIds.join(' and ')))}</span></p>` : ''}
       ${state.ui.vaultDismissed ? '' : `
-        <aside class="vault vault--slim" aria-label="${esc(REQ.vault.label)}">
+        <section class="vault vault--slim" aria-label="${esc(REQ.vault.label)}">
           <p class="vault__label">${esc(REQ.vault.label)}</p>
           <p class="vault__text">${esc(REQ.vault.text)} <a href="#/" data-pretend="${esc(REQ.vault.pretend)}">${esc(REQ.vault.more)}</a></p>
           <button type="button" class="btn btn--ghost btn--icon" data-dismiss-vault aria-label="${esc(REQ.vault.dismiss)}">${icon('x')}</button>
-        </aside>`}
+        </section>`}
       <div class="ev-filters">
         <div class="field"><label class="field__label" for="ev-status">${esc(E.filters.status)}</label>
           <select class="select" id="ev-status" data-ev-filter="status"><option value="">${esc(E.filters.all)}</option>${STATUSES.map((s) => `<option value="${s}"${query.status === s ? ' selected' : ''}>${esc(STATUS[s].label)}</option>`).join('')}</select></div>

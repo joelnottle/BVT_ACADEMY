@@ -37,9 +37,8 @@ function accountMenu(ctx) {
   const lead = persona.role === 'lead' && org;
   return `
     <div class="menu-wrap">
-      <button type="button" class="avatar-btn" data-disclosure aria-expanded="false" aria-controls="account-menu"
-        aria-label="Account menu, ${esc(persona.name)}">
-        <span class="avatar" aria-hidden="true">${esc(persona.initials)}</span>${icon('chevron-down')}
+      <button type="button" class="avatar-btn" data-disclosure aria-expanded="false" aria-controls="account-menu">
+        <span class="avatar" aria-hidden="true">${esc(persona.initials)}</span><span class="sr-only">Account menu, ${esc(persona.name)}</span>${icon('chevron-down')}
       </button>
       <div class="menu" id="account-menu" hidden>
         <div class="menu__head">

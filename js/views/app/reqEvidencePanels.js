@@ -26,11 +26,11 @@ function goodEvidence(req) {
 
 function vaultPrompt() {
   return `
-    <aside class="vault" aria-label="${esc(REQ.vault.label)}">
+    <section class="vault" aria-label="${esc(REQ.vault.label)}">
       <p class="vault__label">${esc(REQ.vault.label)}</p>
       <p class="vault__text">${esc(REQ.vault.text)} <a href="#/" data-pretend="${esc(REQ.vault.pretend)}">${esc(REQ.vault.more)}</a></p>
       <button type="button" class="btn btn--ghost btn--icon" data-dismiss-vault aria-label="${esc(REQ.vault.dismiss)}">${icon('x')}</button>
-    </aside>`;
+    </section>`;
 }
 
 export function uploadPanel({ req, p, state, org, locked, review }) {

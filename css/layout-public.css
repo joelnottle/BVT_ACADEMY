@@ -95,7 +95,11 @@
 }
 
 .site-header__exit span { display: inline; }
-@media (max-width: 479px) { .site-header__exit span { display: none; } .site-header__exit { padding: 0; width: var(--target-min); } }
+/* Phones: icon only, label stays for screen readers (visually hidden, not display: none) */
+@media (max-width: 479px) {
+  .site-header__exit span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .site-header__exit { padding: 0; width: var(--target-min); }
+}
 
 /* ---- Footer ---- */
 .site-footer { background: var(--navy-950); padding-top: var(--sp-12); }

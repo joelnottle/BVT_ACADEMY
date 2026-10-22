@@ -33,6 +33,8 @@ export function renderPortal(ctx, content, variant = 'portal') {
 
 // ---- Overlay / drawer ----
 let lockedShell = null;
+// Outside the shell but still focusable: the skip link and the demo panel. Inert while the drawer is open.
+const setOutsideInert = (on) => document.querySelectorAll('.skip-link, #demo-root').forEach((el) => { el.inert = on; });
 
 function openSidebar(shell) {
   shell.dataset.sidebar = mqMd.matches ? 'overlay' : 'drawer';
@@ -41,6 +43,7 @@ function openSidebar(shell) {
   shell.querySelector('.portal-main').inert = true;
   shell.querySelector('[data-sidebar-toggle]').setAttribute('aria-expanded', 'true');
   document.body.classList.add('is-scroll-locked');
+  setOutsideInert(true);
   lockedShell = shell;
   shell.querySelector('.sidebar [data-sidebar-close]').focus();
 }
@@ -52,6 +55,7 @@ function closeSidebar(shell, { returnFocus = false } = {}) {
   shell.querySelector('.portal-main').inert = false;
   shell.querySelector('[data-sidebar-toggle]').setAttribute('aria-expanded', 'false');
   document.body.classList.remove('is-scroll-locked');
+  setOutsideInert(false);
   lockedShell = null;
   if (returnFocus) shell.querySelector('[data-sidebar-toggle]').focus();
 }
@@ -60,7 +64,7 @@ const isOpen = (shell) => ['overlay', 'drawer'].includes(shell.dataset.sidebar);
 
 // Navigating from the drawer re-renders the shell closed; release the scroll lock.
 window.addEventListener('hashchange', () => {
-  if (lockedShell) { document.body.classList.remove('is-scroll-locked'); lockedShell = null; }
+  if (lockedShell) { document.body.classList.remove('is-scroll-locked'); setOutsideInert(false); lockedShell = null; }
 });
 
 // Crossing a breakpoint changes the sidebar mode: re-render everything in the right shape.

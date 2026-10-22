@@ -17,7 +17,7 @@ export const requirementSection = () => section('requirement', 'Requirement page
     ${example('Stepper: compact (already in place)', stepper({ current: 'upload', variant: 'compact', label: 'Example compact steps' }))}
     <div class="sg-grid-2">
       ${example('Dropzone (pretend: name and size only)', `<div class="dropzone">${icon('upload-cloud')}<span class="dropzone__strong">${REQ.upload.drop}</span><p class="dropzone__hint">${REQ.upload.dropHint}</p></div>`)}
-      ${example('From our partners (dismissible)', `<aside class="vault" aria-label="Example partner prompt"><p class="vault__label">${REQ.vault.label}</p><p class="vault__text">${REQ.vault.text} <a href="#/styleguide/requirement">${REQ.vault.more}</a></p><button type="button" class="btn btn--ghost btn--icon" aria-label="Dismiss example">${icon('x')}</button></aside>`)}
+      ${example('From our partners (dismissible)', `<section class="vault" aria-label="Example partner prompt"><p class="vault__label">${REQ.vault.label}</p><p class="vault__text">${REQ.vault.text} <a href="#/styleguide/requirement">${REQ.vault.more}</a></p><button type="button" class="btn btn--ghost btn--icon" aria-label="Dismiss example">${icon('x')}</button></section>`)}
     </div>
     ${example('File rows', `<ul class="file-list"><li class="file-row">${icon('file')}<span class="file-row__name">cash-flow-forecast-2027.xlsx</span><span class="file-row__size">47 KB</span><button type="button" class="btn btn--ghost btn--icon" aria-label="Remove example file">${icon('trash-2')}</button></li><li class="file-row">${icon('link')}<span class="file-row__name">board-minutes-2027-02.pdf <span class="text-3">· from your locker</span></span><span class="file-row__size">158 KB</span></li></ul>`)}
     <div class="sg-grid-2">

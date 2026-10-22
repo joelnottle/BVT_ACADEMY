@@ -1,5 +1,8 @@
 // Styleguide: Phase 10 components — data table (stacks into cards when narrow), notification rows,
-// mock email card and the momentum week strip.
+// mock email card and the momentum week strip. Phase 15: Help page keycaps, step list and status key.
+import { STEPS } from '../../../data/copy.js';
+import { esc } from '../../util.js';
+import { icon } from '../../components/icon.js';
 import { statusChip } from '../../components/chips.js';
 import { noteRow } from '../../components/noteRow.js';
 import { section, example } from './layout.js';
@@ -20,5 +23,10 @@ export const accountSection = () => section('account', 'Locker, notifications & 
       ${example('Mock email', `<div class="email"><dl class="email__head"><div><dt>From</dt><dd>BVT Academy</dd></div><div><dt>Subject</dt><dd><strong>Two weeks left: your options</strong></dd></div></dl>
         <div class="email__body"><p>Hi Sam, you can extend by one month or three. Nothing you have done is lost.</p><p><span class="email__cta">Open BVT Academy</span></p></div></div>`)}
     </div>
+    <div class="sg-grid-2">
+      ${example('Help: keyboard shortcuts', `<dl class="settings-list"><div><dt><kbd class="kbd">⌘ K / Ctrl K</kbd></dt><dd>Search requirements</dd></div><div><dt><kbd class="kbd">Esc</kbd></dt><dd>Close panels and dialogs</dd></div></dl>`)}
+      ${example('Help: status key', `<dl class="settings-list help-status"><div><dt>${statusChip('changes')}</dt><dd>Almost there. Reply and upload again.</dd></div><div><dt>${statusChip('verified')}</dt><dd>Independently verified.</dd></div></dl>`)}
+    </div>
+    ${example('Help: the seven steps', `<ol class="help-loop">${STEPS.map((s, i) => `<li><span class="help-loop__n" aria-hidden="true">${i + 1}</span>${icon(s.icon)}<span><strong>${esc(s.label)}</strong>${s.optional ? ' <span class="text-3">· Optional</span>' : ''}<br><span class="text-2">${esc(s.blurb)}</span></span></li>`).join('')}</ol>`)}
     ${example('Momentum: 6 active weeks of the last 12', `<ol class="week-strip" aria-label="Example weeks">${Array.from({ length: 12 }, (_, i) => `<li class="week-strip__wk${i >= 6 ? ' is-active' : ''}"><span class="sr-only">${i >= 6 ? 'active' : 'no activity'}</span></li>`).join('')}</ol>`)}
   </div>`);

@@ -162,5 +162,8 @@
   transition: transform var(--dur-base) var(--ease-out), visibility var(--dur-base);
 }
 .portal[data-sidebar="hidden"] .sidebar { transform: translateX(-100%); visibility: hidden; box-shadow: none; }
+/* Opening: become visible at once so focus can move into the drawer; closing keeps the slide-out visible */
+.portal[data-sidebar="overlay"] .sidebar,
+.portal[data-sidebar="drawer"] .sidebar { transition: transform var(--dur-base) var(--ease-out), visibility 0s; }
 .portal[data-sidebar="overlay"] .sidebar__close,
 .portal[data-sidebar="drawer"] .sidebar__close { display: inline-flex; }
