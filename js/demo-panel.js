@@ -8,10 +8,11 @@ import {
   getState, subscribe, currentPersona, currentOrg, today, isPersistent, personaFor, personaIds,
   timeTravel, jumpToAccredited, resetDemo,
 } from './store.js';
-import { decideNext, completeNextSession } from './reqStore.js';
+import { decideNext, completeNextSession, completePathway } from './reqStore.js';
 import { parseHash, navigate } from './router.js';
 import { switchPersona } from './session.js';
-import { isAccredited } from './selectors.js';
+import { isAccredited, coreLocked, coreReqs } from './selectors.js';
+import { PATHWAY_PAGE } from '../data/pathways.js';
 
 const SIMULATIONS = {
   'verifier-approves': { label: 'Verifier approves next item', icon: 'circle-check', toast: 'Simulated: the verifier approved the next item' },
@@ -63,6 +64,7 @@ function panel() {
         <button type="button" class="btn btn--on-dark btn--block" data-demo-accredit data-focus-key="accredit" ${canAccredit ? '' : 'disabled'}>
           ${icon('award')}Jump to accredited</button>
         ${canAccredit ? '' : `<p class="demo__hint">${persona.role === 'lead' ? 'Already accredited.' : 'Choose persona A, B or C first.'}</p>`}
+        ${org && coreLocked(s, org) ? `<button type="button" class="btn btn--on-dark btn--block" data-demo-pathway data-focus-key="pathway">${icon('route')}Complete the pathway</button>` : ''}
       </div>
 
       <div class="demo__section">
@@ -137,6 +139,9 @@ function onClick(e) {
     if (org) showToast(`${org.name} is accredited`, { text: 'Connect profile and Enterprise hub now unlock where the date allows.', iconName: 'award' });
   } else if (sim) {
     runSimulation(sim.dataset.demoSim);
+  } else if (t.closest('[data-demo-pathway]')) {
+    const org = completePathway();
+    if (org) showToast(PATHWAY_PAGE.done, { text: PATHWAY_PAGE.doneText(coreReqs(org).length), iconName: 'route' });
   } else if (t.closest('[data-demo-reset]')) {
     resetDemo();
     showToast('Demo reset', { text: 'Every persona is back to its starting point.', iconName: 'rotate-ccw' });

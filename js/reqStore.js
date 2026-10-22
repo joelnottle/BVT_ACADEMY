@@ -3,12 +3,12 @@
 // Status path: not-started → learning → evidence-needed → in-review → verified | changes → in-review …
 import { REQ_BY_ID } from '../data/requirements.js';
 import { DOMAINS } from '../data/domains.js';
-import { PATHWAYS } from '../data/pathways.js';
+import { PATHWAYS, PATHWAY_PAGE } from '../data/pathways.js';
 import { BADGE_BY_ID, BADGES } from '../data/badges.js';
 import { FEEDBACK } from '../data/copy.js';
 import { COMMENT_TEMPLATES } from '../data/reviews.js';
 import { commit, getState, currentOrg, today } from './store.js';
-import { coreReqs, verifiedReadiness, domainStat, pathwayProgress } from './selectors.js';
+import { coreReqs, pathwayReqs, verifiedReadiness, domainStat, pathwayProgress } from './selectors.js';
 
 const SUBMITTED = ['in-review', 'changes', 'verified'];
 let seq = 0;
@@ -72,6 +72,7 @@ function award(s, orgId, ids, on) {
   const fresh = ids.filter((id) => BADGE_BY_ID[id] && !earned[id]);
   fresh.forEach((id) => {
     earned[id] = on;
+    if (id === 'pathway-complete') return; // announced by the unlock notice instead
     s.notifications.unshift({ id: newId('n'), orgId, type: 'milestone', on, title: `Milestone: ${BADGE_BY_ID[id].name}`, text: BADGE_BY_ID[id].trigger, href: '/app/recognition', read: false });
   });
   return fresh;
@@ -169,7 +170,9 @@ export function decideNext(kind, { reqId, verifierId = 'E', comment } = {}) {
       const line = progressLine(s, org, req);
       s.notifications.unshift({ id: newId('n'), orgId, type: 'outcome', on, title: line, text: 'See what to do next.', href: `/app/req/${req.id}/closed`, read: false });
       p.milestones = award(s, orgId, ms, on);
-      out = { reqId: req.id, orgId, title: line, text: p.milestones.length ? `Milestone: ${p.milestones.map((id) => BADGE_BY_ID[id].name).join(', ')}` : 'See what to do next on the Closed step.' };
+      const unlocked = p.milestones.includes('pathway-complete');
+      if (unlocked) s.notifications.unshift(unlockNotice(s, org, on));
+      out = { reqId: req.id, orgId, title: line, text: unlocked ? PATHWAY_PAGE.done : p.milestones.length ? `Milestone: ${p.milestones.map((id) => BADGE_BY_ID[id].name).join(', ')}` : 'See what to do next on the Closed step.' };
     } else {
       p.status = 'changes';
       r.comment = comment ?? COMMENT_TEMPLATES.changes[2];
@@ -181,6 +184,32 @@ export function decideNext(kind, { reqId, verifierId = 'E', comment } = {}) {
     }
   });
   return out;
+}
+
+const unlockNotice = (s, org, on) => ({
+  id: newId('n'), orgId: org.id, type: 'milestone', on, title: PATHWAY_PAGE.done,
+  text: PATHWAY_PAGE.doneText(coreReqs(org).length), href: '/app/dashboard', read: false,
+});
+
+/** Demo: verify every remaining pathway requirement, so Core unlocks (§13 script D). */
+export function completePathway() {
+  const org = currentOrg();
+  if (!org?.pathway || !pathwayReqs(org).length || pathwayProgress(getState(), org).complete) return null;
+  commit((s) => {
+    const on = today(s);
+    const o = s.orgs[org.id];
+    pathwayReqs(o).forEach((r) => {
+      const p = prog(s, o.id, r.id);
+      if (p.status === 'verified') return;
+      p.status = 'verified';
+      touch(p, on, 'Verified');
+      s.reviews.filter((x) => x.orgId === o.id && x.reqId === r.id && x.status !== 'verified')
+        .forEach((x) => Object.assign(x, { status: 'verified', verifierId: 'E', decidedOn: on, comment: COMMENT_TEMPLATES.verified[0] }));
+    });
+    award(s, o.id, ['first-verified', 'pathway-complete'], on);
+    s.notifications.unshift(unlockNotice(s, o, on));
+  });
+  return org;
 }
 
 /** Simulate: the next upcoming mentor session is marked complete (Phase 9 builds the mentoring pages). */

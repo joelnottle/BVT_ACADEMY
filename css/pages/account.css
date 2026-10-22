@@ -108,3 +108,23 @@
 .settings-list dd { margin: 0; }
 .settings-list a, .settings-list .link-btn { display: inline-flex; align-items: center; min-height: var(--target-min); margin-left: var(--sp-2); color: var(--accent-text); }
 .settings-page .segmented { align-self: flex-start; }
+
+/* ---- Pathway (§8.8) ---- */
+.pathway-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); align-items: start; }
+@media (min-width: 1100px) { .pathway-grid { grid-template-columns: minmax(0, 1fr) minmax(260px, 340px); } }
+.pw-list { display: flex; flex-direction: column; gap: var(--sp-3); padding: 0; margin: 0; list-style: none; }
+.pw-item { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--sp-3) var(--sp-4); padding: var(--sp-4); border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-0); }
+.pw-item.is-next { border-color: var(--plum-600); background: var(--cream-50); box-shadow: inset 0 0 0 1px var(--plum-600); }
+.pw-item__n { display: grid; place-items: center; width: 36px; height: 36px; border: 2px solid var(--border-input); border-radius: 50%; font-weight: var(--fw-semibold); color: var(--text-2); }
+.pw-item__n svg { width: 18px; height: 18px; }
+.pw-item.is-done .pw-item__n { border-color: var(--st-verified); background: var(--st-verified-bg); color: var(--st-verified-ink); }
+.pw-item.is-next .pw-item__n { border-color: transparent; background: var(--grad-action); color: var(--on-action); }
+.pw-item__main { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-1-5); min-width: 0; }
+.pw-item__title { font-family: var(--font-body); font-size: var(--fs-16); font-weight: var(--fw-semibold); }
+.pw-item__meta { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-1) var(--sp-3); font-size: var(--fs-12); color: var(--text-2); }
+.pw-item__meta > span:not(.chip) { display: inline-flex; align-items: center; gap: var(--sp-1); }
+.pw-item__meta svg { width: 14px; height: 14px; }
+@media (max-width: 599px) {
+  .pw-item { grid-template-columns: auto minmax(0, 1fr); }
+  .pw-item__go { grid-column: 2; justify-self: start; }
+}

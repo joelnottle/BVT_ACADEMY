@@ -85,8 +85,10 @@ function buildProgress(orgId) {
   const s = lists(orgId);
   const reqs = [...reqsForCheck(ORG_CHECK[orgId]), ...REQUIREMENTS.filter((r) => r.pathway && r.pathway === ORG_PATHWAY[orgId])];
   return Object.fromEntries(reqs.map((r) => {
-    const status = statusFor(s, r.id);
     const type = s.inPlace.includes(r.id) ? 'in-place' : 'not-yet';
+    // Already in place and not yet submitted = evidence needed (the same rule as a new enrolment)
+    const listed = statusFor(s, r.id);
+    const status = listed === 'not-started' && type === 'in-place' ? 'evidence-needed' : listed;
     const done = status === 'verified' && type === 'not-yet';
     const seeded = s.steps?.[r.id] ?? {};
     const steps = {

@@ -97,6 +97,12 @@ export function runDataChecks(state) {
   check('B · Brightfield', 'Check score → tier', '18% → foundation', `${S.checkScore(state.answers[b.id])}% → ${S.tierForScore(S.checkScore(state.answers[b.id]))}`);
   check('B · Brightfield', 'Recommended next starts with the pathway', 'SU-05', S.recommendedNext(state, b, tb)[0]?.reqId);
   check('B · Brightfield', 'Locked Core items on the board', 45, S.statusCounts(state, b).locked);
+  // Completing the pathway unlocks Core (§8.8): simulated on a copy, so the live state is untouched
+  check('B · Brightfield', 'Pathway complete → Core unlocked', false, (() => {
+    const copy = structuredClone(state);
+    S.pathwayReqs(b).forEach((r) => { copy.progress[b.id][r.id].status = 'verified'; });
+    return S.coreLocked(copy, b);
+  })());
   check('B · Brightfield', 'Lens: 7 pathway open, 45 locked', '7 · 45', (() => { const it = L.lensItems(state, b, tb); return `${it.filter((x) => !x.locked).length} · ${it.filter((x) => x.locked).length}`; })());
 
   // ---- Persona C: Harbourline ----

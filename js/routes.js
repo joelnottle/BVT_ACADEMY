@@ -37,7 +37,7 @@ export const ROUTES = [
   // ---- Portal (§7.3) ----
   app('/app/dashboard', 'Dashboard', 6, 'How close you are to accreditation, and what to do next.', { load: () => import('./views/app/dashboard.js') }),
   app('/app/score', 'My Check & Score', 6, 'Your Check answers (read-only), area breakdown and re-take information.'),
-  app('/app/pathway', 'Start-up pathway', 11, 'The short pathway to complete before Core requirements unlock.'),
+  app('/app/pathway', 'Pathway', 11, 'The short pathway to complete before Core requirements unlock.', { load: () => import('./views/app/pathway.js') }),
   app('/app/academy', 'Academy', 7, 'Opens the lens you used last.', { section: 'Academy', load: () => import('./views/app/academyRedirect.js') }),
   app('/app/academy/area', 'Academy — by area', 7, 'Every requirement, grouped by area and module.', { section: 'Academy', load: () => import('./views/app/academyArea.js') }),
   app('/app/academy/area/:domainId', 'Academy — area', 7, 'One area: its modules and requirements.', { section: 'Academy', load: () => import('./views/app/academyArea.js') }),
