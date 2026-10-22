@@ -89,7 +89,11 @@ async function render({ routeChange = false, initial = false } = {}) {
     window.scrollTo(0, scrollY);
     const target = focusSel && root.querySelector(focusSel);
     // If the focused control no longer exists (e.g. after "View this page as…"), start at the page heading
-    if (target) target.focus({ preventScroll: true });
+    if (target) {
+      target.focus({ preventScroll: true });
+      // A re-rendered text field gets its caret back at the end (live search)
+      try { if (typeof target.value === 'string') target.setSelectionRange(target.value.length, target.value.length); } catch { /* not a text field */ }
+    }
     else if (hadFocus) focusHeading(root);
   }
 }

@@ -34,8 +34,16 @@ export function navigate(path) {
   window.location.hash = path;
 }
 
+/** Change the URL without a route change (e.g. lens filters): the page re-renders in place,
+ *  keeping scroll and focus, and no history entry is added. */
+export function replaceHash(path) {
+  window.history.replaceState(window.history.state, '', `#${path}`);
+  window.dispatchEvent(new Event('hashreplace'));
+}
+
 /** Calls onChange({ routeChange: true }) now and on every hash change. */
 export function startRouter(onChange) {
   window.addEventListener('hashchange', () => onChange({ routeChange: true }));
+  window.addEventListener('hashreplace', () => onChange({ routeChange: false }));
   onChange({ routeChange: true, initial: true });
 }

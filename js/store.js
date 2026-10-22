@@ -31,7 +31,7 @@ function seed() {
     sessions: structuredClone(SESSIONS),
     notifications: structuredClone(NOTIFICATIONS),
     check: null,                      // free Check draft (§8.2) — see blankCheck()
-    ui: { sidebarCollapsed: false, areaTreeOpen: true },
+    ui: { sidebarCollapsed: false, areaTreeOpen: true, lens: 'area', boardView: null },
     activity: [],                     // simulated events, newest first
   };
 }
@@ -110,6 +110,28 @@ export function timeTravel(days) {
 
 export function setUi(patch) {
   update((s) => { Object.assign(s.ui, patch); });
+}
+
+/** Remember a UI preference without re-rendering (the element already shows it, e.g. an open <details>). */
+export function rememberUi(patch) {
+  update((s) => { Object.assign(s.ui, patch); }, { silent: true });
+}
+
+/** Remember the Academy lens last viewed (§8.5). Silent: called while that lens is on screen. */
+export function rememberLens(lens) {
+  if (state.ui.lens === lens) return;
+  update((s) => { s.ui.lens = lens; }, { silent: true });
+}
+
+/** Pretend learning (§8.6): mark a video watched, a session viewed or a template downloaded. */
+export function markLearning(kind, itemId) {
+  const org = currentOrg();
+  if (!org) return;
+  update((s) => {
+    const l = (s.learning[org.id] ??= { watched: [], sessions: [], downloads: [] });
+    if (!l[kind].includes(itemId)) l[kind].push(itemId);
+    s.activity.unshift({ kind: `learning-${kind}`, orgId: org.id, itemId, on: today(s) });
+  });
 }
 
 /** Demo shortcut: verify every Core requirement and accredit the current persona's organisation today. */

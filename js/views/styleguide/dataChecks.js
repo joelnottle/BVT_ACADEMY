@@ -11,6 +11,8 @@ import { todayFor } from '../../store.js';
 import * as S from '../../selectors.js';
 import { enrolmentOffer } from '../../checkSelectors.js';
 import * as DS from '../../dashboardSelectors.js';
+import * as L from '../../lensSelectors.js';
+import { parseLensFilters } from '../../lens.js';
 
 const verifiedOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.verified}/${d.total}`).join(' · ');
 const inPlaceOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.inPlace}`).join(' · ');
@@ -59,6 +61,15 @@ export function runDataChecks(state) {
   check('A · Dashboard', 'Unread notifications (bell)', 3, DS.unreadCount(state, a.id));
   check('A · Dashboard', 'Most recent item', 'FM-02', DS.recentItems(state, a)[0]?.text.slice(0, 5));
 
+  // Academy lenses (§8.5): the dashboard's link lands on exactly what it promised
+  const la = L.lensItems(state, a, ta);
+  check('A · Academy', 'Lens items', 45, la.length);
+  check('A · Academy', '"9 in-place items need evidence" link → 9 items', 9, L.filterItems(la, parseLensFilters({ status: 'evidence-needed', type: 'in-place' })).length);
+  check('A · Academy', 'Board columns (to start · learning · evidence · review · changes · verified)', '22 · 2 · 9 · 1 · 1 · 10',
+    ['not-started', 'learning', 'evidence-needed', 'in-review', 'changes', 'verified'].map((st) => la.filter((x) => x.status === st).length).join(' · '));
+  check('A · Academy', 'Search "cash flow" finds FM-04', true, L.filterItems(la, parseLensFilters({ q: 'cash flow' })).some((x) => x.id === 'FM-04'));
+  check('A · Academy', 'Modules in the library', 16, L.moduleCards(state, a).length);
+
   // ---- Persona B: Brightfield ----
   const b = state.orgs['org-brightfield'];
   const tb = todayFor(PERSONAS.B, state);
@@ -68,6 +79,7 @@ export function runDataChecks(state) {
   check('B · Brightfield', 'Check score → tier', '18% → foundation', `${S.checkScore(state.answers[b.id])}% → ${S.tierForScore(S.checkScore(state.answers[b.id]))}`);
   check('B · Brightfield', 'Recommended next starts with the pathway', 'SU-05', S.recommendedNext(state, b, tb)[0]?.reqId);
   check('B · Brightfield', 'Locked Core items on the board', 45, S.statusCounts(state, b).locked);
+  check('B · Brightfield', 'Lens: 7 pathway open, 45 locked', '7 · 45', (() => { const it = L.lensItems(state, b, tb); return `${it.filter((x) => !x.locked).length} · ${it.filter((x) => x.locked).length}`; })());
 
   // ---- Persona C: Harbourline ----
   const c = state.orgs['org-harbourline'];

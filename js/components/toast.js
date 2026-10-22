@@ -4,6 +4,14 @@ import { icon, renderIcons } from './icon.js';
 
 const DURATION = 6000;
 
+/** Announce a short status to screen readers only (e.g. "9 requirements match"). The region lives outside #app. */
+export function announce(text) {
+  const region = document.getElementById('sr-status');
+  if (!region) return;
+  region.textContent = '';
+  setTimeout(() => { region.textContent = text; }, 50);
+}
+
 /** showToast('FM-04 submitted', { text: 'We'll let you know…', iconName: 'circle-check' }) */
 export function showToast(title, { text = '', iconName = 'circle-check', duration = DURATION } = {}) {
   const region = document.getElementById('toast-region');

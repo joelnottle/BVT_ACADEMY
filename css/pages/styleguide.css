@@ -139,3 +139,4 @@
   .sg-table td > * { justify-self: start; }
 }
 
+.sg-board { max-width: 320px; }

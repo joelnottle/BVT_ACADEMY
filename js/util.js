@@ -40,5 +40,8 @@ export function addMonths(iso, n) {
   return fromUTC(dt.getTime());
 }
 
+/** Effort in hours as a short label: 0.25 → "~15 min", 2 → "~2 h". */
+export const effortLabel = (hrs) => (hrs < 1 ? `~${Math.round(hrs * 60)} min` : `~${hrs} h`);
+
 /** Clamp a number into [min, max]. */
 export const clamp = (n, min, max) => Math.min(max, Math.max(min, n));

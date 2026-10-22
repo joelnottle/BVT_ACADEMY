@@ -10,7 +10,7 @@ import {
   biggestGapArea, upcomingSessions, mentorById,
 } from './selectors.js';
 import { lensHref, reqHref } from './lens.js';
-import { formatDate, daysBetween } from './util.js';
+import { formatDate, daysBetween, effortLabel } from './util.js';
 
 const stepById = Object.fromEntries(STEPS.map((s) => [s.id, s]));
 const SUBMITTED = ['in-review', 'changes', 'verified'];
@@ -127,8 +127,7 @@ export function recommendedRows(recs) {
       return { ...x, code: 'Module', title: m.title, meta: `Shared learning for ${x.n} requirements`, href: `#/app/module/${m.id}` };
     }
     const r = REQ_BY_ID[x.reqId];
-    const mins = Math.round(r.effortHrs * 60);
-    const effort = mins < 60 ? `~${mins} min` : `~${r.effortHrs} h`;
+    const effort = effortLabel(r.effortHrs);
     const meta = x.reason === 'quick-win' ? `Upload only · ${effort}`
       : x.reason === 'biggest-gap' ? `Start with a ${r.video.mins}-min video · ${DOMAIN_NAME[r.domainId]}`
       : x.reason === 'changes' ? 'Reply to the verifier'

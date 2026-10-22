@@ -7,6 +7,8 @@ import { openSlideOver } from '../components/slideOver.js';
 import { showToast } from '../components/toast.js';
 import { getState, setUi, notify } from '../store.js';
 import { signOut } from '../session.js';
+import { navigate } from '../router.js';
+import { lensPath, LENSES } from '../lens.js';
 import { renderSidebar } from './sidebar.js';
 import { renderHeader, toggleState } from './portalHeader.js';
 
@@ -135,9 +137,9 @@ export function bindPortal(root, ctx) {
   shell.querySelectorAll('[data-portal-search]').forEach((form) => form.addEventListener('submit', (e) => {
     e.preventDefault();
     const q = form.querySelector('input').value.trim();
-    showToast(q ? `Searching for “${q}”` : 'Type something to search', {
-      text: 'Search results arrive with the Academy lenses in Phase 7.', iconName: 'search',
-    });
+    if (!q) { showToast('Type something to search', { iconName: 'search' }); return; }
+    const lens = LENSES.includes(getState().ui.lens) ? getState().ui.lens : 'area';
+    navigate(lensPath(lens === 'topic' ? 'area' : lens, { q })); // requirements live in the area and action lenses
   }));
 
   const nav = shell.querySelector('.sidebar');
