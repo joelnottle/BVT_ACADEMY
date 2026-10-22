@@ -33,6 +33,10 @@ No build step and no `npm install`. The only external requests are:
 
 **Browsers:** current Chrome, Edge, Safari and Firefox.
 
+**Hosting (e.g. GitHub Pages):** it works as-is from any static host, including a sub-path like `username.github.io/repo/`. All paths are relative, and hash routing needs no server rules.
+- `index.html` carries `<meta name="robots" content="noindex, nofollow, noarchive">`, so search engines are asked not to list it.
+- That is a request, not a lock. Anyone with the link can still open it.
+
 **Useful URLs**
 
 | URL | What |
