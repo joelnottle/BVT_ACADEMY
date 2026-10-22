@@ -4,6 +4,7 @@ import { ROUTES } from './routes.js';
 import { parseHash, matchRoute, startRouter } from './router.js';
 import { getState, subscribe, currentPersona, currentOrg, today } from './store.js';
 import { renderIcons } from './components/icon.js';
+import { showToast } from './components/toast.js';
 import './components/disclosure.js';
 import { renderPublic } from './layouts/public.js';
 import { renderPortal, bindPortal } from './layouts/portal.js';
@@ -97,6 +98,14 @@ async function render({ routeChange = false, initial = false } = {}) {
 app.addEventListener('click', (e) => {
   const btn = e.target.closest('[data-switch-persona]');
   if (btn) switchPersona(btn.dataset.switchPersona, { to: parseHash().path });
+});
+
+// Placeholder links (social, email): explain instead of leaving the prototype
+document.addEventListener('click', (e) => {
+  const a = e.target.closest('[data-pretend]');
+  if (!a) return;
+  e.preventDefault();
+  showToast('Placeholder link', { text: a.dataset.pretend, iconName: 'info' });
 });
 
 // Skip link: focus <main> without touching the hash (the hash belongs to the router)

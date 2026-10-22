@@ -227,7 +227,7 @@ Taken from the `--vcp-*` variables on staging3.mercyme.com.au. They are highligh
 
 The Vital Consult staging site uses Montserrat throughout.
 - `--font-display: "Montserrat", system-ui, sans-serif;` at weights 300/400 for H1–H3 and hero copy (Google Fonts).
-- `--font-body: "Inter", system-ui, sans-serif;` at weights 400/500/600 for UI and long-form learning text. It is more legible at small sizes on dense screens.
+- `--font-body: "Montserrat", system-ui, sans-serif;` too: one family throughout, light (300) for running text on a 15px base, 500/600 for labels and buttons.
 - Scale: 12 / 14 / 16 (body) / 18 / 20 / 24 / 32 / 40 / 56. Learning content body is 17px with 1.6 line-height and a max line length of 72ch.
 
 ### 4.3 Shape, depth, motion
@@ -243,7 +243,7 @@ Lucide icons, thin 1.5px stroke, matching the VC line icons. Feature icons are s
 
 ### 4.5 Logo
 
-Placeholder wordmark "**BVT** Academy" (BVT in 600 weight, Academy in 300) with a small gradient tick or V mark. **⚠ Needs the real BVT logo.** The current businessvitalitytracker.com has one, so confirm whether it carries over.
+The BVT Academy logo (hand holding the V circle, "BVT" and "ACADEMY") is supplied: `assets/img/bvt-logo.png` (white "ACADEMY", for dark backgrounds), `bvt-logo-on-light.png` (navy "ACADEMY", derived for light backgrounds such as the certificate) and `bvt-mark.png` (mark only: collapsed sidebar rail and favicon). Vital Consult appears as "A product of" + its logo in the public hero and footer.
 
 ---
 

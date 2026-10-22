@@ -1,6 +1,7 @@
 // Public layout (§7.1): marketing header and footer. `focused` routes (Check, enrolment) get a minimal header.
 import { PROTOTYPE_NOTE } from '../../data/copy.js';
-import { HOME } from '../../data/site.js';
+import { HOME, CONTACT } from '../../data/site.js';
+import { socialIcon } from '../components/social.js';
 import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
@@ -28,6 +29,19 @@ function actions(persona) {
     <a class="btn btn--action" href="#/sign-up">Start free check</a>`;
 }
 
+/** Slim top bar (VC pattern): email and social links. Placeholders until BVT supplies them. */
+function topbar() {
+  return `
+    <div class="topbar">
+      <div class="container topbar__inner">
+        <a class="topbar__link" href="mailto:${esc(CONTACT.email)}" data-pretend="Email address to be confirmed — nothing was sent.">${icon('mail')}<span>${esc(CONTACT.email)}</span></a>
+        <ul class="topbar__social">
+          ${CONTACT.socials.map((s) => `<li><a class="topbar__icon" href="#/" aria-label="${esc(s.label)}" data-pretend="Social profiles to be supplied.">${socialIcon(s.id)}</a></li>`).join('')}
+        </ul>
+      </div>
+    </div>`;
+}
+
 function header(ctx) {
   if (ctx.route.focused) {
     return `
@@ -39,6 +53,7 @@ function header(ctx) {
       </header>`;
   }
   return `
+    ${topbar()}
     <header class="site-header on-dark">
       <div class="site-header__inner container">
         ${logo()}

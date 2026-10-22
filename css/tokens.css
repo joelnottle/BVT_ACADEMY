@@ -117,9 +117,9 @@
   --icon-select: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233d4456' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
 
   /* ---- §4.2 Typography ---- */
-  /* Montserrat matches the Vital Consult staging site; Inter stays for dense UI and learning text. */
+  /* Montserrat throughout, as on the Vital Consult site (Joel, 22 Oct 2026). Running text is light (--fw-body). */
   --font-display: "Montserrat", system-ui, sans-serif;
-  --font-body: "Inter", system-ui, sans-serif;
+  --font-body: "Montserrat", system-ui, sans-serif;
 
   --fs-12: 0.75rem;
   --fs-14: 0.875rem;
@@ -130,10 +130,12 @@
   --fs-24: 1.5rem;
   --fs-32: 2rem;
   --fs-40: 2.5rem;
+  --fs-48: 3rem;
   --fs-56: 3.5rem;
   --fs-quote: 6rem;   /* decorative quote mark */
 
   --fw-light: 300;
+  --fw-body: 300;      /* lighter running text (Joel, 22 Oct 2026) */
   --fw-regular: 400;
   --fw-medium: 500;
   --fw-semibold: 600;
@@ -172,6 +174,7 @@
   /* Plum-tinted, as on the Vital Consult site (--vcp-shadow), kept soft */
   --shadow-1: 0 1px 2px rgb(15 19 29 / 0.04), 0 8px 28px rgb(148 40 120 / 0.05);
   --shadow-2: 0 4px 12px rgb(15 19 29 / 0.10), 0 24px 48px rgb(148 40 120 / 0.16);
+  --shadow-header: 0 2px 16px rgb(0 0 0 / 0.45); /* lifts the header off the hero so the V tucks behind it */
 
   /* ---- §4.3 Motion: hover, focus and panel slides only ---- */
   --dur-fast: 150ms;
@@ -194,4 +197,7 @@
   --gutter: 16px;          /* mobile side gutter */
   --gutter-wide: 32px;
   --content-max: 1200px;
+  --content-wide: 1600px; /* public site: use the full page width, as on the VC site */
+  --gutter-xl: 48px;
+  --topbar-h: 34px;
 }

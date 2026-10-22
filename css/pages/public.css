@@ -1,54 +1,65 @@
 /* Public home and inner pages (BUILD_PLAN §8.1). VC rhythm: dark hero → crimson strip → cream band. */
 
-/* ---- Home hero: full bleed, copy left, photo through the Vital Consult V mask on the right ---- */
+/* ---- Home hero: full bleed, copy left, photo through the Vital Consult V mask on the right.
+   The crimson strip sits inside the hero's bottom edge and hangs below it by --sp-24;
+   the V photo runs down to the bottom of the navy, behind the strip. ---- */
 .home-hero {
   position: relative;
-  overflow: hidden;
+  display: flow-root; /* stops the strip's negative margin collapsing through the hero */
+  overflow-x: clip;   /* the V may run off the right edge; the strip still hangs below */
   background-color: var(--navy-950);
   background-image: var(--glow-magenta);
 }
-.home-hero__inner { position: relative; z-index: 1; padding-block: var(--sp-16) var(--sp-12); }
-.home-hero__copy { display: flex; flex-direction: column; gap: var(--sp-5); max-width: 560px; }
-.home-hero__copy .display { max-width: 13ch; }
+.home-hero__inner { position: relative; z-index: 1; padding-block: var(--sp-12) var(--sp-10); }
+.home-hero__copy { display: flex; flex-direction: column; gap: var(--sp-4); max-width: 560px; }
+.home-hero__copy .display { max-width: none; font-size: var(--fs-48); }
+.home-hero__copy .lead { font-size: var(--fs-16); max-width: none; }
+@media (max-width: 767px) { .home-hero__copy .display { font-size: var(--fs-40); } }
 .home-hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-3); }
 @media (max-width: 479px) { .home-hero__actions .btn { width: 100%; white-space: normal; } }
 
-/* "A product of Vital Consult" */
+/* "A product of Vital Consult" (on the cream band, under the pink strip) */
 .endorse { display: inline-flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-12); letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-dark-2); }
 .endorse img { width: auto; height: 18px; }
+.endorse--on-light { align-self: center; color: var(--text-2); }
+.endorse--on-light img { height: 22px; }
 
-/* Photo through the V mask (assets/img/vital-v-mask.svg). TODO(client): confirm photo rights. */
+/* Photo through the V mask (assets/img/vital-v-mask.svg, cropped flat across the top). TODO(client): confirm photo rights. */
 .home-hero__media {
-  aspect-ratio: 799 / 520;
-  background: url("../../assets/img/hero-bvt.jpg") center 35% / cover no-repeat;
-  -webkit-mask: url("../../assets/img/vital-v-mask.svg") right bottom / 100% 100% no-repeat;
-  mask: url("../../assets/img/vital-v-mask.svg") right bottom / 100% 100% no-repeat;
-}
-@media (min-width: 1024px) {
-  .home-hero__inner { min-height: 560px; display: flex; align-items: center; padding-block: var(--sp-12) var(--sp-16); }
-  .home-hero__copy { max-width: 48%; }
-  .home-hero__media {
-    position: absolute; right: 0; bottom: 0;
-    width: min(56%, 920px); aspect-ratio: 799 / 520;
-  }
-}
-@media (max-width: 1023px) {
-  .home-hero__media { width: 100%; margin-bottom: var(--sp-4); }
+  aspect-ratio: 799 / 477;
+  background: url("../../assets/img/hero-bvt.jpg") center 30% / cover no-repeat;
+  -webkit-mask: url("../../assets/img/vital-v-mask.svg") center bottom / 100% 100% no-repeat;
+  mask: url("../../assets/img/vital-v-mask.svg") center bottom / 100% 100% no-repeat;
 }
 
-/* ---- Crimson 4-step strip, overlapping hero and cream band (split background behind it) ---- */
-.home-strip-band { background: linear-gradient(to bottom, var(--navy-950) 0 var(--sp-20), var(--cream-100) var(--sp-20) 100%); }
+/* Crimson 4-step strip */
+.home-hero__strip { position: relative; z-index: 2; margin-bottom: calc(-1 * var(--sp-24)); }
 .home-strip.card {
   display: grid; gap: var(--sp-6); grid-template-columns: minmax(0, 1fr);
-  padding: var(--sp-8); margin: 0; list-style: none; box-shadow: var(--shadow-2);
+  padding: var(--sp-6); margin: 0; list-style: none; box-shadow: var(--shadow-2);
 }
 @media (min-width: 600px) { .home-strip.card { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .home-strip.card { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
 .home-strip__step { display: flex; flex-direction: column; gap: var(--sp-2); }
 .home-strip__icon svg { width: 30px; height: 30px; }
 
-/* The cream Checks band continues straight on from the strip */
-.home-strip-band + .band-cream { padding-top: var(--sp-20); }
+@media (min-width: 1024px) {
+  /* Copy on the left, the V photo from 56% across (it may run off the right edge) */
+  .home-hero__copy { max-width: min(960px, calc(56vw - var(--gutter-xl) - var(--sp-6))); }
+  /* One row of buttons: low in the hero the V's left arm has slanted right, so the row may run past the copy column */
+  .home-hero__actions { gap: var(--sp-2); flex-wrap: nowrap; width: max-content; }
+  .home-hero__actions .btn { padding-inline: var(--sp-4); font-size: var(--fs-14); }
+  .home-hero__inner { padding-block: var(--sp-24); } /* ~20% taller hero */
+  /* Full hero height: from the bottom of the header to the bottom of the navy, behind the strip */
+  .home-hero__media { position: absolute; top: calc(-1 * var(--sp-6)); bottom: 0; left: 56%; width: auto; height: auto; aspect-ratio: 799 / 477; }
+}
+@media (max-width: 1023px) {
+  .home-hero__media { width: 100%; }
+  .home-hero__strip { margin-top: calc(-1 * var(--sp-10)); } /* the V's tip tucks behind the strip */
+}
+
+/* The cream Checks band starts behind the strip's lower part */
+.home-hero + .band-cream { padding-top: calc(var(--sp-24) + var(--sp-16)); }
 
 /* ---- Credential + Connect ---- */
 .connect-search { display: flex; flex-direction: column; gap: var(--sp-2); }

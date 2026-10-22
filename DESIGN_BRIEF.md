@@ -45,7 +45,7 @@ BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Cons
 - **Top bar:** `#942878 → #E62F5C → #F8B29C → #FFECB9`, 3–4px, across the very top of every screen (VC signature)
 - **Warm wash:** `240deg, #FFFFFF → #FFECB9 → #F8B29C`
 
-**Type:** **Montserrat** (300/400) for headings and display, as on the VC site; **Inter** (400/500/600) for UI, tables and learning text. Heading colour on light is navy text `#1B202B`, never pure black.
+**Type:** **Montserrat** throughout, as on the VC site: 300 for headings and running text, 500/600 for labels and buttons, on a 15px base. Heading colour on light is navy text `#1B202B`, never pure black.
 
 ---
 

@@ -98,7 +98,7 @@ export function renderSidebar(ctx) {
   return `
     <div class="sidebar on-dark" id="sidebar">
       <div class="sidebar__brand">
-        ${logo({ href: `#${ctx.persona.landing}` })}
+        ${logo({ href: `#${ctx.persona.landing}`, withMark: true })}
         <button type="button" class="btn btn--on-dark-ghost btn--icon sidebar__close" data-sidebar-close aria-label="Close navigation">${icon('x')}</button>
       </div>
       ${isLead ? miniStatus(ctx) : ''}

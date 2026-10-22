@@ -17,13 +17,13 @@ const listing = (id, today) => {
 };
 
 // Full-bleed hero (VC homepage pattern): copy on the left, photo through the Vital Consult V mask on the right.
+// The crimson 4-step strip sits inside the hero's bottom edge, so the V runs down behind it.
 function hero() {
   const h = HOME.hero;
   return `
     <section class="home-hero on-dark" aria-labelledby="home-hero-h">
       <div class="container home-hero__inner">
         <div class="home-hero__copy">
-          <p class="endorse">${esc(h.endorsement.text)} <img src="${esc(h.endorsement.logo)}" alt="${esc(h.endorsement.alt)}" width="162" height="20"></p>
           <p class="eyebrow">${esc(h.eyebrow)}</p>
           <h1 class="display rule" id="home-hero-h">${accentText(h.title)}</h1>
           <p class="lead">${esc(h.lead)}</p>
@@ -31,15 +31,15 @@ function hero() {
         </div>
       </div>
       <div class="home-hero__media" role="img" aria-label="${esc(h.image.alt)}"></div>
+      ${strip()}
     </section>`;
 }
 
 function strip() {
   return `
-    <div class="home-strip-band">
-    <section class="container" aria-labelledby="strip-h">
+    <div class="container home-hero__strip">
       <h2 class="sr-only" id="strip-h">${esc(HOME.strip.heading)}</h2>
-      <ol class="card card--crimson home-strip">
+      <ol class="card card--crimson home-strip" aria-labelledby="strip-h">
         ${HOME.strip.steps.map((s) => `
           <li class="home-strip__step">
             <span class="home-strip__icon">${icon(s.icon)}</span>
@@ -47,7 +47,6 @@ function strip() {
             <p class="card__meta">${esc(s.text)}</p>
           </li>`).join('')}
       </ol>
-    </section>
     </div>`;
 }
 
@@ -56,6 +55,7 @@ function checks() {
   return `
     <section class="section band-cream" aria-labelledby="checks-h">
       <div class="container stack stack-lg">
+        <p class="endorse endorse--on-light">${esc(HOME.hero.endorsement.text)} <img src="${esc(HOME.hero.endorsement.logoOnLight)}" alt="${esc(HOME.hero.endorsement.alt)}" width="162" height="20"></p>
         <div class="section-split">
           ${sectionHead({ ...c, id: 'checks-h' })}
           <a class="btn btn--outline" href="#/checks">Compare the checks${icon('arrow-right')}</a>
@@ -161,7 +161,6 @@ export function render(ctx) {
   return `
     <div class="home">
       ${hero()}
-      ${strip()}
       ${checks()}
       ${loop()}
       ${tiers()}

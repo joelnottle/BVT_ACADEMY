@@ -2,7 +2,7 @@
 // Reused on the home page, the accreditation page and the public verify page.
 import { esc, formatDate } from '../util.js';
 import { icon } from './icon.js';
-import { vMark } from './brand.js';
+import { vMark, logoImage } from './brand.js';
 
 /** Illustrative QR-style pattern, generated from the certificate number (not a real QR code). */
 function fakeQr(seed, size = 21) {
@@ -30,7 +30,7 @@ export function certificate({ orgName, certNo, issuedOn, renewsOn, check = 'BVT 
     <article class="cert" aria-label="Certificate of accreditation for ${esc(orgName)}">
       <div class="cert__v" aria-hidden="true">${vMark({ className: 'cert__v-mark' })}</div>
       <header class="cert__head">
-        <span class="cert__brand"><strong>BVT</strong> Academy</span>
+        ${logoImage({ className: 'cert__logo' })}
         <span class="cert__badge">${icon('award')}Accredited</span>
       </header>
       <p class="cert__kicker">Certificate of accreditation</p>

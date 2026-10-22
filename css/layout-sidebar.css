@@ -133,7 +133,9 @@
 .portal[data-sidebar="rail"] .sidebar,
 .portal[data-sidebar="overlay"] .sidebar { padding-inline: var(--sp-3); }
 .portal[data-sidebar="rail"] .sidebar__brand { padding-inline-start: 0; justify-content: center; }
-.portal[data-sidebar="rail"] .logo > span,
+.sidebar .logo__full { width: auto; height: 40px; }
+.portal[data-sidebar="rail"] .logo__full { display: none; }
+.portal[data-sidebar="rail"] .logo__mark { display: block; width: auto; height: 36px; }
 .portal[data-sidebar="rail"] .nav-link__text,
 .portal[data-sidebar="rail"] .nav-link__meta > :not(svg) {
   position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;

@@ -43,7 +43,7 @@
 .portal-header__brand { display: none; min-width: 0; }
 .portal[data-sidebar="hidden"] .portal-header__brand,
 .portal[data-sidebar="drawer"] .portal-header__brand { display: flex; flex: 1 1 auto; }
-.portal-header__brand .logo { font-size: var(--fs-18); }
+.portal-header__brand .logo__full { width: auto; height: 34px; }
 .portal-header__spacer { flex: 1 1 auto; }
 .portal-header .team-badge { margin-left: var(--sp-2); }
 

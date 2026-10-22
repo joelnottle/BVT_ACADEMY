@@ -44,9 +44,9 @@ const type = `
         <p class="h1">H1 · Montserrat 300</p>
         <p class="h2">H2 · Montserrat 300</p>
         <p class="h3">H3 · Montserrat 400</p>
-        <p class="h4">H4 · Inter 600</p>
-        <p class="lead">Lead · Inter 400, 18px, text-2.</p>
-        <p>Body · Inter 400, 16px. <a href="#/styleguide/type">Inline link uses --accent-text</a>.</p>
+        <p class="h4">H4 · Montserrat 600</p>
+        <p class="lead">Lead · Montserrat 300, 18px, text-2.</p>
+        <p>Body · Montserrat 300, 15px base. <a href="#/styleguide/type">Inline link uses --accent-text</a>.</p>
         <p class="text-3">Meta · 14px, text-3 · Updated 8 Dec 2027</p>
         <div class="prose">
           <p><strong>Learning prose</strong> · 17px, 1.6 line-height, max 72ch. A cash flow forecast projects
@@ -86,7 +86,7 @@ const shape = `
 
 export const tokensSections = () => [
   section('colours', 'Colour tokens', 'All raw colours live in <code>css/tokens.css</code>. Values are read live from the stylesheet.', colours),
-  section('type', 'Typography', 'Montserrat for display (300/400), matching Vital Consult. Inter for UI and learning text (400/500/600).', type),
+  section('type', 'Typography', 'Montserrat throughout, matching Vital Consult: light (300) for headings and running text, 500/600 for labels and buttons.', type),
   section('shape', 'Spacing, radius & depth', 'Soft, low, diffuse shadows on light. A 1px hairline instead of shadows on dark.', shape),
 ].join('');
 

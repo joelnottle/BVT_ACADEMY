@@ -1,6 +1,16 @@
 // Public site copy: Home (BUILD_PLAN §8.1). *word* marks the crimson accent word in a heading.
 // Australian English. Placeholder quotes and people are fictional.
 
+// TODO(client): real email address and social profile links
+export const CONTACT = {
+  email: 'hello@bvtacademy.com.au',
+  socials: [
+    { id: 'linkedin', label: 'BVT Academy on LinkedIn' },
+    { id: 'facebook', label: 'BVT Academy on Facebook' },
+    { id: 'instagram', label: 'BVT Academy on Instagram' },
+  ],
+};
+
 export const HOME = {
   hero: {
     eyebrow: 'Prequalified. Accredited. Connected.',
@@ -12,7 +22,7 @@ export const HOME = {
       { label: 'Find pre-qualified businesses', href: '/connect', variant: 'on-dark' },
     ],
     image: { src: 'assets/img/hero-bvt.jpg', alt: 'Two colleagues reviewing a Business Vitality Tracker score on a laptop' },
-    endorsement: { text: 'A product of', logo: 'assets/img/vital-consult-logo-reversed.png', alt: 'Vital Consult' },
+    endorsement: { text: 'A product of', logo: 'assets/img/vital-consult-logo-reversed.png', logoOnLight: 'assets/img/vital-consult-logo.png', alt: 'Vital Consult' },
   },
   strip: {
     heading: 'Four steps to pre-qualified',

@@ -69,8 +69,7 @@
 .cert__v { position: absolute; right: calc(-1 * var(--sp-8)); bottom: calc(-1 * var(--sp-10)); width: 220px; opacity: 0.12; pointer-events: none; }
 .cert__v-mark { width: 100%; height: auto; }
 .cert__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); }
-.cert__brand { font-family: var(--font-display); font-size: var(--fs-18); font-weight: var(--fw-light); }
-.cert__brand strong { font-weight: var(--fw-semibold); }
+.cert__logo { width: auto; height: 36px; }
 .cert__badge {
   display: inline-flex; align-items: center; gap: var(--sp-1); padding: var(--sp-half) var(--sp-3);
   border-radius: var(--r-pill); background: var(--plum-600); color: var(--on-action);

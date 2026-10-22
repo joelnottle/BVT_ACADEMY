@@ -5,20 +5,39 @@
 .site-main:focus { outline: none; }
 
 /* ---- Header ---- */
+/* Use the full page width, as on the Vital Consult site */
+.public .container { max-width: var(--content-wide); }
+@media (min-width: 1280px) { .public .container { padding-inline: var(--gutter-xl); } }
+
+/* ---- Slim top bar: email and social links on the VC gradient ---- */
+.topbar { background: var(--grad-vc-bar); }
+/* Small screens: compress the gradient so the icons always sit on peach/cream (plum icons ≥ 4.2:1) */
+@media (max-width: 767px) { .topbar { background: linear-gradient(90deg, var(--plum-600), var(--crimson-500) 18%, var(--peach-300) 42%, var(--cream-200)); } }
+.topbar__inner { display: flex; align-items: center; justify-content: flex-end; gap: var(--sp-3); min-height: var(--topbar-h); }
+.topbar__link {
+  display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--topbar-h);
+  color: var(--navy-900); font-size: var(--fs-14); font-weight: var(--fw-medium); text-decoration: none;
+}
+.topbar__link:hover { text-decoration: underline; }
+.topbar__link svg { width: 18px; height: 18px; color: var(--plum-600); }
+.topbar__social { display: flex; gap: var(--sp-1); margin: 0; padding: 0; list-style: none; }
+.topbar__icon { display: grid; place-items: center; width: var(--topbar-h); height: var(--topbar-h); border-radius: var(--r-sm); color: var(--plum-600); }
+.topbar__icon:hover { background: var(--cream-50); }
+.topbar__icon .social-icon { width: 20px; height: 20px; }
+.topbar :focus-visible { outline-color: var(--navy-900); outline-offset: -2px; }
+@media (max-width: 599px) { .topbar__link span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; } }
+
+/* ---- Header: a step lighter than the hero, with a soft shadow, so the V reads as tucked behind it ---- */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--navy-950);
+  background: var(--navy-800);
   border-bottom: 1px solid var(--border-on-dark);
+  box-shadow: var(--shadow-header);
 }
-/* Thin Vital Consult gradient bar across the top */
-.site-header::before {
-  content: "";
-  display: block;
-  height: 4px;
-  background: var(--grad-vc-bar);
-}
+/* The focused Check/enrolment header keeps the thin gradient line instead of the top bar */
+.public--focused .site-header::before { content: ""; display: block; height: 4px; background: var(--grad-vc-bar); }
 .site-header__inner {
   display: flex;
   align-items: center;
@@ -26,6 +45,7 @@
   min-height: var(--site-header-h);
 }
 .site-header__inner > .logo { margin-right: auto; }
+.site-header .logo__full, .site-footer .logo__full { width: auto; height: 52px; }
 
 .site-nav ul { display: flex; gap: var(--sp-1); margin: 0; padding: 0; list-style: none; }
 .site-nav__link {
