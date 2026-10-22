@@ -10,6 +10,7 @@ import { sampleAnswers, freshProgress } from '../../../data/progress.js';
 import { todayFor } from '../../store.js';
 import * as S from '../../selectors.js';
 import { enrolmentOffer } from '../../checkSelectors.js';
+import * as DS from '../../dashboardSelectors.js';
 
 const verifiedOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.verified}/${d.total}`).join(' · ');
 const inPlaceOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.inPlace}`).join(' · ');
@@ -49,6 +50,14 @@ export function runDataChecks(state) {
   check('A · Kestrel', 'Recommended next (reasons)', ['changes', 'quick-win', 'unblocks', 'biggest-gap'], S.recommendedNext(state, a, ta, { limit: 4 }).map((x) => x.reason));
   check('A · Kestrel', 'Quick win · biggest gap', 'GC-01 · RC-01', (() => { const r = S.recommendedNext(state, a, ta, { limit: 5 }); return `${r.find((x) => x.reason === 'quick-win')?.reqId} · ${r.find((x) => x.reason === 'biggest-gap')?.reqId}`; })());
   check('A · Kestrel', 'FM-04 at step 4 (Do it 2 of 4)', '2/4', (() => { const d = S.progressOf(state, a.id, 'FM-04').steps.doIt; return `${d.filter(Boolean).length}/${d.length}`; })());
+
+  // Dashboard (§8.4)
+  const fa = DS.focusItem(state, a);
+  check('A · Dashboard', 'Resume: FM-04 at Do it, 2 of 4', 'resume FM-04 doIt 2/4', `${fa.mode} ${fa.reqId} ${fa.step} ${fa.checklist?.done}/${fa.checklist?.total}`);
+  check('A · Dashboard', 'Needs your attention', ['changes', 'evidence', 'review', 'neutral'], DS.attentionItems(state, a, ta).map((x) => x.tone));
+  check('A · Dashboard', 'Recommended next (no changes row)', ['quick-win', 'unblocks', 'biggest-gap'], S.recommendedNext(state, a, ta, { exclude: ['changes'] }).map((x) => x.reason));
+  check('A · Dashboard', 'Unread notifications (bell)', 3, DS.unreadCount(state, a.id));
+  check('A · Dashboard', 'Most recent item', 'FM-02', DS.recentItems(state, a)[0]?.text.slice(0, 5));
 
   // ---- Persona B: Brightfield ----
   const b = state.orgs['org-brightfield'];

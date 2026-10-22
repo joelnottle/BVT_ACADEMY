@@ -1,4 +1,4 @@
-// Slim 56px navy header (§7.3). Below 1024px chips condense into "More"; below 768px the header
+// Slim 56px navy header (§7.3). Below 1280px the mentor chip and help fold into "More"; below 768px the header
 // keeps the menu button, logo, Ali chip and avatar, and the rest moves into the avatar menu (§11).
 import { PACE } from '../../data/copy.js';
 import { PARTNERS } from '../../data/partners.js';
@@ -6,6 +6,7 @@ import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
 import { isAccredited, daysLeft, paceStatus } from '../selectors.js';
+import { unreadCount } from '../dashboardSelectors.js';
 import { searchForm } from './sidebar.js';
 
 const TOGGLE = {
@@ -20,6 +21,7 @@ export const toggleState = (mode, isDesktop) => (mode === 'rail' && !isDesktop
 
 const credits = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
 const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+const bellLabel = (n) => (n ? `Notifications, ${n} unread` : 'Notifications');
 
 function menuItem(href, iconName, label, cls = '') {
   return `<li class="${cls}"><a class="menu__item" href="#${href}">${icon(iconName)}${esc(label)}</a></li>`;
@@ -47,7 +49,7 @@ function accountMenu(ctx) {
             ${menuItem('/app/settings/billing', 'banknote', 'Billing & credits')}
             ${menuItem('/app/mentoring', 'users', `Mentoring · ${plural(org.credits.mentor, 'session', 'sessions')}`, 'hide-md hide-lg')}
             ${menuItem(isAccredited(org) ? '/app/accreditation' : '/app/plan', 'gauge', isAccredited(org) ? 'Accreditation' : 'Plan & pace', 'hide-md hide-lg')}
-            ${menuItem('/app/notifications', 'bell', 'Notifications', 'hide-md hide-lg')}
+            ${menuItem('/app/notifications', 'bell', withCount('Notifications', unreadCount(ctx.state, org.id)), 'hide-md hide-lg')}
             ${menuItem('/app/help', 'life-buoy', 'Help & resources', 'hide-md hide-lg')}` : ''}
           <li class="menu__sep"><button type="button" class="menu__item" data-sign-out>${icon('log-out')}Sign out</button></li>
         </ul>
@@ -55,15 +57,17 @@ function accountMenu(ctx) {
     </div>`;
 }
 
-function moreMenu(org) {
+const withCount = (label, n) => (n ? `${label} · ${n} unread` : label);
+
+function moreMenu(org, unread) {
   return `
-    <div class="menu-wrap hide-sm hide-lg">
+    <div class="menu-wrap hide-sm hide-xl">
       <button type="button" class="btn btn--on-dark-ghost btn--icon" data-disclosure aria-expanded="false"
         aria-controls="more-menu" aria-label="More">${icon('ellipsis')}</button>
       <div class="menu" id="more-menu" hidden>
         <ul class="menu__list">
           ${menuItem('/app/mentoring', 'users', `Mentoring · ${plural(org.credits.mentor, 'session', 'sessions')}`)}
-          ${menuItem('/app/notifications', 'bell', 'Notifications')}
+          ${menuItem('/app/notifications', 'bell', withCount('Notifications', unread))}
           ${menuItem('/app/help', 'life-buoy', 'Help & resources')}
         </ul>
       </div>
@@ -73,6 +77,7 @@ function moreMenu(org) {
 function leadActions(ctx) {
   const { state, org, today } = ctx;
   const ali = credits(org.credits.ali);
+  const unread = unreadCount(state, org.id);
   const pace = PACE[paceStatus(state, org, today).status];
   const paceChip = isAccredited(org)
     ? `<a class="header-chip hide-sm" href="#/app/accreditation">${icon('award')}<span>Accredited</span></a>`
@@ -81,11 +86,11 @@ function leadActions(ctx) {
     <button type="button" class="header-chip" data-open-ali aria-label="Ask Ali, ${ali} credits">
       ${icon('sparkles')}<span aria-hidden="true"><span class="hide-sm">Ali · </span>${ali}<span class="hide-sm"> credits</span></span>
     </button>
-    <a class="header-chip hide-sm hide-md" href="#/app/mentoring">${icon('users')}<span>${plural(org.credits.mentor, 'mentor session', 'mentor sessions')}</span></a>
+    <a class="header-chip hide-below-xl" href="#/app/mentoring">${icon('users')}<span>${plural(org.credits.mentor, 'mentor session', 'mentor sessions')}</span></a>
     ${paceChip}
-    <a class="btn btn--on-dark-ghost btn--icon hide-sm hide-md" href="#/app/notifications" aria-label="Notifications">${icon('bell')}</a>
-    <a class="btn btn--on-dark-ghost btn--icon hide-sm hide-md" href="#/app/help" aria-label="Help & resources">${icon('circle-question-mark')}</a>
-    ${moreMenu(org)}`;
+    <a class="btn btn--on-dark-ghost btn--icon bell hide-sm hide-md" href="#/app/notifications" aria-label="${bellLabel(unread)}">${icon('bell')}${unread ? `<span class="bell__count" aria-hidden="true">${unread}</span>` : ''}</a>
+    <a class="btn btn--on-dark-ghost btn--icon hide-below-xl" href="#/app/help" aria-label="Help & resources">${icon('circle-question-mark')}</a>
+    ${moreMenu(org, unread)}`;
 }
 
 export function renderHeader(ctx, variant, toggle) {

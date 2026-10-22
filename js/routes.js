@@ -35,7 +35,7 @@ export const ROUTES = [
   { ...check('/onboarding', 'Welcome to the Academy', 5, 'Four short steps: timeline, weekly goal, where to start, your support.'), section: 'Enrolment', load: () => import('./views/check/onboarding.js') },
 
   // ---- Portal (§7.3) ----
-  app('/app/dashboard', 'Dashboard', 6, 'How close you are to accreditation, and what to do next.'),
+  app('/app/dashboard', 'Dashboard', 6, 'How close you are to accreditation, and what to do next.', { load: () => import('./views/app/dashboard.js') }),
   app('/app/score', 'My Check & Score', 6, 'Your Check answers (read-only), area breakdown and re-take information.'),
   app('/app/pathway', 'Start-up pathway', 11, 'The short pathway to complete before Core requirements unlock.'),
   app('/app/academy/area', 'Academy — by area', 7, 'Every requirement, grouped by area and module.', { section: 'Academy' }),

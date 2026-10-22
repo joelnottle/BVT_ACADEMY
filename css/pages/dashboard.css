@@ -1,0 +1,145 @@
+/* Dashboard (§8.4). The grid responds to the space beside the sidebar (container queries),
+   not the window, so full, rail and drawer sidebar modes all lay out well. */
+
+.dash-page { container-type: inline-size; gap: var(--sp-8); }
+.dash { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-6); }
+.dash > .card { gap: var(--sp-4); }
+@media (min-width: 768px) { .dash > .card { padding: var(--sp-6); } }
+
+/* Named areas only exist in the multi-column grids; on one column, items flow in source order */
+@container (min-width: 640px) {
+  .dash-focus { grid-area: focus; }
+  .dash-attn { grid-area: attn; }
+  .dash-ready { grid-area: ready; }
+  .dash-pace { grid-area: pace; }
+  .dash-rec { grid-area: rec; }
+  .dash-ladder { grid-area: ladder; }
+  .dash-areas { grid-area: areas; }
+  .dash-week { grid-area: week; }
+  .dash-recent { grid-area: recent; }
+  .dash-ali { grid-area: ali; }
+  .dash {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "focus  focus"
+      "attn   ready"
+      "pace   ready"
+      "rec    rec"
+      "ladder ladder"
+      "areas  areas"
+      "week   recent"
+      "ali    ali";
+  }
+}
+@container (min-width: 900px) {
+  .dash {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(260px, 300px);
+    grid-template-areas:
+      "focus  focus  ready"
+      "attn   pace   ready"
+      "rec    rec    rec"
+      "ladder ladder ladder"
+      "areas  areas  areas"
+      "week   recent recent"
+      "ali    ali    ali";
+  }
+}
+
+/* ---- Shared bits ---- */
+.dash-title { font-family: var(--font-body); font-size: var(--fs-12); font-weight: var(--fw-semibold); letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-2); }
+.dash-row { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2) var(--sp-4); }
+.dash-link { display: inline-flex; align-items: center; gap: var(--sp-1-5); min-height: var(--target-min); color: var(--accent-text); font-size: var(--fs-14); font-weight: var(--fw-medium); }
+.dash-link svg { width: 16px; height: 16px; }
+.dash-row .dash-link { min-height: 0; padding-block: var(--sp-3); margin-block: calc(-1 * var(--sp-3)); }
+.dash-code { font-weight: var(--fw-semibold); color: var(--plum-600); font-variant-numeric: tabular-nums; }
+.dash-big { display: flex; align-items: center; gap: var(--sp-2); font-family: var(--font-display); font-size: var(--fs-32); font-weight: var(--fw-light); line-height: 1.1; }
+.dash-big svg { width: 28px; height: 28px; color: var(--plum-600); }
+
+/* ---- Focus: Resume / Start here (the one warm focal point) ---- */
+.dash-focus { justify-content: center; }
+.dash-focus__req { font-family: var(--font-display); font-size: var(--fs-24); line-height: var(--lh-snug); }
+.dash-focus__step { display: flex; align-items: center; gap: var(--sp-2); color: var(--text-2); }
+.dash-focus__step svg { width: 18px; height: 18px; color: var(--plum-600); }
+
+/* ---- Needs your attention: icon + label rows ---- */
+.attn-list, .rec-list, .recent-list, .area-grid { display: flex; flex-direction: column; padding: 0; margin: 0; list-style: none; }
+.attn-row {
+  display: flex; align-items: center; gap: var(--sp-3); min-height: var(--target-min);
+  padding: var(--sp-2-5) var(--sp-2); margin-inline: calc(-1 * var(--sp-2)); border-radius: var(--r-sm);
+  color: var(--text-1); text-decoration: none;
+}
+.attn-row:hover { background: var(--surface-1); }
+.attn-row > svg { flex-shrink: 0; width: 16px; height: 16px; margin-left: auto; color: var(--text-3); }
+.attn-row__icon { display: grid; flex-shrink: 0; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--surface-2); color: var(--text-2); }
+.attn-row__icon svg { width: 16px; height: 16px; }
+.attn-row[data-tone="changes"] .attn-row__icon { background: var(--st-changes-bg); color: var(--st-changes-ink); }
+.attn-row[data-tone="evidence"] .attn-row__icon { background: var(--st-evidence-bg); color: var(--st-evidence-ink); }
+.attn-row[data-tone="review"] .attn-row__icon { background: var(--st-review-bg); color: var(--st-review-ink); }
+.attn-row[data-tone="learning"] .attn-row__icon { background: var(--st-learning-bg); color: var(--st-learning-ink); }
+.attn-row[data-tone="neutral"] .attn-row__icon { background: var(--cream-100); color: var(--plum-600); }
+.attn-row__text { display: flex; flex-direction: column; font-size: var(--fs-14); line-height: var(--lh-snug); }
+.attn-row__meta { color: var(--text-3); font-size: var(--fs-12); }
+
+/* ---- Readiness ---- */
+.dash-ready { align-items: flex-start; }
+.dash-ready .ring { align-self: center; }
+.dash-ready__claimed { font-weight: var(--fw-semibold); }
+.dash-ready__claimed a { color: var(--accent-text); }
+
+/* ---- Recommended next ---- */
+.rec-list { gap: var(--sp-2); }
+.rec-row {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: var(--sp-2) var(--sp-4);
+  min-height: var(--target-min); padding: var(--sp-3) var(--sp-4); border: 1px solid var(--border); border-radius: var(--r-sm);
+  color: var(--text-1); text-decoration: none;
+  transition: border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+}
+.rec-row:hover { border-color: var(--plum-600); background: var(--cream-50); }
+.rec-row > svg { width: 16px; height: 16px; color: var(--text-3); }
+.rec-row__main { display: flex; flex-direction: column; gap: var(--sp-half); min-width: 0; }
+.rec-row__title { font-weight: var(--fw-medium); }
+.rec-row__meta { font-size: var(--fs-14); color: var(--text-2); }
+@container (max-width: 559px) {
+  .rec-row { grid-template-columns: minmax(0, 1fr) auto; }
+  .rec-row .chip { grid-column: 1 / -1; justify-self: start; }
+}
+
+/* ---- Areas ---- */
+.area-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-2) var(--sp-6); }
+@container (min-width: 640px) { .area-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@container (min-width: 900px) { .area-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.area-tile {
+  display: flex; flex-direction: column; gap: var(--sp-2); min-height: var(--target-min);
+  padding: var(--sp-3) var(--sp-2); margin-inline: calc(-1 * var(--sp-2)); border-radius: var(--r-sm);
+  color: var(--text-1); text-decoration: none;
+}
+.area-tile:hover { background: var(--surface-1); }
+.area-tile__head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--sp-1) var(--sp-3); font-size: var(--fs-14); }
+.area-tile__name { font-weight: var(--fw-medium); }
+.area-tile__count { display: inline-flex; align-items: center; gap: var(--sp-1); color: var(--text-2); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.area-tile__count svg { width: 14px; height: 14px; }
+
+/* ---- This week & Recent ---- */
+.dash-week__line { display: flex; align-items: center; gap: var(--sp-2); }
+.dash-week__line svg { flex-shrink: 0; width: 18px; height: 18px; color: var(--plum-600); }
+.recent-list { gap: var(--sp-1); }
+.recent-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 var(--sp-3); }
+.recent-list a { display: inline-flex; align-items: center; gap: var(--sp-2); min-height: var(--target-min); color: var(--text-1); font-size: var(--fs-14); text-decoration: none; }
+.recent-list a:hover { color: var(--accent-text); text-decoration: underline; }
+.recent-list a svg { flex-shrink: 0; width: 16px; height: 16px; color: var(--st-verified); }
+.recent-list__date { font-size: var(--fs-12); color: var(--text-3); white-space: nowrap; }
+
+/* ---- Ask Ali bar (stays dark) ---- */
+.dash-ali {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-4) var(--sp-5);
+  padding: var(--sp-5) var(--sp-6); border-radius: var(--r-md);
+  background-color: var(--navy-800); background-image: var(--glow-magenta);
+}
+.dash-ali__icon { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--navy-700); }
+.dash-ali__icon svg { width: 22px; height: 22px; color: var(--peach-300); }
+.dash-ali__text { flex: 1 1 240px; }
+.dash-ali .dash-title { color: var(--on-dark-2); }
+.dash-ali__text p { font-family: var(--font-display); font-size: var(--fs-18); }
+
+/* ---- Locked (pathway first) banner: a plain callout, so Resume stays the one warm focal point ---- */
+.dash-locked > svg { width: 24px; height: 24px; }

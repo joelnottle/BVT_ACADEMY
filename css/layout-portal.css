@@ -141,3 +141,13 @@
   transform: translateY(-50%);
   pointer-events: none;
 }
+
+/* Unread count on the bell (white on crimson-600 passes AA; the link's aria-label carries the count) */
+.bell { position: relative; }
+.bell__count {
+  position: absolute; top: var(--sp-1-5); right: var(--sp-1);
+  min-width: 18px; height: 18px; padding: 0 var(--sp-1); border-radius: var(--r-pill);
+  background: var(--crimson-600); color: var(--surface-0);
+  font-size: var(--fs-12); font-weight: var(--fw-semibold); line-height: 18px; text-align: center;
+  box-shadow: 0 0 0 2px var(--navy-900);
+}

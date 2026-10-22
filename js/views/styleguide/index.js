@@ -11,12 +11,13 @@ import { shellSection } from './sgShell.js';
 import { accentsSection } from './sgAccents.js';
 import { marketingSection } from './sgMarketing.js';
 import { checkFlowSection } from './sgCheckFlow.js';
+import { dashboardSection } from './sgDashboard.js';
 
 const TOC = [
   ['colours', 'Colour tokens'], ['type', 'Typography'], ['accents', 'Brand accents'], ['shape', 'Spacing, radius & depth'],
   ['buttons', 'Buttons'], ['forms', 'Form controls'], ['nav', 'Segmented, filters & tabs'],
   ['chips', 'Chips & tier badges'], ['cards', 'Cards & empty states'], ['seals', 'Badge seals'],
-  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'], ['checkflow', 'Check & enrolment'],
+  ['stepper', 'Stepper'], ['progress', 'Progress, ring & ladder'], ['overlays', 'Toast, modal & slide-over'], ['shell', 'Portal shell'], ['marketing', 'Public site components'], ['checkflow', 'Check & enrolment'], ['dashboard', 'Dashboard widgets'],
   ['contrast', 'Contrast results'],
 ];
 
@@ -51,6 +52,7 @@ export function renderStyleguide() {
         ${shellSection()}
         ${marketingSection()}
         ${checkFlowSection()}
+        ${dashboardSection()}
         ${contrastSection()}
       </main>
     </div>`;

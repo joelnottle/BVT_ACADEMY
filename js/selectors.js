@@ -78,6 +78,7 @@ export function domainProgress(state, org) {
       total: own.length,
       verified: own.filter((r) => p(r).status === 'verified').length,
       inPlace: own.filter((r) => p(r).type === 'in-place').length,
+      claimed: own.filter((r) => p(r).type === 'in-place' && !SUBMITTED.includes(p(r).status)).length,
     };
   });
 }
@@ -119,15 +120,16 @@ export function paceStatus(state, org, today) {
 /**
  * 1 changes requested · 2 in-place items with no evidence (quick win) · 3 the module being learned
  * (unblocks N, or continue) · 4 the biggest-gap area's first requirement · 5 due by the pace plan.
- * Locked organisations get their pathway first.
+ * Locked organisations get their pathway first. Short lists are topped up with further quick wins.
+ * `skipIds` leaves out requirements shown elsewhere (e.g. the dashboard's Start here card).
  * @returns {{reqId?:string, moduleId?:string, reason:string, n?:number}[]}
  */
-export function recommendedNext(state, org, today, { limit = 3, exclude = [] } = {}) {
+export function recommendedNext(state, org, today, { limit = 3, exclude = [], skipIds = [] } = {}) {
   const out = [];
   const seen = new Set();
   const push = (item) => {
     const key = item.reqId ?? item.moduleId;
-    if (!seen.has(key) && !exclude.includes(item.reason)) { seen.add(key); out.push(item); }
+    if (!seen.has(key) && !exclude.includes(item.reason) && !skipIds.includes(item.reqId)) { seen.add(key); out.push(item); }
   };
   const p = (id) => progressOf(state, org.id, id);
   const open = (id) => !SUBMITTED.includes(p(id).status);
@@ -151,13 +153,14 @@ export function recommendedNext(state, org, today, { limit = 3, exclude = [] } =
   }
 
   const gaps = domainProgress(state, org).filter((d) => d.total)
-    .sort((a, b) => a.verified / a.total - b.verified / b.total || b.total - a.total);
+    .sort((a, b) => a.verified / a.total - b.verified / b.total || (b.total - b.inPlace) - (a.total - a.inPlace) || b.total - a.total);
   for (const d of gaps) {
-    const r = reqs.find((x) => x.domainId === d.id && p(x.id).type === 'not-yet' && p(x.id).status === 'not-started');
+    const r = reqs.find((x) => x.domainId === d.id && p(x.id).type === 'not-yet' && p(x.id).status === 'not-started' && !skipIds.includes(x.id));
     if (r) { push({ reqId: r.id, reason: 'biggest-gap', domainId: d.id }); break; }
   }
 
   if (paceStatus(state, org, today).status === 'catch-up') quickWins.slice(1).forEach((r) => push({ reqId: r.id, reason: 'due-soon' }));
+  quickWins.slice(1).forEach((r) => push({ reqId: r.id, reason: 'quick-win', n: quickWins.length }));
   return out.slice(0, limit);
 }
 

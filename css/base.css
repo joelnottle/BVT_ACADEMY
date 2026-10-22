@@ -205,6 +205,9 @@ a:hover { text-decoration-thickness: 2px; }
 @media (max-width: 767px) { .hide-sm { display: none !important; } }
 @media (min-width: 768px) and (max-width: 1023px) { .hide-md { display: none !important; } }
 @media (min-width: 1024px) { .hide-lg { display: none !important; } }
+/* The portal header at 1024–1279 is narrow beside a full sidebar: fold extras into More */
+@media (max-width: 1279px) { .hide-below-xl { display: none !important; } }
+@media (min-width: 1280px) { .hide-xl { display: none !important; } }
 
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
