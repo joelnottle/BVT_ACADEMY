@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   gap: var(--sp-half);
   padding: var(--sp-1);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-sm);
   background: var(--surface-2);
   max-width: 100%;
 }
@@ -18,7 +18,7 @@
   min-height: var(--target-min);
   padding: 0 var(--sp-4);
   border: 0;
-  border-radius: var(--r-pill);
+  border-radius: var(--r-btn);
   background: transparent;
   color: var(--text-2);
   font-size: var(--fs-14);

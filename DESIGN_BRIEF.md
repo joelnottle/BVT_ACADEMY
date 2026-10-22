@@ -54,7 +54,7 @@ BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Cons
 1. **Gradient top bar** on every screen (public and portal).
 2. **Two-tone headings:** one word in crimson, e.g. "Have you **pre-qualified** your business?" or "Start anywhere. Close every **requirement**." Add a **short 40px crimson rule** under section headings. Use sparingly: one accent word per heading, not every heading.
 3. **Crimson feature strip:** the 4-step Check → Academy → Accreditation → Connect strip becomes a **solid crimson (`#D22D63`) rounded panel** overlapping the bottom of the hero, with white line icons and white text, as on the VC homepage.
-4. **Gradient line icons** (plum → crimson stroke) on **cream rounded tiles**, in place of the empty grey squares.
+4. **Gradient line icons** (plum → crimson stroke), **large (about 52px) with no tile behind them**, in place of the empty grey squares.
 5. **Cream bands:** alternate some public-site sections onto cream (`#FFF6E9`/`#FFECB9`) instead of white-on-grey every time.
 6. **V-masked photo** in the hero: the photo shown through the Vital Consult V mask (`assets/img/vital-v-mask.svg`), as on the VC homepage.
 7. **Plum-tinted soft shadows** on light cards, not grey shadows.
@@ -68,13 +68,13 @@ BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Cons
 | Generic tell in the current set | Fix |
 |---|---|
 | Every section is a centred eyebrow + H2 + row of identical white cards | Vary the rhythm: crimson strip, cream band, navy CTA band, left-aligned two-tone headings |
-| Empty grey icon squares | Real line icons, gradient-stroked, on cream tiles |
+| Empty grey icon squares | Real line icons, gradient-stroked, large, with no tile behind them |
 | Browser-default blue radio buttons (Check runner) | Plum selected state: plum border, plum dot, faint cream fill |
 | All progress bars in charcoal | Plum or plum → crimson fills on light; crimson → peach on navy |
 | Same visual weight everywhere | One focal element per screen (see section 5) |
 | `[XX]`, `[Answer]`, `[Sub-heading]` placeholders | Realistic placeholder copy (examples below), clearly fictional |
 | Status shown by coloured dots | Status is always **icon + label**, never colour alone |
-| Flat pink pill buttons | Plum → crimson gradient buttons with a → arrow on primary actions |
+| Flat pink pill buttons | Plum → crimson gradient buttons with slightly rounded (6px) corners, not pills, and a → arrow on primary actions |
 
 **Placeholder copy to use**
 - Hero sub-heading: "Independent pre-qualification for tenders, funding, loans and procurement. Start free, close every requirement, get accredited."
@@ -97,7 +97,7 @@ BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Cons
 - "Start with a free check" goes on a **cream band**. Heading left-aligned with the crimson rule. Each Check card gets a gradient line icon and a time ("45 questions · ~25 min").
 - **Learning loop:** draw it as a **connected flow** (numbered nodes on a line), not 7 separate boxes. Show a branch arc from the start labelled "Already in place? Skip straight to evidence →" landing on step 05 Upload.
 - **Tier cards:** colour-key each one (Foundation grey, Core blue, Advanced violet, Ready green) with a small coloured top border, and keep the months large.
-- Support trio: gradient line icons on cream tiles.
+- Support trio: large gradient line icons, no tiles.
 - **Credential** card: mock a real certificate on **cream**. "BVT Academy · Accredited", org name "Harbourline Civil Pty Ltd", "BVT-2027-000123", issued 28 Jun 2027, renewal 28 Jun 2028, a QR square, and "Verify at bvtacademy.com.au/verify".
 - Connect teaser: fill the 3 listings with fictional orgs, e.g. "Harbourline Civil · Construction · Sydney NSW · BVT Accredited".
 - **Add the missing testimonial** (placeholder quote from a fictional CEO) between Connect and FAQ.

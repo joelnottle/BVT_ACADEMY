@@ -165,10 +165,11 @@
 
   /* ---- §4.3 Shape ---- */
   --r-xs: 3px;     /* indicator bars, keycaps */
+  --r-btn: 6px;    /* buttons and button-like controls (VC-style, slightly rounded) */
   --r-sm: 10px;    /* inputs, chips */
   --r-md: 16px;    /* cards */
   --r-lg: 24px;    /* hero panels */
-  --r-pill: 999px; /* pills, buttons */
+  --r-pill: 999px; /* chips, badges, counts */
 
   /* ---- §4.3 Depth ---- */
   /* Plum-tinted, as on the Vital Consult site (--vcp-shadow), kept soft */

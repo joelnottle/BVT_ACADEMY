@@ -61,18 +61,16 @@
 }
 .card--dark .card__meta { color: var(--on-dark-3); }
 
-/* Cream icon square with a plum → crimson line icon, as on the VC service cards (§4.4) */
+/* Large plum → crimson line icon, no tile behind it (§4.4). Thinner stroke keeps it a line icon at this size. */
 .icon-tile {
   display: inline-grid;
   place-items: center;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--r-sm);
-  background: var(--cream-100);
+  width: 52px;
+  height: 52px;
   color: var(--plum-600);
 }
-.icon-tile svg { width: 26px; height: 26px; stroke: url(#bvt-icon-grad); }
-.on-dark .icon-tile, .card--dark .icon-tile { background: var(--navy-700); color: var(--orange-400); }
+.icon-tile svg { width: 52px; height: 52px; stroke: url(#bvt-icon-grad); stroke-width: 1.5; }
+.on-dark .icon-tile, .card--dark .icon-tile { color: var(--orange-400); }
 
 /* Placeholder content marker (visible in the prototype) */
 .placeholder-flag {

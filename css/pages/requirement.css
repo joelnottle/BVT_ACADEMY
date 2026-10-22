@@ -38,9 +38,9 @@
 .video__title { font-family: var(--font-display); font-size: var(--fs-18); color: var(--on-dark-1); }
 
 /* Learn */
-.learn-cards { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--sp-4); }
-@media (min-width: 900px) { .learn-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.learn-card { display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-3); padding: var(--sp-5); border: 1px solid var(--border); border-radius: var(--r-md); }
+/* Wraps by available width, not viewport: three across when the step panel is wide, otherwise 2 + 1 or stacked */
+.learn-cards { display: flex; flex-wrap: wrap; gap: var(--sp-4); }
+.learn-card { display: flex; flex: 1 1 220px; flex-direction: column; align-items: flex-start; gap: var(--sp-3); min-width: 0; padding: var(--sp-5); border: 1px solid var(--border); border-radius: var(--r-md); }
 .prompt-list { display: flex; flex-direction: column; gap: var(--sp-2); width: 100%; padding: 0; margin: 0; list-style: none; }
 .prompt { width: 100%; min-height: var(--target-min); padding: var(--sp-2) var(--sp-3); border: 1px solid var(--cream-200); border-radius: var(--r-sm); background: var(--cream-100); color: var(--text-1); font-size: var(--fs-14); text-align: left; }
 .prompt:hover { border-color: var(--plum-600); }
@@ -48,8 +48,8 @@
 /* Download */
 .template-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: var(--sp-3); padding: 0; margin: 0; list-style: none; }
 .template-card { display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-3); padding: var(--sp-4); border: 1px solid var(--border); border-radius: var(--r-md); }
-.template-card__icon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--r-sm); background: var(--cream-100); color: var(--plum-600); }
-.template-card__icon svg { width: 20px; height: 20px; }
+.template-card__icon { display: grid; place-items: center; width: 40px; height: 40px; color: var(--plum-600); }
+.template-card__icon svg { width: 40px; height: 40px; stroke-width: 1.5; }
 .template-card__text { display: flex; flex: 1 1 140px; flex-direction: column; font-size: var(--fs-14); }
 .template-card__text span { color: var(--text-3); font-size: var(--fs-12); }
 .partner-slot { padding: var(--sp-5); border: 2px dashed var(--border-input); border-radius: var(--r-md); }

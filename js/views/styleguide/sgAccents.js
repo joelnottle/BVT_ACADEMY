@@ -38,7 +38,7 @@ const surfaces = `
     <div class="card card--crimson sg-strip">
       ${STEPS.map(([i, t, d]) => `<div class="stack stack-sm"><span class="sg-strip__icon">${icon(i)}</span><p class="card__title">${t}</p><p class="card__meta">${d}</p></div>`).join('')}
     </div>`)}
-  ${example('Gradient line icons on cream tiles', `<div class="cluster">${['sparkles', 'users', 'shield-check', 'award', 'route'].map((i) => `<span class="icon-tile">${icon(i)}</span>`).join('')}</div>`)}
+  ${example('Gradient line icons (large, no tile)', `<div class="cluster">${['sparkles', 'users', 'shield-check', 'award', 'route'].map((i) => `<span class="icon-tile">${icon(i)}</span>`).join('')}</div>`)}
   <div class="sg-grid-2">
     ${example('Top bar (--grad-vc-bar)', '<div class="sg-vc-bar"></div>')}
     ${example('Warm wash (--grad-warm)', '<div class="sg-wash band-warm"></div>')}

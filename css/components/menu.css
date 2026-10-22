@@ -60,7 +60,7 @@
   min-height: var(--target-min);
   padding: 0 var(--sp-1);
   border: 0;
-  border-radius: var(--r-pill);
+  border-radius: var(--r-btn);
   background: none;
   color: var(--on-dark-2);
 }

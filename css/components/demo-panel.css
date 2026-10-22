@@ -18,7 +18,7 @@
   min-height: var(--target-min);
   padding: 0 var(--sp-4);
   border: 1px dashed var(--orange-400);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-btn);
   background: var(--navy-900);
   color: var(--on-dark-1);
   font-size: var(--fs-14);

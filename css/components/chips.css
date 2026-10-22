@@ -108,7 +108,7 @@
   min-height: var(--target-min);
   padding: 0 var(--sp-4);
   border: 1px solid var(--border-on-dark-strong);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-btn);
   background: var(--navy-800);
   color: var(--on-dark-1);
   font-size: var(--fs-14);

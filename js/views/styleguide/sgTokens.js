@@ -74,7 +74,7 @@ const shape = `
     </div>
     <div class="stack stack-sm">
       <h3 class="h4">Radius</h3>
-      <ul class="sg-radii">${['sm', 'md', 'lg', 'pill'].map((r) => `<li><span class="sg-radius" style="border-radius:var(--r-${r})"></span><code class="text-3">--r-${r}</code></li>`).join('')}</ul>
+      <ul class="sg-radii">${['btn', 'sm', 'md', 'lg', 'pill'].map((r) => `<li><span class="sg-radius" style="border-radius:var(--r-${r})"></span><code class="text-3">--r-${r}</code></li>`).join('')}</ul>
     </div>
     <div class="stack stack-sm">
       <h3 class="h4">Depth</h3>

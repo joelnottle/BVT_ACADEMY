@@ -86,7 +86,7 @@
 .email__head dt { color: var(--text-2); }
 .email__head dd { margin: 0; }
 .email__body { display: flex; flex-direction: column; gap: var(--sp-4); padding: var(--sp-5) var(--sp-4); border-top: 3px solid transparent; border-image: var(--grad-brand) 1; }
-.email__cta { display: inline-block; padding: var(--sp-2) var(--sp-4); border-radius: var(--r-pill); background: var(--grad-action); color: var(--on-action); font-size: var(--fs-14); font-weight: var(--fw-semibold); }
+.email__cta { display: inline-block; padding: var(--sp-2) var(--sp-4); border-radius: var(--r-btn); background: var(--grad-action); color: var(--on-action); font-size: var(--fs-14); font-weight: var(--fw-semibold); }
 
 /* ---- Plan ---- */
 .plan-summary { flex-direction: row; }

@@ -160,7 +160,7 @@ a:hover { text-decoration-thickness: 2px; }
   background: var(--surface-0);
   color: var(--accent-text);
   font-weight: var(--fw-semibold);
-  border-radius: var(--r-pill);
+  border-radius: var(--r-btn);
   box-shadow: var(--shadow-2);
   transform: translateY(-200%);
 }

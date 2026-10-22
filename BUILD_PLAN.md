@@ -214,7 +214,7 @@ Taken from the `--vcp-*` variables on staging3.mercyme.com.au. They are highligh
 - Two-tone headings: one crimson word (`.accent`) plus a short crimson rule (`.rule`). Eyebrows in plum.
 - Cream for highlight surfaces: "Resume where you left off", milestone cards, callouts, the certificate, the Check results summary, and alternating bands on the public site.
 - A solid crimson-600 feature strip (the 4-step Check → Connect strip), as on the VC homepage.
-- Line icons stroked in the plum → crimson gradient (`.icon-grad`, cream `.icon-tile`).
+- Line icons stroked in the plum → crimson gradient (`.icon-grad`; `.icon-tile` shows them large at 52px with no background).
 - Plum-tinted soft shadows.
 
 **Contrast rules (measured):**
@@ -232,7 +232,7 @@ The Vital Consult staging site uses Montserrat throughout.
 
 ### 4.3 Shape, depth, motion
 
-- Radius: 10px (inputs, chips), 16px (cards), 24px (hero panels), 999px (pills/buttons, matching the VC pill buttons).
+- Radius: 6px (buttons and button-like controls, matching the VC buttons' slightly rounded corners), 10px (inputs), 16px (cards), 24px (hero panels), 999px (chips, badges, counts).
 - Shadows: soft, low and diffuse on light, plum-tinted like the VC site (`0 1px 2px rgb(15 19 29 / .06), 0 8px 24px rgb(148 40 120 / .07)`). On dark, use a 1px `rgb(255 255 255 / .06)` border instead of shadows.
 - Signature motif: the **V shape**, used sparingly (hero image mask, empty states, accreditation certificate). Plus a soft magenta radial glow behind dark hero sections, as in the VC hero.
 - Motion: 150–200ms ease-out for hover, focus and panel slide only. **No celebratory animation.** Honour `prefers-reduced-motion`.
@@ -358,7 +358,7 @@ A floating button bottom-left labelled "Demo". It opens a small panel with:
 | `#/verify` · `#/verify/:certNo` | Public certificate verification |
 | `#/sign-in` · `#/sign-up` | Auth (pretend) |
 
-Public header: Logo · How it works · Checks · Academy · For institutions · BVT Connect · Sign in · **[Start free check]** (gradient pill).
+Public header: Logo · How it works · Checks · Academy · For institutions · BVT Connect · Sign in · **[Start free check]** (gradient button).
 
 ### 7.2 Free Check & enrolment (`layout: public`, focused, minimal header)
 
