@@ -39,6 +39,10 @@ export const NEW_LEAD = {
   landing: '/app/dashboard', demoDate: '2027-05-03', summary: 'Just enrolled from the free Check',
 };
 
+// A team member viewed from the Enterprise hub (§6.1 "Team member", §8.14). Built from the org's team list:
+// see personaFor() in store.js. Reduced nav: My learning, Ask Ali, Profile.
+export const TEAM_MEMBER = { id: 'T', role: 'member', landing: '/app/learn', demoDate: '2027-08-02' };
+
 export const PERSONA_ORDER = ['visitor', 'A', 'B', 'C', 'D', 'E', 'F'];
 
 // Other BVT team members who appear in history and mentor lists (not switchable personas).
@@ -53,4 +57,5 @@ export const ROLE_LABELS = {
   partner: 'institution and agent partners',
   verifier: 'the BVT verification team',
   mentor: 'BVT mentors',
+  member: 'enterprise team members',
 };

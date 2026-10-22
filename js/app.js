@@ -23,7 +23,7 @@ const LAYOUTS = {
 
 /** Where an unknown path should render its 404: inside the portal if the persona belongs there. */
 function layoutForUnknown(path, persona) {
-  if (path.startsWith('/app/') && persona.role === 'lead') return 'portal';
+  if (path.startsWith('/app/') && ['lead', 'member'].includes(persona.role)) return 'portal';
   if (path.startsWith('/partner/') && persona.role === 'partner') return 'portal';
   if (path.startsWith('/team/') && ['verifier', 'mentor'].includes(persona.role)) return 'backoffice';
   return 'public';

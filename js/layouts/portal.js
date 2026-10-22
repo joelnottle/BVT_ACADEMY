@@ -6,6 +6,7 @@ import { showToast } from '../components/toast.js';
 import { getState, setUi, notify } from '../store.js';
 import { signOut } from '../session.js';
 import { markRead } from '../accountStore.js';
+import { backToLead } from '../enterpriseStore.js';
 import { navigate } from '../router.js';
 import { lensPath, LENSES } from '../lens.js';
 import { renderSidebar } from './sidebar.js';
@@ -113,6 +114,9 @@ export function bindPortal(root, ctx) {
       openAliPanel({ reqId: b.dataset.aliReq ?? ctx.params?.reqId ?? null, moduleId: ctx.params?.moduleId ?? null, prompt: b.dataset.aliPrompt ?? null });
     } else if (t.closest('[data-note-id]')) {
       markRead(t.closest('[data-note-id]').dataset.noteId);
+    } else if (t.closest('[data-back-to-lead]')) {
+      navigate('/app/enterprise/team');
+      backToLead();
     } else if (t.closest('[data-sign-out]')) {
       signOut();
     }

@@ -82,9 +82,19 @@ const MENTOR_NAV = [{
   ],
 }];
 
+// Enterprise team member (§8.14): a reduced sidebar.
+const MEMBER_NAV = [{
+  items: [
+    { href: '/app/learn', label: 'My learning', icon: 'graduation-cap' },
+    { href: '/app/learn/ali', label: 'Ask Ali', icon: 'sparkles' },
+    { href: '/app/learn/profile', label: 'Profile', icon: 'user' },
+  ],
+}];
+
 export function navFor(ctx) {
   switch (ctx.persona.role) {
     case 'lead': return ctx.org ? leadNav(ctx) : [];
+    case 'member': return MEMBER_NAV;
     case 'partner': return PARTNER_NAV;
     case 'verifier': return VERIFIER_NAV;
     case 'mentor': return MENTOR_NAV;

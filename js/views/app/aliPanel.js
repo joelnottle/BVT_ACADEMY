@@ -11,7 +11,7 @@ import { openSlideOver } from '../../components/slideOver.js';
 import { openModal } from '../../components/modal.js';
 import { showToast, announce } from '../../components/toast.js';
 import { currentOrg, currentPersona } from '../../store.js';
-import { askAli, pinAnswer, topUpAli } from '../../supportStore.js';
+import { askAli, pinAnswer, topUpAli, aliBalance } from '../../supportStore.js';
 
 const reduced = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -29,8 +29,8 @@ function prompts(c) {
     <ul class="ali__prompts">${promptsFor(c).map((q) => `<li><button type="button" class="prompt" data-ali-ask="${esc(q)}">${esc(q)}</button></li>`).join('')}</ul>`;
 }
 
-function meter(org) {
-  const c = org.credits.ali;
+function meter() {
+  const c = aliBalance();
   const notice = c < ALI_CREDIT_PER_ANSWER ? U.out : c < 1 ? U.low(fmtCredits(c)) : '';
   return `
     ${notice ? `<p class="ali__notice">${icon('info')}<span>${esc(notice)}</span></p>` : ''}
@@ -65,9 +65,9 @@ export function openAliPanel({ reqId = null, moduleId = null, prompt = null } = 
           <textarea class="textarea" id="ali-q" rows="2" placeholder="${esc(U.placeholder)}"></textarea>
           <button type="submit" class="btn btn--action">${icon('send')}${esc(U.send)}</button>
         </form>
-        <div data-ali-meter>${meter(org)}</div>
+        <div data-ali-meter>${meter()}</div>
       </div>`,
-    footer: `<p>${icon('shield-check')}${esc(ALI.footer)} ${esc(ALI.privacy)}</p><p><a href="#/app/ali">${esc(U.history)}</a></p>`,
+    footer: `<p>${icon('shield-check')}${esc(ALI.footer)} ${esc(ALI.privacy)}</p><p><a href="#${currentPersona().role === 'member' ? '/app/learn/ali' : '/app/ali'}">${esc(U.history)}</a></p>`,
   });
   const root = overlay.dialog;
   renderIcons(root);
@@ -78,16 +78,16 @@ export function openAliPanel({ reqId = null, moduleId = null, prompt = null } = 
 
   const refreshMeter = () => {
     const m = root.querySelector('[data-ali-meter]');
-    m.innerHTML = meter(currentOrg());
+    m.innerHTML = meter();
     renderIcons(m);
-    const out = currentOrg().credits.ali < ALI_CREDIT_PER_ANSWER;
+    const out = aliBalance() < ALI_CREDIT_PER_ANSWER;
     form.querySelector('button').disabled = out;
     input.disabled = out;
   };
 
   function ask(q) {
     if (busy || !q.trim()) return;
-    if (currentOrg().credits.ali < ALI_CREDIT_PER_ANSWER) { refreshMeter(); return; }
+    if (aliBalance() < ALI_CREDIT_PER_ANSWER) { refreshMeter(); return; }
     busy = true;
     log.insertAdjacentHTML('beforeend', bubble('user', `<p>${esc(q)}</p>`));
     log.insertAdjacentHTML('beforeend', `<p class="ali-typing" data-typing>${esc(U.typing)}<span class="ali-typing__dots" aria-hidden="true"><span></span><span></span><span></span></span></p>`);

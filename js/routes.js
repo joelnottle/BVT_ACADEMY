@@ -7,6 +7,7 @@ const LEAD = ['lead'];
 const PARTNER = ['partner'];
 const VERIFIER = ['verifier'];
 const MENTOR = ['mentor'];
+const MEMBER = ['member'];
 
 const pub = (path, title, phase, summary, extra = {}) => ({ path, layout: 'public', title, phase, summary, ...extra });
 const check = (path, title, phase, summary) => ({ path, layout: 'public', focused: true, title, phase, summary, section: 'Free Check' });
@@ -36,7 +37,7 @@ export const ROUTES = [
 
   // ---- Portal (§7.3) ----
   app('/app/dashboard', 'Dashboard', 6, 'How close you are to accreditation, and what to do next.', { load: () => import('./views/app/dashboard.js') }),
-  app('/app/score', 'My Check & Score', 6, 'Your Check answers (read-only), area breakdown and re-take information.'),
+  app('/app/score', 'My Check & Score', 6, 'Your Check answers (read-only), area breakdown and re-take information.', { load: () => import('./views/app/score.js') }),
   app('/app/pathway', 'Pathway', 11, 'The short pathway to complete before Core requirements unlock.', { load: () => import('./views/app/pathway.js') }),
   app('/app/academy', 'Academy', 7, 'Opens the lens you used last.', { section: 'Academy', load: () => import('./views/app/academyRedirect.js') }),
   app('/app/academy/area', 'Academy — by area', 7, 'Every requirement, grouped by area and module.', { section: 'Academy', load: () => import('./views/app/academyArea.js') }),
@@ -55,8 +56,11 @@ export const ROUTES = [
   app('/app/recognition', 'Profile & recognition', 10, 'Milestones, badges and your weekly momentum.', { load: () => import('./views/app/recognition.js') }),
   app('/app/notifications', 'Notifications', 10, 'Verifier outcomes, reminders and milestones, plus mock reminder emails.', { load: () => import('./views/app/notifications.js') }),
   app('/app/plan', 'Plan & pace', 10, 'Your pace plan, weekly goal, re-planning and extensions.', { load: () => import('./views/app/plan.js') }),
-  app('/app/enterprise', 'Enterprise hub', 12, 'After accreditation: re-assessment, your team, Leadership Micro-Units and further checks.'),
-  app('/app/enterprise/:section', 'Enterprise hub', 12, 'Team, Micro-Units, further checks or purchases.', { nav: '/app/enterprise' }),
+  app('/app/enterprise', 'Enterprise hub', 12, 'After accreditation: re-assessment, your team, Leadership Micro-Units and further checks.', { load: () => import('./views/app/enterprise.js') }),
+  app('/app/enterprise/:section', 'Enterprise hub', 12, 'Team, Micro-Units, further checks or purchases.', { nav: '/app/enterprise', load: () => import('./views/app/enterprise.js') }),
+  // Enterprise team member (§8.14): My learning, a Micro-Unit page, their own Ask Ali, profile
+  { path: '/app/learn', layout: 'portal', roles: MEMBER, title: 'My learning', phase: 12, load: () => import('./views/app/memberLearn.js') },
+  { path: '/app/learn/:unitId', layout: 'portal', roles: MEMBER, title: 'My learning', phase: 12, load: () => import('./views/app/memberLearn.js') },
   app('/app/help', 'Help & resources', 15, 'How the Academy works, and where to get help.'),
   app('/app/settings', 'Settings', 10, 'Your organisation details.', { load: () => import('./views/app/settings.js') }),
   app('/app/settings/:tab', 'Settings', 10, 'Organisation, or billing and credits.', { nav: '/app/settings', load: () => import('./views/app/settings.js') }),

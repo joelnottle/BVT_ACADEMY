@@ -2,7 +2,7 @@
 // State is seeded from /data, persisted under `bvt-demo-v1`, and falls back to memory
 // if storage is unavailable. subscribe() lets the app re-render on change.
 // Derived values live in selectors.js.
-import { PERSONAS, PERSONA_ORDER, NEW_LEAD } from '../data/users.js';
+import { PERSONAS, PERSONA_ORDER, NEW_LEAD, TEAM_MEMBER } from '../data/users.js';
 import { ORGS } from '../data/orgs.js';
 import { EVIDENCE } from '../data/evidence.js';
 import { REVIEWS } from '../data/reviews.js';
@@ -88,15 +88,26 @@ export const commit = (mutate, opts) => update(mutate, opts);
 // ---- Session selectors (who and when) ----
 const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || NEW_LEAD.initials;
 
-/** A persona by id. "N" is the organisation enrolled from the free Check, and exists only once it has enrolled. */
+/** A persona by id. "N" is the organisation enrolled from the free Check (exists once it has enrolled);
+ *  "T" is the team member chosen with "View as" in the Enterprise hub. */
 export function personaFor(s, id) {
+  if (id === TEAM_MEMBER.id) {
+    const v = s.memberView;
+    const m = v && s.orgs[v.orgId]?.team?.find((x) => x.id === v.memberId);
+    return m ? { ...TEAM_MEMBER, name: m.name, title: m.role, initials: initials(m.name), orgId: v.orgId, memberId: m.id, summary: `Team member at ${s.orgs[v.orgId].name}` } : null;
+  }
   if (id !== NEW_LEAD.id) return PERSONAS[id] ?? null;
   const org = s.orgs[NEW_LEAD.orgId];
   if (!org) return null;
   return { ...NEW_LEAD, name: org.lead.name, title: org.lead.role, initials: initials(org.lead.name), summary: `${org.name}, enrolled in this demo` };
 }
 /** Persona ids for "View as" lists: the fixed personas, plus N once it exists. */
-export const personaIds = (s = state) => [...PERSONA_ORDER, ...(s.orgs[NEW_LEAD.orgId] ? [NEW_LEAD.id] : [])];
+export const personaIds = (s = state) => [...PERSONA_ORDER, ...(s.orgs[NEW_LEAD.orgId] ? [NEW_LEAD.id] : []), ...(personaFor(s, TEAM_MEMBER.id) ? [TEAM_MEMBER.id] : [])];
+/** The team member being viewed, when the persona is a team member. */
+export const currentMember = (s = state) => {
+  const p = currentPersona(s);
+  return p.role === 'member' ? s.orgs[p.orgId].team.find((m) => m.id === p.memberId) : null;
+};
 
 export const currentPersona = (s = state) => personaFor(s, s.personaId) ?? PERSONAS.visitor;
 export const currentOrg = (s = state) => s.orgs[currentPersona(s).orgId] ?? null;

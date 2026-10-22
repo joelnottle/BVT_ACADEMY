@@ -7,6 +7,7 @@ import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
 import { isAccredited, daysLeft, paceStatus } from '../selectors.js';
 import { unreadCount } from '../dashboardSelectors.js';
+import { aliBalance } from '../supportStore.js';
 import { derivedReminders } from '../accountSelectors.js';
 import { noteRow } from '../components/noteRow.js';
 import { NOTIFICATIONS_PAGE } from '../../data/account.js';
@@ -54,6 +55,7 @@ function accountMenu(ctx) {
             ${menuItem(isAccredited(org) ? '/app/accreditation' : '/app/plan', 'gauge', isAccredited(org) ? 'Accreditation' : 'Plan & pace', 'hide-md hide-lg')}
             ${menuItem('/app/notifications', 'bell', withCount('Notifications', unreadCount(ctx.state, org.id)), 'hide-md hide-lg')}
             ${menuItem('/app/help', 'life-buoy', 'Help & resources', 'hide-md hide-lg')}` : ''}
+          ${persona.role === 'member' ? `<li><button type="button" class="menu__item" data-back-to-lead>${icon('undo-2')}Back to the lead’s view (demo)</button></li>` : ''}
           <li class="menu__sep"><button type="button" class="menu__item" data-sign-out>${icon('log-out')}Sign out</button></li>
         </ul>
       </div>
@@ -94,6 +96,13 @@ function bellMenu(ctx, unread) {
     </div>`;
 }
 
+/** A team member's own Ali meter (§8.14). */
+function memberActions() {
+  const ali = credits(aliBalance());
+  return `<button type="button" class="header-chip" data-open-ali aria-label="Ask Ali, ${ali} credits">
+    ${icon('sparkles')}<span aria-hidden="true"><span class="hide-sm">Ali · </span>${ali}<span class="hide-sm"> credits</span></span></button>`;
+}
+
 function leadActions(ctx) {
   const { state, org, today } = ctx;
   const ali = credits(org.credits.ali);
@@ -128,6 +137,7 @@ export function renderHeader(ctx, variant, toggle) {
       ${middle}
       <div class="portal-header__actions">
         ${role === 'lead' && ctx.org ? leadActions(ctx) : ''}
+        ${role === 'member' ? memberActions() : ''}
         ${accountMenu(ctx)}
       </div>
     </header>`;

@@ -3,7 +3,7 @@
 import { ALI_SCRIPTS, ALI_FALLBACK, ALI_CREDIT_PER_ANSWER } from '../data/ali.js';
 import { REQ_BY_ID } from '../data/requirements.js';
 import { MENTOR_BY_ID } from '../data/mentors.js';
-import { commit, getState, currentOrg, today } from './store.js';
+import { commit, getState, currentOrg, currentMember, today } from './store.js';
 
 let seq = 0;
 const newId = (prefix) => `${prefix}-${Date.now().toString(36)}${(seq += 1)}`;
@@ -25,15 +25,25 @@ export function matchScript(question, reqId = null) {
 
 export const answerFor = (entry) => ALI_SCRIPTS.find((s) => s.id === entry.scriptId)?.answer ?? ALI_FALLBACK;
 
+/** Whose credits Ali uses: a team member has their own meter (§8.14); everyone else uses the organisation's. */
+export const aliBalance = () => currentMember()?.aliCredits ?? currentOrg()?.credits.ali ?? 0;
+
 /** Ask a question. Returns the stored entry (with its answer), or null if there are no credits. */
 export function askAli(question, reqId = null) {
   const org = currentOrg();
-  if (!org || org.credits.ali < ALI_CREDIT_PER_ANSWER) return null;
+  if (!org || aliBalance() < ALI_CREDIT_PER_ANSWER) return null;
+  const member = currentMember();
   const script = matchScript(question, reqId);
   const entry = { id: newId('ali'), reqId, on: today(), q: question, scriptId: script?.id ?? null, pinned: false };
   commit((s) => {
     const o = s.orgs[org.id];
-    o.credits.ali = Math.max(0, Math.round((o.credits.ali - ALI_CREDIT_PER_ANSWER) * 100) / 100);
+    const spend = (n) => Math.max(0, Math.round((n - ALI_CREDIT_PER_ANSWER) * 100) / 100);
+    if (member) {
+      const m = o.team.find((x) => x.id === member.id);
+      m.aliCredits = spend(m.aliCredits);
+      return; // a team member's questions stay with them, not in the lead's history
+    }
+    o.credits.ali = spend(o.credits.ali);
     (s.ali[org.id] ??= []).push(entry);
     // A question about a requirement counts towards this week's momentum (§9)
     o.momentum.thisWeekMins = (o.momentum.thisWeekMins ?? 0) + 5;
@@ -61,7 +71,11 @@ export function pinAnswer(entryId) {
 export function topUpAli(n) {
   const org = currentOrg();
   if (!org) return;
-  commit((s) => { s.orgs[org.id].credits.ali += n; });
+  const member = currentMember();
+  commit((s) => {
+    if (member) s.orgs[org.id].team.find((x) => x.id === member.id).aliCredits += n;
+    else s.orgs[org.id].credits.ali += n;
+  });
 }
 
 // ---- Mentoring ----
