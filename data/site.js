@@ -15,7 +15,7 @@ export const HOME = {
   hero: {
     eyebrow: 'Prequalified. Accredited. Connected.',
     title: 'Have you *pre-qualified* your business?',
-    lead: 'Independent pre-qualification for tenders, funding, loans and procurement. Start free, close every requirement at your own pace, and get accredited.',
+    lead: 'Independent pre-qualification for tenders, funding, loans and procurement. \n\nStart free, close every requirement at your own pace, and get accredited.',
     actions: [
       { label: 'Pre-qualify my business', href: '/sign-up', variant: 'action', icon: 'arrow-right' },
       { label: 'Send my clients through BVT', href: '/institutions', variant: 'on-dark' },

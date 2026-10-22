@@ -2,16 +2,16 @@
 // State is seeded from /data, persisted under `bvt-demo-v1`, and falls back to memory
 // if storage is unavailable. subscribe() lets the app re-render on change.
 // Derived values live in selectors.js.
-import { PERSONAS } from '../data/users.js';
+import { PERSONAS, PERSONA_ORDER, NEW_LEAD } from '../data/users.js';
 import { ORGS } from '../data/orgs.js';
 import { EVIDENCE } from '../data/evidence.js';
 import { REVIEWS } from '../data/reviews.js';
 import { SESSIONS } from '../data/sessions.js';
 import { NOTIFICATIONS } from '../data/notifications.js';
-import { seedProgress, seedAnswers, seedLearning, seedEarned, sampleAnswers } from '../data/progress.js';
-import { addDays } from './util.js';
+import { seedProgress, seedAnswers, seedLearning, seedEarned, sampleAnswers, freshProgress } from '../data/progress.js';
+import { addDays, addMonths } from './util.js';
 import { coreReqs, pathwayReqs } from './selectors.js';
-import { checkQuestions } from './checkSelectors.js';
+import { checkQuestions, enrolmentOffer } from './checkSelectors.js';
 
 const KEY = 'bvt-demo-v1';
 const VERSION = 2; // bump whenever the seed shape changes; older saved state is replaced
@@ -81,14 +81,26 @@ function update(mutate, { silent = false } = {}) {
 }
 
 // ---- Session selectors (who and when) ----
-export const currentPersona = (s = state) => PERSONAS[s.personaId] ?? PERSONAS.visitor;
+const initials = (name) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0].toUpperCase()).join('') || NEW_LEAD.initials;
+
+/** A persona by id. "N" is the organisation enrolled from the free Check, and exists only once it has enrolled. */
+export function personaFor(s, id) {
+  if (id !== NEW_LEAD.id) return PERSONAS[id] ?? null;
+  const org = s.orgs[NEW_LEAD.orgId];
+  if (!org) return null;
+  return { ...NEW_LEAD, name: org.lead.name, title: org.lead.role, initials: initials(org.lead.name), summary: `${org.name}, enrolled in this demo` };
+}
+/** Persona ids for "View as" lists: the fixed personas, plus N once it exists. */
+export const personaIds = (s = state) => [...PERSONA_ORDER, ...(s.orgs[NEW_LEAD.orgId] ? [NEW_LEAD.id] : [])];
+
+export const currentPersona = (s = state) => personaFor(s, s.personaId) ?? PERSONAS.visitor;
 export const currentOrg = (s = state) => s.orgs[currentPersona(s).orgId] ?? null;
 export const todayFor = (persona, s = state) => addDays(persona.demoDate, s.dayOffset);
 export const today = (s = state) => todayFor(currentPersona(s), s);
 
 // ---- Actions ----
 export function setPersona(id, opts) {
-  if (!PERSONAS[id]) return;
+  if (!personaFor(state, id)) return;
   update((s) => { s.personaId = id; }, opts);
 }
 
@@ -179,10 +191,71 @@ export function skipCheckToResults() {
   });
 }
 
+/** Silent: the enrol page updates its package card itself, so the radios keep focus. */
+export function setScreening(patch) {
+  update((s) => { const c = draft(s); c.screening = { ...c.screening, ...patch }; }, { silent: true });
+}
+
+// ---- Enrolment & onboarding (§8.3) ----
+/**
+ * Pretend payment: create the organisation from the free Check, start its clock today and sign in as its lead.
+ * Enrolling again replaces the earlier demo organisation.
+ */
+export function enrolFromCheck() {
+  const c = state.check;
+  if (!c?.completedOn) return null;
+  const offer = enrolmentOffer(c);
+  const on = today();
+  const id = NEW_LEAD.orgId;
+  const answers = Object.fromEntries(checkQuestions(c.checkId).map((q) => [q.id, c.answers[q.id] ?? 'not-yet']));
+  update((s) => {
+    s.orgs[id] = {
+      id, name: c.orgName, staff: Number(c.staff), state: '', city: '', industry: '', abn: c.abn,
+      checkId: c.checkId, checkScore: offer.score, tier: offer.tier,
+      enrolledOn: on, endsOn: addMonths(on, offer.months),
+      pathway: offer.pathway, accreditedOn: null, certNo: null,
+      credits: { ...offer.credits }, weeklyGoalHrs: null, reminderDay: null,
+      momentum: { activeWeeks: 0, thisWeekMins: 0, graceUsedOn: null },
+      startChoice: null, startDomainId: null, onboardedOn: null,
+      consentToPartners: [], mentorId: null,
+      lead: { name: c.leadName, email: c.email, role: c.leadRole },
+    };
+    s.progress[id] = freshProgress(c.checkId, answers, offer.pathway);
+    s.answers[id] = answers;
+    s.learning[id] = { watched: [], sessions: [], downloads: [] };
+    s.earned[id] = { 'check-complete': c.completedOn, enrolled: on };
+    s.personaId = NEW_LEAD.id;
+    s.activity.unshift({ kind: 'enrolled', orgId: id, on });
+  });
+  return state.orgs[id];
+}
+
+/** Onboarding choices save as they change (silent: the wizard updates itself). */
+export function saveOnboarding(patch) {
+  const org = currentOrg();
+  if (!org) return;
+  update((s) => { Object.assign(s.orgs[org.id], patch); }, { silent: true });
+}
+
+/** Finish (or skip) onboarding: anything not chosen gets a sensible default. */
+export function finishOnboarding() {
+  const org = currentOrg();
+  if (!org) return null;
+  update((s) => {
+    const o = s.orgs[org.id];
+    o.weeklyGoalHrs ??= 2;
+    o.reminderDay ??= 'Mon';
+    const anyInPlace = Object.values(s.progress[o.id] ?? {}).some((p) => p.type === 'in-place');
+    o.startChoice ??= o.pathway ? 'pathway' : anyInPlace ? 'quick-wins' : 'biggest-gaps';
+    o.onboardedOn ??= today(s);
+  });
+  return state.orgs[org.id];
+}
+
 export function resetDemo() {
   const keepPersona = state.personaId;
   state = seed();
-  state.personaId = keepPersona;
+  state.personaId = personaFor(state, keepPersona) ? keepPersona : 'visitor';
   save();
   notify();
 }

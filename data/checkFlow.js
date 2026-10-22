@@ -56,6 +56,6 @@ export const RESULTS = {
       { id: 'choose-area', title: 'Choose an area', text: () => 'Pick any area. Everything is unlocked.' },
     ],
   },
-  // PLACEHOLDER — package prices and credit allowances come from Doc 3 (BUILD_PLAN §14 Q6)
-  enrol: { title: (tier) => `Enrol in the Academy — ${tier} package`, detail: (months) => `${months} months · Ask Ali credits [X] · Mentor credits [X] · Verification included · [Price — Doc 3]`, action: 'Enrol now' },
+  // PLACEHOLDER — credit allowances come from Doc 3 (BUILD_PLAN §14 Q6); see PACKAGES in enrolment.js
+  enrol: { title: (tier) => `Enrol in the Academy — ${tier} package`, detail: (months, c) => `${months} months · ${c.ali} Ask Ali credits · ${c.mentor} mentor sessions · Verification included`, action: 'Enrol now' },
 };

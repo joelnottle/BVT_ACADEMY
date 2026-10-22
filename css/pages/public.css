@@ -13,7 +13,7 @@
 .home-hero__inner { position: relative; z-index: 1; padding-block: var(--sp-12) var(--sp-10); }
 .home-hero__copy { display: flex; flex-direction: column; gap: var(--sp-4); max-width: 560px; }
 .home-hero__copy .display { max-width: none; font-size: var(--fs-48); }
-.home-hero__copy .lead { font-size: var(--fs-16); max-width: none; }
+.home-hero__copy .lead { font-size: var(--fs-16); max-width: none; white-space: pre-line; } /* honours \n in HERO.lead */
 @media (max-width: 767px) { .home-hero__copy .display { font-size: var(--fs-40); } }
 .home-hero__actions { display: flex; flex-wrap: wrap; gap: var(--sp-3); margin-top: var(--sp-3); }
 @media (max-width: 479px) { .home-hero__actions .btn { width: 100%; white-space: normal; } }

@@ -509,6 +509,10 @@ Follows the VC homepage rhythm: dark hero → overlapping dark feature strip →
      - **Choose an area:** pick a domain.
      - Persona B instead sees "Your Start-up pathway comes first. Here's why."
   4. **Your support:** Ask Ali (credit explainer, 1 credit ≈ 1 hour) and mentor credits, with a note that **mentors help, independent verifiers decide**.
+- **Prototype behaviour:**
+  - Paying creates a new demo organisation from the free Check, signed in as its lead ("N" in the demo panel), so personas A–C keep their own stories. Enrolling again replaces it.
+  - Start-up or Recovery puts the organisation at Foundation (12 months). Start-up wins if both apply (§14 Q14). Until Recovery content exists (§14 Q11), Recovery does not lock Core.
+  - Credit allowances per tier are placeholders in `data/enrolment.js` (Doc 3).
 
 ### 8.4 Dashboard
 

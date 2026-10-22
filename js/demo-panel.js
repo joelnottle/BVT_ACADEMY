@@ -1,12 +1,11 @@
 // Floating Demo panel (§6.3): view as a persona, time travel, simulate outcomes, reset.
 // Lives outside #app so it survives re-renders and stays usable while modals are open.
-import { PERSONAS, PERSONA_ORDER } from '../data/users.js';
 import { PROTOTYPE_NOTE } from '../data/copy.js';
 import { esc, formatDate } from './util.js';
 import { icon, renderIcons } from './components/icon.js';
 import { showToast } from './components/toast.js';
 import {
-  getState, subscribe, currentPersona, currentOrg, today, isPersistent,
+  getState, subscribe, currentPersona, currentOrg, today, isPersistent, personaFor, personaIds,
   timeTravel, jumpToAccredited, simulate, resetDemo,
 } from './store.js';
 import { switchPersona } from './session.js';
@@ -26,7 +25,7 @@ function personaButton(p, currentId) {
   return `
     <li>
       <button type="button" class="demo__persona" data-demo-persona="${p.id}" data-focus-key="persona-${p.id}" aria-pressed="${on}">
-        <span class="demo__persona-key" aria-hidden="true">${p.id === 'visitor' ? icon('globe') : p.id}</span>
+        <span class="demo__persona-key" aria-hidden="true">${p.id === 'visitor' ? icon('globe') : p.id === 'N' ? icon('sparkles') : p.id}</span>
         <span class="demo__persona-text">
           <span class="demo__persona-name">${esc(p.name)}${p.title ? `, ${esc(p.title)}` : ''}</span>
           <span class="demo__persona-sum">${esc(p.summary)}</span>
@@ -49,7 +48,7 @@ function panel() {
 
       <div class="demo__section">
         <h3 class="demo__label">View as</h3>
-        <ul class="demo__personas">${PERSONA_ORDER.map((id) => personaButton(PERSONAS[id], s.personaId)).join('')}</ul>
+        <ul class="demo__personas">${personaIds(s).map((id) => personaButton(personaFor(s, id), s.personaId)).join('')}</ul>
       </div>
 
       <div class="demo__section">
@@ -106,7 +105,7 @@ function onClick(e) {
   if (t.closest('[data-demo-toggle]')) setOpen(!open);
   else if (t.closest('[data-demo-close]')) setOpen(false);
   else if (persona) {
-    const p = PERSONAS[persona.dataset.demoPersona];
+    const p = personaFor(getState(), persona.dataset.demoPersona);
     switchPersona(p.id);
     showToast(`Viewing as ${p.name}`, { text: p.summary, iconName: 'user' });
   } else if (time) {

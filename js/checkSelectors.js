@@ -1,9 +1,12 @@
-// Free Check selectors (BUILD_PLAN §8.2): question list, sections, recommendation and results.
+// Free Check selectors (BUILD_PLAN §8.2–8.3): question list, sections, recommendation, results and the enrolment offer.
 // Pure functions of the check draft held in state.check.
 import { CHECKS } from '../data/checks.js';
 import { DOMAINS } from '../data/domains.js';
 import { reqsForCheck } from '../data/requirements.js';
 import { SAMPLE_QUESTIONS } from '../data/checkFlow.js';
+import { PATHWAYS } from '../data/pathways.js';
+import { PACKAGES } from '../data/enrolment.js';
+import { TIERS } from '../data/copy.js';
 import { checkScore, tierForScore } from './selectors.js';
 
 /** Questions for a check, grouped into sections. Core checks use the full bank; ORIC/Debt use 12 samples. */
@@ -59,5 +62,32 @@ export function checkResults(check) {
     na,
     byArea,
     biggestGap,
+  };
+}
+
+/** Start-up comes before Recovery when both apply (TODO(client) §14 Q14). */
+export const pathwayFor = ({ startup = 'no', recovery = 'no' } = {}) =>
+  (startup === 'yes' ? 'startup' : recovery === 'yes' ? 'recovery' : null);
+
+/** Screening answers so far. Recovery defaults to the Check's "managing debt" answer. */
+export const screeningFor = (check) => ({ startup: check.screening?.startup ?? 'no', recovery: check.screening?.recovery ?? check.debt ?? 'no' });
+
+/**
+ * The package an enrolment gets (§8.3): tier from the Check score, or Foundation when a pathway comes first.
+ * `screening` is { startup: 'yes'|'no', recovery: 'yes'|'no' }.
+ */
+export function enrolmentOffer(check, screening = screeningFor(check)) {
+  const r = checkResults(check);
+  const pathway = pathwayFor(screening);
+  const tier = pathway ? 'foundation' : r.tier;
+  const pkg = PACKAGES[tier];
+  return {
+    ...r,
+    pathway,
+    pathwaySteps: pathway ? PATHWAYS[pathway].requirementIds.length : 0,
+    tier,
+    months: TIERS[tier].months,
+    credits: pkg.credits,
+    price: pkg.price,
   };
 }

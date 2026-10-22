@@ -6,8 +6,10 @@ import { MODULES } from '../../../data/modules.js';
 import { CONNECT_LISTINGS } from '../../../data/connect.js';
 import { ALI_SCRIPTS } from '../../../data/ali.js';
 import { MICRO_UNITS } from '../../../data/microunits.js';
+import { sampleAnswers, freshProgress } from '../../../data/progress.js';
 import { todayFor } from '../../store.js';
 import * as S from '../../selectors.js';
+import { enrolmentOffer } from '../../checkSelectors.js';
 
 const verifiedOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.verified}/${d.total}`).join(' · ');
 const inPlaceOf = (state, org) => S.domainProgress(state, org).map((d) => `${d.id} ${d.inPlace}`).join(' · ');
@@ -83,6 +85,16 @@ export function runDataChecks(state) {
   const mentor = S.mentorFor('F');
   check('F · Mentor', 'Mentees', 5, mentor.mentees.length);
   check('F · Mentor', 'Sessions this week', 3, S.mentorWeek(state, mentor.id, todayFor(PERSONAS.F, state)).length);
+
+  // ---- Enrolment (§8.3), from the free Check sample answers (Kestrel's) ----
+  const draft = { checkId: 'core-ms', answers: sampleAnswers('core-ms'), debt: 'no' };
+  const offerOf = (screening) => { const o = enrolmentOffer(draft, screening); return `${o.tier} · ${o.months} months · ${o.pathway ?? 'no pathway'}`; };
+  check('Enrolment', 'Tier from score (41%)', 'core · 9 months · no pathway', offerOf({ startup: 'no', recovery: 'no' }));
+  check('Enrolment', 'Start-up screening → Foundation + pathway', 'foundation · 12 months · startup', offerOf({ startup: 'yes', recovery: 'no' }));
+  check('Enrolment', 'Start-up comes before Recovery', 'startup', enrolmentOffer(draft, { startup: 'yes', recovery: 'yes' }).pathway);
+  const fresh = Object.values(freshProgress('core-ms', draft.answers, 'startup'));
+  check('Enrolment', 'New org: evidence needed / not started', '18 / 34', `${fresh.filter((p) => p.status === 'evidence-needed').length} / ${fresh.filter((p) => p.status === 'not-started').length}`);
+  check('Enrolment', 'Empty Recovery pathway does not lock Core', false, S.coreLocked(state, { checkId: 'core-ms', pathway: 'recovery' }));
 
   // ---- Verify page states ----
   const tv = todayFor(PERSONAS.visitor, state);

@@ -2,6 +2,7 @@
 // where-to-start preview and the Enrol call to action (§8.2).
 import { RESULTS } from '../../../data/checkFlow.js';
 import { TIERS } from '../../../data/copy.js';
+import { PACKAGES } from '../../../data/enrolment.js';
 import { esc } from '../../util.js';
 import { icon } from '../../components/icon.js';
 import { flowSteps } from '../../components/flowSteps.js';
@@ -50,7 +51,7 @@ function enrolBand(r) {
     <section class="enrol-band" aria-labelledby="enrol-h">
       <div>
         <h2 class="h3" id="enrol-h">${esc(RESULTS.enrol.title(t.label))}</h2>
-        <p>${esc(RESULTS.enrol.detail(t.months))}</p>
+        <p>${esc(RESULTS.enrol.detail(t.months, PACKAGES[r.tier].credits))}</p>
       </div>
       <a class="btn btn--light" href="#/enrol">${esc(RESULTS.enrol.action)}${icon('arrow-right')}</a>
     </section>`;

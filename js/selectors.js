@@ -44,7 +44,8 @@ export function pathwayProgress(state, org) {
   const done = reqs.filter((r) => progressOf(state, org.id, r.id).status === 'verified').length;
   return { done, total: reqs.length, complete: reqs.length > 0 && done === reqs.length };
 }
-export const coreLocked = (state, org) => Boolean(org?.pathway) && !pathwayProgress(state, org).complete;
+// A pathway with no content yet (Recovery, TODO(client) §14 Q11) does not lock Core.
+export const coreLocked = (state, org) => pathwayReqs(org).length > 0 && !pathwayProgress(state, org).complete;
 export const isLocked = (state, req, org) => !req.pathway && coreLocked(state, org);
 
 // ---- Readiness ----
@@ -158,6 +159,24 @@ export function recommendedNext(state, org, today, { limit = 3, exclude = [] } =
 
   if (paceStatus(state, org, today).status === 'catch-up') quickWins.slice(1).forEach((r) => push({ reqId: r.id, reason: 'due-soon' }));
   return out.slice(0, limit);
+}
+
+// ---- Onboarding (§8.3) ----
+/** Suggested pace for the whole enrolment, as requirements per fortnight (at least 1). */
+export function suggestedPace(org) {
+  const units = pathwayReqs(org).length + coreReqs(org).length;
+  const fortnights = Math.max(1, daysBetween(org.enrolledOn, org.endsOn) / 14);
+  return { units, perFortnight: Math.max(1, Math.round(units / fortnights)) };
+}
+
+/** The area with the most still to build (not yet in place, not verified); ties go to the larger area. */
+export function biggestGapArea(state, org) {
+  const reqs = coreReqs(org);
+  return DOMAINS.map((d) => {
+    const own = reqs.filter((r) => r.domainId === d.id);
+    const toBuild = own.filter((r) => { const p = progressOf(state, org.id, r.id); return p.type === 'not-yet' && p.status !== 'verified'; }).length;
+    return { ...d, total: own.length, toBuild };
+  }).filter((d) => d.total).sort((a, b) => b.toBuild - a.toBuild || b.total - a.total)[0];
 }
 
 // ---- Learning (module page "Learning 60% · 1 of 3 verified") ----

@@ -32,6 +32,13 @@ export const PERSONAS = {
   },
 };
 
+// The organisation created by enrolling through the free Check in this browser (§13 script A).
+// Name and initials come from the Check details: see personaFor() in store.js.
+export const NEW_LEAD = {
+  id: 'N', name: 'New organisation', title: 'Authorised lead', initials: 'N', role: 'lead', orgId: 'org-new',
+  landing: '/app/dashboard', demoDate: '2027-05-03', summary: 'Just enrolled from the free Check',
+};
+
 export const PERSONA_ORDER = ['visitor', 'A', 'B', 'C', 'D', 'E', 'F'];
 
 // Other BVT team members who appear in history and mentor lists (not switchable personas).

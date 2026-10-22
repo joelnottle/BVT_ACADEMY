@@ -31,8 +31,8 @@ export const ROUTES = [
   { ...check('/check/choose', 'Choose your check', 4, 'We recommend a Check from your answers; the others stay selectable.'), load: () => import('./views/check/choose.js') },
   { ...check('/check/run/:checkId', 'Your free check', 4, 'One question per card, sections by area, autosave, save & exit.'), load: () => import('./views/check/runner.js') },
   { ...check('/check/results', 'Your results', 4, 'Score, tier, area breakdown and your next step.'), load: () => import('./views/check/results.js') },
-  { ...check('/enrol', 'Enrol in the Academy', 5, 'Package and tier, with a pretend payment (no card fields).'), section: 'Enrolment' },
-  { ...check('/onboarding', 'Welcome to the Academy', 5, 'Four short steps: timeline, weekly goal, where to start, your support.'), section: 'Enrolment' },
+  { ...check('/enrol', 'Enrol in the Academy', 5, 'Package and tier, with a pretend payment (no card fields).'), section: 'Enrolment', load: () => import('./views/check/enrol.js') },
+  { ...check('/onboarding', 'Welcome to the Academy', 5, 'Four short steps: timeline, weekly goal, where to start, your support.'), section: 'Enrolment', load: () => import('./views/check/onboarding.js') },
 
   // ---- Portal (§7.3) ----
   app('/app/dashboard', 'Dashboard', 6, 'How close you are to accreditation, and what to do next.'),

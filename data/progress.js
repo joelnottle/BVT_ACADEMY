@@ -123,4 +123,17 @@ export const seedLearning = () => Object.fromEntries(ORG_IDS.map((id) => [id, st
 /** Sample answers used by "Skip to results (demo)": persona A's for Micro–Small, C's for Medium–Large. */
 export const sampleAnswers = (checkId) => (checkId === 'core-ms' ? buildAnswers('org-kestrel') : checkId === 'core-ml' ? buildAnswers('org-harbourline') : {});
 
+/** reqProgress for a newly enrolled organisation: "in place" answers await evidence, the rest are not started. */
+export function freshProgress(checkId, answers, pathway = null) {
+  const reqs = [...reqsForCheck(checkId), ...REQUIREMENTS.filter((r) => r.pathway && r.pathway === pathway)];
+  return Object.fromEntries(reqs.map((r) => {
+    const type = answers[r.id] === 'in-place' ? 'in-place' : 'not-yet';
+    return [r.id, {
+      type, status: type === 'in-place' ? 'evidence-needed' : 'not-started',
+      steps: { watch: false, learn: false, download: false, doIt: r.checklist.map(() => false) },
+      fastTracked: false, notes: '', evidenceIds: [], lastActivity: null,
+    }];
+  }));
+}
+
 export const seedEarned = () => Object.fromEntries(ORG_IDS.map((id) => [id, { ...SEED[id].earned }]));
