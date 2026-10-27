@@ -61,23 +61,17 @@
 /* The cream band starts behind the strip's lower part */
 .home-hero + .band-cream { padding-top: calc(var(--sp-24) + var(--sp-16)); }
 
-/* ---- Proudly Australian band: faded outline of Australia behind the right-hand side ---- */
-/* Below 1024px the outline sits in the flow under the points (never behind running text) */
-.home-aus { position: relative; display: flex; flex-direction: column; overflow: hidden; isolation: isolate; }
-.home-aus__inner { position: relative; z-index: 1; order: 1; }
-.home-aus__map {
-  order: 2; align-self: center; width: min(72%, 380px); height: auto; margin-top: var(--sp-10);
-  stroke-width: 2; opacity: 0.3; pointer-events: none;
-}
+/* ---- Proudly Australian band: copy beside a faded outline of Australia (its own grid column, never behind text) ---- */
+.home-aus__grid { display: grid; gap: var(--sp-10); grid-template-columns: minmax(0, 1fr); align-items: center; }
 .home-aus__copy { display: flex; flex-direction: column; gap: var(--sp-8); }
 .home-aus__points { display: grid; gap: var(--sp-6); padding: 0; margin: 0; list-style: none; }
 .home-aus__points li { display: flex; align-items: flex-start; gap: var(--sp-4); }
 .home-aus__points svg { flex-shrink: 0; width: 32px; height: 32px; stroke: url(#bvt-icon-grad); stroke-width: 1.5; }
 .home-aus__points .card__title { margin-bottom: var(--sp-1); }
+.home-aus__map { justify-self: center; width: min(72%, 380px); height: auto; stroke-width: 2; opacity: 0.32; pointer-events: none; }
 @media (min-width: 1024px) {
-  .home-aus__copy { max-width: 600px; }
-  .home-aus { display: block; }
-  .home-aus__map { position: absolute; z-index: 0; margin: 0; right: max(var(--gutter-xl), calc((100% - var(--content-wide)) / 2 + var(--gutter-xl))); bottom: 50%; transform: translateY(50%) translateY(var(--sp-12)); width: 44%; max-width: 620px; opacity: 0.32; }
+  .home-aus__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: var(--sp-16); }
+  .home-aus__map { width: 100%; max-width: 560px; }
 }
 
 /* ---- Credential + Connect ---- */
@@ -86,7 +80,7 @@
 .connect-search__row .input { flex: 1 1 220px; }
 
 /* ---- Institutions band ---- */
-.section-band { padding-block: var(--sp-8) var(--sp-20); }
+.home-partners { --stack-gap: var(--sp-16); }
 .inst-band {
   display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-5);
   padding: var(--sp-10); border-radius: var(--r-lg);

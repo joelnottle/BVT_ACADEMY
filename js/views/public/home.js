@@ -59,14 +59,16 @@ function australia() {
   const a = HOME.australia;
   return `
     <section class="section band-cream home-aus" aria-labelledby="aus-h">
-      ${australiaOutline({ className: 'home-aus__map', gradient: true, id: 'home-aus' })}
-      <div class="container stack stack-lg home-aus__inner">
+      <div class="container stack stack-lg">
         <p class="endorse endorse--on-light">${esc(HOME.hero.endorsement.text)} <img src="${esc(HOME.hero.endorsement.logoOnLight)}" alt="${esc(HOME.hero.endorsement.alt)}" width="162" height="20"></p>
-        <div class="home-aus__copy">
-          ${sectionHead({ eyebrow: a.eyebrow, title: a.title, lead: a.lead, id: 'aus-h' })}
-          <ul class="home-aus__points">${a.points.map((pt) => `
-            <li>${icon(pt.icon)}<div><h3 class="card__title">${esc(pt.title)}</h3><p class="card__meta">${esc(pt.text)}</p></div></li>`).join('')}
-          </ul>
+        <div class="home-aus__grid">
+          <div class="home-aus__copy">
+            ${sectionHead({ eyebrow: a.eyebrow, title: a.title, lead: a.lead, id: 'aus-h' })}
+            <ul class="home-aus__points">${a.points.map((pt) => `
+              <li>${icon(pt.icon)}<div><h3 class="card__title">${esc(pt.title)}</h3><p class="card__meta">${esc(pt.text)}</p></div></li>`).join('')}
+            </ul>
+          </div>
+          ${australiaOutline({ className: 'home-aus__map', gradient: true, id: 'home-aus' })}
         </div>
       </div>
     </section>`;
@@ -154,7 +156,7 @@ function support() {
   return `
     <section class="section" aria-labelledby="support-h">
       <div class="container stack stack-lg">
-        ${sectionHead({ ...s, id: 'support-h', center: true })}
+        ${sectionHead({ ...s, id: 'support-h' })}
         <div class="grid-3">${s.items.map((it) => featureCard(it)).join('')}</div>
       </div>
     </section>`;
@@ -192,7 +194,7 @@ function credentialAndConnect(today) {
 function institutions() {
   const i = HOME.institutions;
   return `
-    <section class="container section-band" aria-labelledby="inst-h">
+    <section aria-labelledby="inst-h">
       <div class="inst-band">
         <span class="icon-tile">${icon('handshake')}</span>
         <div>
@@ -208,8 +210,7 @@ function institutions() {
 function vault() {
   const v = HOME.vault;
   return `
-    <section class="section home-vault" aria-labelledby="vault-h">
-      <div class="container">
+    <section class="home-vault" aria-labelledby="vault-h">
         <div class="vault-promo on-dark">
           <div class="stack stack-lg">
             ${sectionHead({ eyebrow: v.eyebrow, title: v.title, lead: v.text, id: 'vault-h' })}
@@ -226,13 +227,23 @@ function vault() {
             </ul>
           </div>
         </div>
-      </div>
     </section>`;
+}
+
+// Institutions band + VC Vault share one canvas section, so the gap above and below matches every other section.
+function partners() {
+  return `
+    <div class="section">
+      <div class="container stack home-partners">
+        ${institutions()}
+        ${vault()}
+      </div>
+    </div>`;
 }
 
 function voices() {
   return `
-    <section class="section" aria-labelledby="faq-h">
+    <section class="section section--tint" aria-labelledby="faq-h">
       <div class="container grid-2 grid-2--wide-right">
         ${testimonial(HOME.testimonial)}
         <div class="stack">
@@ -255,8 +266,7 @@ export function render(ctx) {
       ${standards()}
       ${support()}
       ${credentialAndConnect(ctx.today)}
-      ${institutions()}
-      ${vault()}
+      ${partners()}
       ${voices()}
       ${ctaBand(HOME.cta)}
     </div>`;
