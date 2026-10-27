@@ -63,6 +63,9 @@ export const CONTRAST_PAIRS = [
   ['--magenta-text-on-dark', '--navy-800', 'text', 'Eyebrows on dark cards'],
   ['--pink-500', '--navy-900', 'large', 'Large pink display text on dark'],
   ['--crimson-500', '--navy-900', 'large', 'Crimson accent word in dark hero'],
+  ['--cream-200', '--crimson-600', 'large', 'Cream accent word on the action gradient (statement band), crimson end'],
+  ['--cream-200', '--plum-600', 'large', 'Cream accent word on the action gradient, plum end'],
+  ['--on-action', '--plum-600', 'text', 'White labels on the area wheel, plum end'],
   ['--crimson-500', '--surface-0', 'large', 'Crimson accent word, large only'],
   ['--magenta-500', '--navy-900', 'large', 'Large magenta display text on dark'],
   // Non-text (UI components, focus, graphics)

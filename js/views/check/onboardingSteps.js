@@ -45,6 +45,7 @@ function goal(ctx) {
   const day = org.reminderDay ?? 'Mon';
   return `
     <p class="lead">${esc(O.goalLead)}</p>
+    <p class="callout callout--cream">${icon('trending-up')}<span><strong>${esc(O.standards)}</strong></span></p>
     <fieldset class="fieldset">
       <legend class="h3">Weekly time budget</legend>
       <div class="choice-grid">

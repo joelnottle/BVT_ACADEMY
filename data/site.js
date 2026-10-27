@@ -37,6 +37,54 @@ export const HOME = {
       { icon: 'map-pin', title: 'Support on Australian time', text: 'Mentors and an independent verification team who know the Australian funding and compliance landscape.' },
     ],
   },
+  // "What it checks": what BVT is for, and the six areas (circular infographic + list). Area names come from DOMAINS.
+  areas: {
+    eyebrow: 'What it checks',
+    title: 'Everything funders, lenders and buyers *look for*',
+    lead: 'Before you win a tender, grant, loan or contract, someone checks that your organisation is well run. BVT checks the same six areas, helps you build what’s missing, then has every requirement independently verified for accreditation.',
+    purposes: [
+      { icon: 'file-text', label: 'Tenders' },
+      { icon: 'hand-coins', label: 'Grants & funding' },
+      { icon: 'landmark', label: 'Loans & finance' },
+      { icon: 'clipboard-list', label: 'Procurement panels' },
+    ],
+    centre: { big: '6 areas', small: '45–60 requirements', note: 'independently verified' },
+    // PLACEHOLDER — replace with BVT question bank (§14 Q1): example requirements per area
+    examples: {
+      GC: 'Constitution, conflict of interest register, registration with the regulator, code of conduct.',
+      BD: 'Director register, board charter, director induction, regular minuted meetings.',
+      FM: 'Qualified accounts, reconciliations, an approved budget, cash flow forecasting.',
+      OH: 'Employment contracts, induction, position descriptions, WHS policy and risk assessment.',
+      RC: 'Risk register, tested backups, risk appetite, annual board risk review.',
+      RP: 'Annual returns, tax and payroll obligations, licences and registrations.',
+    },
+    outcome: 'Every area verified = accredited, with a certificate anyone can check.',
+    outcomeLink: { label: 'How accreditation works', href: '/how-it-works' },
+  },
+  // Statement band after Tiers (Joel, 27 Oct 2026)
+  standards: {
+    title: 'Success is dependent on weekly *standards*. Your success creates *change*.',
+    text: 'Set a weekly goal when you enrol. Small, steady progress each week is what gets organisations accredited, and accredited organisations win the funding and work that changes their communities.',
+  },
+  // VC Vault highlight near the bottom of Home (Joel, 27 Oct 2026). A partner product: never a step, never required.
+  vault: {
+    eyebrow: 'From our partners',
+    title: 'VC Vault: your policies *secure, signed and compliant*',
+    text: 'Keep every policy, register and signed board document in one place, and link them straight to your Academy evidence. Optional, and separate from BVT.',
+    points: [
+      { icon: 'lock', title: 'Secure', text: 'One protected home for your governance documents.' },
+      { icon: 'pen-line', title: 'Signed', text: 'Approved, signed versions kept with their history.' },
+      { icon: 'calendar-check', title: 'Compliant', text: 'Review dates tracked, so nothing quietly lapses.' },
+    ],
+    action: 'Learn about VC Vault',
+    pretend: 'VC Vault is a separate Vital Consult product — link to come.',
+    // PLACEHOLDER — illustrative documents for the mock vault panel
+    docs: [
+      { name: 'Conflict of interest policy', meta: 'Signed 14 Feb 2027 · review Feb 2028', status: 'Signed' },
+      { name: 'WHS policy', meta: 'Signed 2 Mar 2027 · review Mar 2028', status: 'Signed' },
+      { name: 'Delegations of authority', meta: 'Review due 30 Jun 2027', status: 'Review due' },
+    ],
+  },
   strip: {
     heading: 'Four steps to pre-qualified',
     steps: [

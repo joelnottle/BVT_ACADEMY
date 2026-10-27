@@ -49,7 +49,7 @@ These are hard rules. Every screen must respect them.
 
 **Ecosystem boundaries (§1)**
 - BVT Academy is a standalone product. Vital Consult, Vital Money and VC Vault are **not** marketed as a bundle.
-- **VC Vault** appears only as a targeted, dismissible prompt during evidence upload. It is **never a step** in the journey and never required.
+- **VC Vault** appears as a targeted, dismissible prompt during evidence upload, and as one "From our partners" highlight near the bottom of the public homepage ("Your policies secure, signed and compliant"; Joel, 27 Oct 2026). It is **never a step** in the journey and never required.
 - Graduates needing deeper expert help *may* be referred to Vital Consult — as a quiet referral link only, post-accreditation.
 
 **Master site (§2)**
@@ -462,13 +462,17 @@ Follows the VC homepage rhythm: dark hero → overlapping dark feature strip →
    - Short sub
    - **Three buttons**: [Pre-qualify my business] (gradient) · [Send my clients through BVT] (outline) · [Find pre-qualified businesses] (outline)
 2. **Overlapping strip, 4 steps:** Check · Academy · Accreditation · Connect.
+   - *Added 27 Oct 2026 (Joel):* **Proudly Australian** cream band straight under the strip. It has the "A product of Vital Consult" endorsement, "Australia's first end-to-end organisation development portal", three points, and a faded outline of Australia.
+   - *Added 27 Oct 2026 (Joel):* **What it checks**. It shows what pre-qualification is for (tenders, grants and funding, loans and finance, procurement panels) and a circular infographic of the six areas (the plum → crimson ring, with "6 areas · 45–60 requirements" at the centre). Beside it is a numbered list of what each area checks, and "Every area verified = accredited".
 3. **Free Checks:** 4 cards (name, who it's for, question count, ~time) + a note on Start-up and Recovery pathways.
 4. **How the Academy works:** the learning loop as a horizontal 7-step diagram, plus "Already in place? Skip straight to evidence."
 5. **Tiers & timeframes:** 4 tier cards with % bands and time limits. "Your clock starts when you enrol, not when you take the free Check."
+   - *Added 27 Oct 2026 (Joel):* a gradient **statement band**: "Success is dependent on weekly standards. Your success creates change." The same line appears on the onboarding weekly-goal step.
 6. **Support:** Ask Ali (24/7, credits included) · Mentors (bookable 1:1) · Independent verification (mentors never verify).
 7. **The credential:** certificate preview with number + QR. "Anyone can verify it."
 8. **Connect teaser:** search bar + 3 sample listings.
 9. **For institutions:** short band linking to `#/institutions`.
+   - *Added 27 Oct 2026 (Joel):* **VC Vault highlight**, "From our partners", titled "VC Vault: your policies secure, signed and compliant". It has three points and a mock policy list. It is optional and never a step.
 10. Testimonial (placeholder) · FAQ accordion · CTA band "Start your free check" · Footer.
 
 ### 8.2 Free Check

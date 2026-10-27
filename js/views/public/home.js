@@ -11,6 +11,8 @@ import { learningLoop } from '../../components/learningLoop.js';
 import { certificate } from '../../components/certificate.js';
 import { listingCard } from '../../components/listingCard.js';
 import { australiaOutline } from '../../components/australia.js';
+import { areaWheel } from '../../components/areaWheel.js';
+import { DOMAINS } from '../../../data/domains.js';
 
 const listing = (id, today) => {
   const l = CONNECT_LISTINGS.find((x) => x.id === id);
@@ -70,6 +72,33 @@ function australia() {
     </section>`;
 }
 
+// What BVT is for, and the six areas it checks: circular infographic + the same areas as a readable list.
+function areas() {
+  const a = HOME.areas;
+  const list = [...DOMAINS].sort((x, y) => x.order - y.order);
+  return `
+    <section class="section home-areas" aria-labelledby="areas-h">
+      <div class="container stack stack-lg">
+        ${sectionHead({ eyebrow: a.eyebrow, title: a.title, lead: a.lead, id: 'areas-h' })}
+        <ul class="purpose-list" aria-label="What pre-qualification is for">
+          ${a.purposes.map((p) => `<li>${icon(p.icon)}${esc(p.label)}</li>`).join('')}
+        </ul>
+        <div class="home-areas__grid">
+          ${areaWheel({ areas: list, centre: a.centre, label: `The six areas BVT checks: ${list.map((d) => d.name).join(', ')}.` })}
+          <div class="stack stack-lg">
+            <ol class="area-list">${list.map((d, i) => `
+              <li>
+                <span class="area-list__n" aria-hidden="true">${i + 1}</span>
+                <div><h3 class="card__title">${esc(d.name)}</h3><p class="card__meta">${esc(a.examples[d.id])}</p></div>
+              </li>`).join('')}
+            </ol>
+            <p class="callout callout--plain">${icon('award')}<span>${esc(a.outcome)} <a href="#${esc(a.outcomeLink.href)}">${esc(a.outcomeLink.label)}</a></span></p>
+          </div>
+        </div>
+      </div>
+    </section>`;
+}
+
 function checks() {
   const c = HOME.checks;
   return `
@@ -104,6 +133,18 @@ function tiers() {
         ${sectionHead({ ...t, id: 'tiers-h' })}
         ${tierCards({ foundationNote: t.foundationNote })}
         <p class="callout callout--plain">${icon('calendar-clock')}<span>${esc(t.note)}</span></p>
+      </div>
+    </section>`;
+}
+
+// Statement band (Joel, 27 Oct 2026): weekly standards → success → change.
+function standards() {
+  const s = HOME.standards;
+  return `
+    <section class="standards-band" aria-labelledby="standards-h">
+      <div class="container standards-band__inner">
+        <h2 class="standards-band__title" id="standards-h">${accentText(s.title)}</h2>
+        <p class="standards-band__text">${esc(s.text)}</p>
       </div>
     </section>`;
 }
@@ -163,6 +204,32 @@ function institutions() {
     </section>`;
 }
 
+// VC Vault highlight (Joel, 27 Oct 2026): a partner product, clearly labelled, optional, never a step.
+function vault() {
+  const v = HOME.vault;
+  return `
+    <section class="section home-vault" aria-labelledby="vault-h">
+      <div class="container">
+        <div class="vault-promo on-dark">
+          <div class="stack stack-lg">
+            ${sectionHead({ eyebrow: v.eyebrow, title: v.title, lead: v.text, id: 'vault-h' })}
+            <ul class="vault-promo__points">${v.points.map((pt) => `
+              <li>${icon(pt.icon)}<div><h3 class="card__title">${esc(pt.title)}</h3><p class="card__meta">${esc(pt.text)}</p></div></li>`).join('')}
+            </ul>
+            <p><a class="btn btn--light" href="#/" data-pretend="${esc(v.pretend)}">${esc(v.action)}${icon('arrow-right')}</a></p>
+          </div>
+          <div class="vault-mock" aria-hidden="true">
+            <p class="vault-mock__head">${icon('folder-lock')}<span>Kestrel Community Services · Policies</span></p>
+            <ul>${v.docs.map((d) => `
+              <li><span class="vault-mock__doc">${icon('file-text')}<span><strong>${esc(d.name)}</strong><span>${esc(d.meta)}</span></span></span>
+                <span class="chip ${d.status === 'Signed' ? 'chip--st-verified' : 'chip--st-evidence'}">${icon(d.status === 'Signed' ? 'pen-line' : 'calendar-clock')}${esc(d.status)}</span></li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>`;
+}
+
 function voices() {
   return `
     <section class="section" aria-labelledby="faq-h">
@@ -181,12 +248,15 @@ export function render(ctx) {
     <div class="home">
       ${hero()}
       ${australia()}
+      ${areas()}
       ${checks()}
       ${loop()}
       ${tiers()}
+      ${standards()}
       ${support()}
       ${credentialAndConnect(ctx.today)}
       ${institutions()}
+      ${vault()}
       ${voices()}
       ${ctaBand(HOME.cta)}
     </div>`;

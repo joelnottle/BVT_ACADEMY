@@ -173,7 +173,7 @@ BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Cons
 
 - **No forced linear path.** Everything is visible and unlocked (except Core items for Start-up/Recovery orgs before their pathway is done; show a lock icon + reason).
 - **Mentors never verify.** No verify controls in any mentor view.
-- **VC Vault** appears only as a small dismissible "From our partners" card near evidence upload or in the evidence locker. Never a step.
+- **VC Vault** appears as a small dismissible "From our partners" card near evidence upload or in the evidence locker, and as one labelled "From our partners" highlight near the bottom of the homepage. Never a step.
 - **No** confetti, celebratory animation, leaderboards or red countdowns. Pace reads "Ahead / On pace / Needs a catch-up".
 - Feedback copy is specific: "FM-04 verified — Financial Management is now 5 of 9". Changes requested reads "Almost there".
 - Status = icon + label, everywhere.

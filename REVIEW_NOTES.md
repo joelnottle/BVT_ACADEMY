@@ -35,6 +35,8 @@ Status at 23 Oct 2026 (end of Phase 15).
 - **Testimonial:** a real quote and permission. The current one is fictional and flagged. → `data/site.js`
 - **"Australia's first end-to-end organisation development portal":** used on Home, How it works, the footer and the page description. A "first" claim must be provable under the Australian Consumer Law (misleading or deceptive conduct). Keep the evidence on file, or soften it (e.g. "Australia's end-to-end…"). → `data/site.js`, `data/site-pages.js`, `index.html`
 - **"Support on Australian time":** confirm the mentors and verification team are Australia-based. → `data/site.js`
+- **VC Vault homepage highlight:** Vital Consult to approve the wording ("Your policies secure, signed and compliant") and the three claims (secure, signed, compliant), and supply the real link. The "Learn about VC Vault" button is pretend. → `data/site.js`
+- **"Six areas · 45–60 requirements"** on the homepage wheel depends on the final question bank (§14 Q1). → `data/site.js`
 
 ---
 

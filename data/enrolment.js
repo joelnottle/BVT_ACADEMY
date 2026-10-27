@@ -63,6 +63,7 @@ export const ONBOARDING = {
     { id: 'focused', hrs: 5, label: '5 hours or more', text: 'A focused push towards accreditation.' },
   ],
   goalLead: 'Pick a time budget that fits your week. It sets your pace plan, not a target to hit.',
+  standards: 'Success is dependent on weekly standards. Your success creates change.', // also the Home statement band
   days: [['Mon', 'Monday'], ['Tue', 'Tuesday'], ['Wed', 'Wednesday'], ['Thu', 'Thursday'], ['Fri', 'Friday'], ['Sat', 'Saturday'], ['Sun', 'Sunday']],
   reminderHint: 'One short reminder that day, with your next step. Change it any time in Plan & pace.',
   start: {
