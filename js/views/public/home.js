@@ -80,22 +80,22 @@ function areas() {
   const list = [...DOMAINS].sort((x, y) => x.order - y.order);
   return `
     <section class="section home-areas" aria-labelledby="areas-h">
-      <div class="container stack stack-lg">
-        ${sectionHead({ eyebrow: a.eyebrow, title: a.title, lead: a.lead, id: 'areas-h' })}
-        <ul class="purpose-list" aria-label="What pre-qualification is for">
-          ${a.purposes.map((p) => `<li>${icon(p.icon)}${esc(p.label)}</li>`).join('')}
-        </ul>
-        <div class="home-areas__grid">
-          ${areaWheel({ areas: list, centre: a.centre, label: `The six areas BVT checks: ${list.map((d) => d.name).join(', ')}.` })}
-          <div class="stack stack-lg">
-            <ol class="area-list">${list.map((d, i) => `
-              <li>
-                <span class="area-list__n" aria-hidden="true">${i + 1}</span>
-                <div><h3 class="card__title">${esc(d.name)}</h3><p class="card__meta">${esc(a.examples[d.id])}</p></div>
-              </li>`).join('')}
-            </ol>
-            <p class="callout callout--plain">${icon('award')}<span>${esc(a.outcome)} <a href="#${esc(a.outcomeLink.href)}">${esc(a.outcomeLink.label)}</a></span></p>
-          </div>
+      <div class="container home-areas__layout">
+        <div class="stack stack-lg home-areas__top">
+          ${sectionHead({ eyebrow: a.eyebrow, title: a.title, lead: a.lead, id: 'areas-h' })}
+          <ul class="purpose-list" aria-label="What pre-qualification is for">
+            ${a.purposes.map((p) => `<li>${icon(p.icon)}${esc(p.label)}</li>`).join('')}
+          </ul>
+        </div>
+        ${areaWheel({ areas: list, centre: a.centre, label: `The six areas BVT checks: ${list.map((d) => d.name).join(', ')}.` })}
+        <div class="stack stack-lg home-areas__list">
+          <ul class="home-area-list">${list.map((d) => `
+            <li>
+              <span class="home-area-list__icon" aria-hidden="true">${icon(d.icon)}</span>
+              <div><h3 class="card__title">${esc(d.name)}</h3><p class="card__meta">${esc(a.examples[d.id])}</p></div>
+            </li>`).join('')}
+          </ul>
+          <p class="callout callout--plain">${icon('award')}<span>${esc(a.outcome)} <a href="#${esc(a.outcomeLink.href)}">${esc(a.outcomeLink.label)}</a></span></p>
         </div>
       </div>
     </section>`;
