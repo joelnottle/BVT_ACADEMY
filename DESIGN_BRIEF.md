@@ -57,7 +57,7 @@ BVT Academy is its own brand. Borrow the palette and motifs, and show Vital Cons
 4. **Gradient line icons** (plum → crimson stroke), **large (about 52px) with no tile behind them**, in place of the empty grey squares.
 5. **Cream bands:** alternate some public-site sections onto cream (`#FFF6E9`/`#FFECB9`) instead of white-on-grey every time.
 6. **V-masked photo** in the hero: the photo shown through the Vital Consult V mask (`assets/img/vital-v-mask.svg`), as on the VC homepage.
-7. **Plum-tinted soft shadows** on light cards, not grey shadows.
+7. **No resting shadows on cards.** A hairline border defines a card; a soft plum-tinted shadow appears only on hover and on floating layers (menus, dialogs).
 
 **One warm focal point per screen.** Cream and crimson are highlights. If everything is cream, nothing is.
 

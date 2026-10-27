@@ -1,4 +1,4 @@
-// #/ — Public home (BUILD_PLAN §8.1). VC rhythm: dark hero → crimson strip → cream band → light sections
+// #/ — Public home (BUILD_PLAN §8.1). VC rhythm: dark hero → crimson strip → cream "Proudly Australian" band → light sections
 // → navy CTA band. One warm focal point per section.
 import { HOME } from '../../../data/site.js';
 import { CHECKS } from '../../../data/checks.js';
@@ -10,6 +10,7 @@ import { accentText, sectionHead, actionLink, featureCard, checkCard, tierCards,
 import { learningLoop } from '../../components/learningLoop.js';
 import { certificate } from '../../components/certificate.js';
 import { listingCard } from '../../components/listingCard.js';
+import { australiaOutline } from '../../components/australia.js';
 
 const listing = (id, today) => {
   const l = CONNECT_LISTINGS.find((x) => x.id === id);
@@ -50,12 +51,30 @@ function strip() {
     </div>`;
 }
 
+// "Proudly Australian" band straight under the crimson strip: the cream focal point, with a faded outline of
+// Australia behind the right-hand side (decorative; the heading says it).
+function australia() {
+  const a = HOME.australia;
+  return `
+    <section class="section band-cream home-aus" aria-labelledby="aus-h">
+      ${australiaOutline({ className: 'home-aus__map', gradient: true, id: 'home-aus' })}
+      <div class="container stack stack-lg home-aus__inner">
+        <p class="endorse endorse--on-light">${esc(HOME.hero.endorsement.text)} <img src="${esc(HOME.hero.endorsement.logoOnLight)}" alt="${esc(HOME.hero.endorsement.alt)}" width="162" height="20"></p>
+        <div class="home-aus__copy">
+          ${sectionHead({ eyebrow: a.eyebrow, title: a.title, lead: a.lead, id: 'aus-h' })}
+          <ul class="home-aus__points">${a.points.map((pt) => `
+            <li>${icon(pt.icon)}<div><h3 class="card__title">${esc(pt.title)}</h3><p class="card__meta">${esc(pt.text)}</p></div></li>`).join('')}
+          </ul>
+        </div>
+      </div>
+    </section>`;
+}
+
 function checks() {
   const c = HOME.checks;
   return `
-    <section class="section band-cream" aria-labelledby="checks-h">
+    <section class="section section--tint" aria-labelledby="checks-h">
       <div class="container stack stack-lg">
-        <p class="endorse endorse--on-light">${esc(HOME.hero.endorsement.text)} <img src="${esc(HOME.hero.endorsement.logoOnLight)}" alt="${esc(HOME.hero.endorsement.alt)}" width="162" height="20"></p>
         <div class="section-split">
           ${sectionHead({ ...c, id: 'checks-h' })}
           <a class="btn btn--outline" href="#/checks">Compare the checks${icon('arrow-right')}</a>
@@ -161,6 +180,7 @@ export function render(ctx) {
   return `
     <div class="home">
       ${hero()}
+      ${australia()}
       ${checks()}
       ${loop()}
       ${tiers()}

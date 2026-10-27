@@ -1,6 +1,6 @@
 # BVT Academy: clickable prototype
 
-A clickable HTML/CSS/JS prototype of **BVT Academy**. It has three parts:
+A clickable HTML/CSS/JS prototype of **BVT Academy**, Australia’s first end-to-end organisation development portal. It has three parts:
 - the public site and free Check
 - the learning and pre-qualification portal
 - the BVT back-office

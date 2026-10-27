@@ -9,9 +9,10 @@
   background: var(--surface-0);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
-  box-shadow: var(--shadow-1);
 }
 @media (min-width: 768px) { .card { padding: var(--sp-8); } }
+/* Cards have no resting shadow (Joel, 27 Oct 2026): a hairline border defines them; shadows appear only on hover
+   (.card--interactive) and on floating layers (menus, dialogs, drawer, toasts). */
 .card--flat { box-shadow: none; }
 .card--tight { padding: var(--sp-4); }
 .card__title { font-size: var(--fs-18); font-weight: var(--fw-semibold); line-height: var(--lh-snug); }

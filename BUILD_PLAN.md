@@ -215,7 +215,7 @@ Taken from the `--vcp-*` variables on staging3.mercyme.com.au. They are highligh
 - Cream for highlight surfaces: "Resume where you left off", milestone cards, callouts, the certificate, the Check results summary, and alternating bands on the public site.
 - A solid crimson-600 feature strip (the 4-step Check → Connect strip), as on the VC homepage.
 - Line icons stroked in the plum → crimson gradient (`.icon-grad`; `.icon-tile` shows them large at 52px with no background).
-- Plum-tinted soft shadows.
+- No resting shadows on cards (a 1px border defines them). Plum-tinted soft shadows appear only on hover and on floating layers.
 
 **Contrast rules (measured):**
 - White text only on `--grad-action` or `--crimson-600`, never on `--grad-brand`, `--crimson-500` or peach.
@@ -233,7 +233,7 @@ The Vital Consult staging site uses Montserrat throughout.
 ### 4.3 Shape, depth, motion
 
 - Radius: 6px (buttons and button-like controls, matching the VC buttons' slightly rounded corners), 10px (inputs), 16px (cards), 24px (hero panels), 999px (chips, badges, counts).
-- Shadows: soft, low and diffuse on light, plum-tinted like the VC site (`0 1px 2px rgb(15 19 29 / .06), 0 8px 24px rgb(148 40 120 / .07)`). On dark, use a 1px `rgb(255 255 255 / .06)` border instead of shadows.
+- Shadows: **cards have none at rest** (Joel, 27 Oct 2026). Shadows appear only on hover (interactive cards) and on floating layers: menus, dialogs, the drawer, toasts. Where used they are soft, low and diffuse, plum-tinted like the VC site (`0 1px 2px rgb(15 19 29 / .06), 0 8px 24px rgb(148 40 120 / .07)`). On dark, use a 1px `rgb(255 255 255 / .06)` border instead of shadows.
 - Signature motif: the **V shape**, used sparingly (hero image mask, empty states, accreditation certificate). Plus a soft magenta radial glow behind dark hero sections, as in the VC hero.
 - Motion: 150–200ms ease-out for hover, focus and panel slide only. **No celebratory animation.** Honour `prefers-reduced-motion`.
 

@@ -33,6 +33,8 @@ Status at 23 Oct 2026 (end of Phase 15).
 - **Support contact details:** the email, phone and response time on Help & resources and in the public top bar (`hello@bvtacademy.com.au` is a placeholder). Real social profile links. → `data/site.js`, `data/help.js`
 - **Hero photo rights:** confirm rights for the photo behind the V mask on Home. → `css/pages/public.css`
 - **Testimonial:** a real quote and permission. The current one is fictional and flagged. → `data/site.js`
+- **"Australia's first end-to-end organisation development portal":** used on Home, How it works, the footer and the page description. A "first" claim must be provable under the Australian Consumer Law (misleading or deceptive conduct). Keep the evidence on file, or soften it (e.g. "Australia's end-to-end…"). → `data/site.js`, `data/site-pages.js`, `index.html`
+- **"Support on Australian time":** confirm the mentors and verification team are Australia-based. → `data/site.js`
 
 ---
 

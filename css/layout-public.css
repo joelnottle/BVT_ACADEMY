@@ -141,3 +141,8 @@
 }
 /* Room for the floating Demo button */
 .site-footer__bottom { padding-bottom: calc(var(--sp-5) + var(--target-min)); }
+
+/* Footer: Proudly Australian line with a small outline mark */
+.footer-aus { display: flex; align-items: flex-start; gap: var(--sp-3); max-width: 36ch; font-size: var(--fs-14); color: var(--on-dark-2); }
+.footer-aus strong { color: var(--on-dark-1); font-weight: var(--fw-semibold); }
+.footer-aus__map { flex-shrink: 0; width: 40px; height: auto; margin-top: var(--sp-half); color: var(--crimson-500); stroke-width: 1.5; }

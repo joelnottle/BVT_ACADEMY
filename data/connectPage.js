@@ -1,7 +1,7 @@
 // BVT Connect directory, profile and certificate verification (§8.13), and the partner portal (§8.15).
 
 export const DIRECTORY = {
-  hero: { eyebrow: 'BVT Connect', title: 'Find pre-qualified *businesses*', lead: 'Every listed organisation has had its governance, finance and compliance independently verified by BVT.' },
+  hero: { eyebrow: 'BVT Connect', title: 'Find pre-qualified *businesses*', lead: 'Australian organisations whose governance, finance and compliance have been independently verified by BVT.' },
   search: 'Search by name, industry, capability or town',
   filters: { status: 'Accreditation', industry: 'Industry', state: 'State', size: 'Size', all: 'All' },
   statuses: [['valid', 'Accredited'], ['expired', 'Certificate expired']],

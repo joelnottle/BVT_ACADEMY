@@ -52,7 +52,6 @@
   border-top: 4px solid var(--tier-colour);
   border-radius: var(--r-md);
   background: var(--surface-0);
-  box-shadow: var(--shadow-1);
 }
 .tier-card[data-tier="foundation"] { --tier-colour: var(--tier-foundation); }
 .tier-card[data-tier="core"] { --tier-colour: var(--tier-core); }
@@ -96,7 +95,7 @@
 .numbered-steps { display: grid; gap: var(--sp-6); grid-template-columns: minmax(0, 1fr); padding: 0; list-style: none; }
 @media (min-width: 600px) { .numbered-steps { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (min-width: 1024px) { .numbered-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-.numbered-steps li { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-8); border-radius: var(--r-md); background: var(--surface-0); box-shadow: var(--shadow-1); }
+.numbered-steps li { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-8); border: 1px solid var(--border); border-radius: var(--r-md); background: var(--surface-0); }
 .numbered-steps__n {
   display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%;
   background: var(--grad-action); color: var(--on-action); font-weight: var(--fw-semibold);

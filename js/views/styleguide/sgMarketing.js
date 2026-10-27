@@ -7,11 +7,13 @@ import { sectionHead, featureCard, checkCard, tierCards, faq, testimonial, ctaBa
 import { learningLoop, miniFlow } from '../../components/learningLoop.js';
 import { certificate } from '../../components/certificate.js';
 import { listingCard } from '../../components/listingCard.js';
+import { australiaOutline } from '../../components/australia.js';
 import { section, example } from './layout.js';
 
 export const marketingSection = () => section('marketing', 'Public site components',
   'Built from data/site.js. Headings mark the accent word with *asterisks* in the copy.', `
   <div class="sg-panel stack stack-lg">
+    ${example('Australia outline (decorative, aria-hidden): gradient · currentColor', `<div class="cluster"><span class="sg-aus sg-aus--lg">${australiaOutline({ gradient: true, id: 'sg-aus' })}</span><span class="sg-aus sg-aus--sm">${australiaOutline()}</span></div>`)}
     ${example('Section heading', sectionHead({ eyebrow: 'Free checks', title: 'Start with a *free* check', lead: 'No payment required.', level: 3 }))}
     ${example('Feature cards', `<div class="grid-3">${HOME.support.items.map((it) => featureCard(it)).join('')}</div>`)}
     ${example('Check cards', `<div class="grid-4">${Object.values(CHECKS).map((c) => checkCard(c)).join('')}</div>`)}

@@ -15,7 +15,7 @@ export const HOME = {
   hero: {
     eyebrow: 'Prequalified. Accredited. Connected.',
     title: 'Have you *pre-qualified* your business?',
-    lead: 'Independent pre-qualification for tenders, funding, loans and procurement. \n\nStart free, close every requirement at your own pace, and get accredited.',
+    lead: 'Independent pre-qualification for Australian organisations, for tenders, funding, loans and procurement. \n\nStart free, close every requirement at your own pace, and get accredited.',
     actions: [
       { label: 'Pre-qualify my business', href: '/sign-up', variant: 'action', icon: 'arrow-right' },
       { label: 'Send my clients through BVT', href: '/institutions', variant: 'on-dark' },
@@ -23,6 +23,19 @@ export const HOME = {
     ],
     image: { src: 'assets/img/hero-bvt.jpg', alt: 'Two colleagues reviewing a Business Vitality Tracker score on a laptop' },
     endorsement: { text: 'A product of', logo: 'assets/img/vital-consult-logo-reversed.png', logoOnLight: 'assets/img/vital-consult-logo.png', alt: 'Vital Consult' },
+  },
+  // "Proudly Australian" band, straight under the crimson strip, with the faded outline of Australia.
+  // TODO(client): substantiate "Australia’s first" before launch (Australian Consumer Law: comparative claims),
+  // and confirm the support team is Australia-based.
+  australia: {
+    eyebrow: 'Proudly Australian',
+    title: '*Australia’s first* end-to-end organisation development portal',
+    lead: 'Check where you stand, build what’s missing, get independently verified and be found, all in one place. Designed around how Australian organisations are governed, funded and regulated.',
+    points: [
+      { icon: 'route', title: 'Start to finish, in one place', text: 'Free check, learning, mentors, verification, accreditation and a public listing. No hand-offs between providers.' },
+      { icon: 'landmark', title: 'Built for Australian organisations', text: 'Companies, incorporated associations, co-operatives and ORIC-registered corporations, from start-ups to established services.' },
+      { icon: 'map-pin', title: 'Support on Australian time', text: 'Mentors and an independent verification team who know the Australian funding and compliance landscape.' },
+    ],
   },
   strip: {
     heading: 'Four steps to pre-qualified',

@@ -5,6 +5,7 @@ import { socialIcon } from '../components/social.js';
 import { esc } from '../util.js';
 import { icon } from '../components/icon.js';
 import { logo } from '../components/brand.js';
+import { australiaOutline } from '../components/australia.js';
 
 const LINKS = [
   ['/how-it-works', 'How it works'],
@@ -94,6 +95,7 @@ function footer(ctx) {
         <div class="stack stack-sm">
           ${logo()}
           <p class="text-2">Pre-qualified. Accredited. Connected.</p>
+          <p class="footer-aus">${australiaOutline({ className: 'footer-aus__map' })}<span><strong>Proudly Australian.</strong> ${esc(HOME.australia.title.replace(/\*/g, ''))}.</span></p>
           ${endorse()}
         </div>
         <nav aria-label="Footer: organisations">

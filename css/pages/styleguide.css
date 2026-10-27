@@ -140,3 +140,6 @@
 }
 
 .sg-board { max-width: 320px; }
+.sg-aus { display: block; }
+.sg-aus--lg { width: 180px; stroke-width: 2; }
+.sg-aus--sm { width: 64px; color: var(--crimson-500); stroke-width: 1.5; }

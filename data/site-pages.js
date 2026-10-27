@@ -2,7 +2,7 @@
 // *word* marks the crimson accent word in a heading.
 
 export const HOW_IT_WORKS = {
-  hero: { eyebrow: 'How it works', title: 'From free check to *accredited*', lead: 'Four stages, one login, at your own pace — with help whenever you need it.' },
+  hero: { eyebrow: 'How it works', title: 'From free check to *accredited*', lead: 'Australia’s first end-to-end organisation development portal: four stages, one login, at your own pace, with help whenever you need it.' },
   stages: [
     { icon: 'clipboard-check', title: 'Check', lead: 'A free check, completed by your nominated authorised lead.',
       points: ['25 to 76 questions, depending on the check', 'Your score, your tier and a breakdown by area', 'Which requirements are already in place, and which to build'] },
@@ -94,7 +94,7 @@ export const ACADEMY_PAGE = {
 };
 
 export const INSTITUTIONS_PAGE = {
-  hero: { eyebrow: 'For institutions', title: 'Send your clients through *BVT*', lead: 'Lenders, funders, accountants and industry bodies refer clients to BVT. They pre-qualify, build what’s missing, and come back ready.' },
+  hero: { eyebrow: 'For institutions', title: 'Send your clients through *BVT*', lead: 'Australian lenders, funders, accountants and industry bodies refer clients to BVT. They pre-qualify, build what’s missing, and come back ready.' },
   why: {
     eyebrow: 'Why it matters',
     title: 'Better-prepared *applicants*',

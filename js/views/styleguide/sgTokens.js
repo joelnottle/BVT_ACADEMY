@@ -78,8 +78,8 @@ const shape = `
     </div>
     <div class="stack stack-sm">
       <h3 class="h4">Depth</h3>
-      <div class="sg-shadow" style="box-shadow:var(--shadow-1)"><code>--shadow-1</code> cards</div>
-      <div class="sg-shadow" style="box-shadow:var(--shadow-2)"><code>--shadow-2</code> overlays</div>
+      <div class="sg-shadow" style="box-shadow:var(--shadow-1)"><code>--shadow-1</code> raised controls (cards have none)</div>
+      <div class="sg-shadow" style="box-shadow:var(--shadow-2)"><code>--shadow-2</code> overlays and card hover</div>
       <div class="sg-shadow sg-shadow--dark"><code>--border-on-dark</code> hairline, no shadow</div>
     </div>
   </div>`;
